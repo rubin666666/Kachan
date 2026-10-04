@@ -75,3 +75,9 @@ The notebook supports immediate autosave, categories, tags, search, pinning, sor
 Deleting a note moves it to Trash; it can be restored or permanently deleted after confirmation. Notes, including Trash, are included in version 3 JSON backups. Backups from versions 1 and 2 remain supported and restore an empty notebook. Storage remains local to the browser/site origin. When saving fails, the editor reports the failure and allows downloading the current note.
 
 Browser checks cover editing and autosave, template creation, tags/search/pinning, project links, safe preview, export, Trash restore/delete confirmation, backup import/export, both languages, and responsive widths.
+
+## Daily Dashboard
+
+Dashboard now highlights overdue tasks, tasks due today, and deadlines within the next seven days. Quick actions open a task/project form or create a blank note. Resume continues the current unfinished HTML lesson or the next unfinished lesson. Recent notes prioritize pinned entries.
+
+Day and week goals are saved locally with calendar periods in Europe/Kyiv. Activity tracking records new task actions, project creation, note creation/edits, and HTML lesson completion from this release onward; it does not fabricate historical events. The seven-day chart counts unique completed tasks and lessons per day. History is retained up to 1,000 entries. Version 4 backups include goals and history, while older backups remain supported.
