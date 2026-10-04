@@ -124,11 +124,13 @@ function validProjectUrl(value) {
   if (!value) return true;
   try { return ['http:', 'https:'].includes(new URL(value).protocol); } catch { return false; }
 }
-let projects = [{ id: 'dev-dashboard', name: 'Dev Dashboard', description: '', descriptionKey: 'projectDescription', technologies: ['HTML', 'CSS', 'JavaScript'], status: 'inProgress', progress: 50, github: 'https://github.com/rubin666666/Kachan', live: '', updatedAt: '2026-10-04T12:00:00Z' }];
+let projects = [{ id: 'dev-dashboard', name: 'Kachan', description: '', descriptionKey: 'projectDescription', technologies: ['HTML', 'CSS', 'JavaScript'], status: 'inProgress', progress: 50, github: 'https://github.com/rubin666666/Kachan', live: '', updatedAt: '2026-10-04T12:00:00Z' }];
 try {
   const stored = JSON.parse(localStorage.getItem('devspace-projects'));
   if (Array.isArray(stored) && stored.every(p => p && typeof p.id === 'string' && typeof p.name === 'string' && typeof p.description === 'string' && Array.isArray(p.technologies) && p.technologies.every(t => typeof t === 'string') && ['planning','inProgress','finished'].includes(p.status) && Number.isFinite(p.progress) && p.progress >= 0 && p.progress <= 100 && typeof p.github === 'string' && typeof p.live === 'string' && validProjectUrl(p.github) && validProjectUrl(p.live) && typeof p.updatedAt === 'string' && Number.isFinite(Date.parse(p.updatedAt))) && new Set(stored.map(p => p.id)).size === stored.length) projects = stored;
 } catch { /* Keep the initial project when storage is invalid. */ }
+// Rename only the original starter project; preserve personal projects and storage keys.
+projects.forEach(project => { if (project.id === 'dev-dashboard' && project.name === 'Dev Dashboard') project.name = 'Kachan'; });
 let editingProjectId = null;
 let projectStorageFailed = false;
 function saveProjects() {
@@ -158,7 +160,8 @@ function renderProjects() {
     items.forEach(project => {
       const card = projectElement('article','project-card');
       const heading = projectElement('div','project-heading');
-      const icon = projectElement('span','project-icon','</>'); icon.setAttribute('aria-hidden','true');
+      const icon = projectElement('span','project-icon'); icon.setAttribute('aria-hidden','true');
+      const image = document.createElement('img'); image.src = 'corn.svg'; image.alt = ''; image.width = 32; image.height = 32; icon.append(image);
       const info = projectElement('div','project-info'); info.append(projectElement('h3','',project.name), projectElement('p','',project.descriptionKey === 'projectDescription' ? text.projectDescription : project.description));
       heading.append(icon,info,projectElement('span','project-status',text[project.status]));
       const stack = projectElement('div','stack'); project.technologies.forEach(tech => stack.append(projectElement('span','',tech)));

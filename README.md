@@ -1,4 +1,4 @@
-# Dev Dashboard
+# Kachan
 
 Personal developer workspace built with HTML, CSS, and vanilla JavaScript.
 
@@ -39,3 +39,7 @@ GitHub Pages serves the `main` branch from the repository root. The site is expe
 ## Validation
 
 Browser checks cover navigation, task and project CRUD, persistence, learning progress, snippets and clipboard copying, favorites, translations, settings, mobile widths, and reset confirmation.
+
+## Branding
+
+Kachan uses a custom SVG corn cob icon (`corn.svg`) for the logo and favicon. Existing `devspace-*` storage keys are retained for compatibility with saved user data.
