@@ -8,7 +8,7 @@ function validateBackup(value){
  const d=value.data;
  if(!backupKeys.every(k=>Object.hasOwn(d,k)))return false;
  if(!['uk','en'].includes(d.language)||!d.settings||!bounded(d.settings.userName,50)||!d.settings.userName.trim()||!Object.hasOwn(palette,d.settings.accent)||!['dark','light'].includes(d.settings.theme))return false;
- if(!Array.isArray(d.tasks)||d.tasks.length>10000||!unique(d.tasks)||!d.tasks.every(s=>s&&bounded(s.id,100)&&typeof s.completed==='boolean'&&(bounded(s.title,160)||['taskFlex','taskArrays','taskPush','taskLayout'].includes(s.translationKey))))return false;
+ if(!Array.isArray(d.tasks)||d.tasks.length>10000||!unique(d.tasks)||!d.tasks.every(s=>s&&validTaskExtras(s)&&bounded(s.id,100)&&typeof s.completed==='boolean'&&(bounded(s.title,160)||['taskFlex','taskArrays','taskPush','taskLayout'].includes(s.translationKey))))return false;
  if(!Array.isArray(d.projects)||d.projects.length>10000||!unique(d.projects)||!d.projects.every(p=>p&&bounded(p.id,100)&&bounded(p.name,100)&&p.name.trim()&&bounded(p.description,1000)&&Array.isArray(p.technologies)&&p.technologies.every(t=>bounded(t,500))&&['planning','inProgress','finished'].includes(p.status)&&Number.isFinite(p.progress)&&p.progress>=0&&p.progress<=100&&bounded(p.github,500)&&bounded(p.live,500)&&validProjectUrl(p.github)&&validProjectUrl(p.live)&&bounded(p.updatedAt,100)&&Number.isFinite(Date.parse(p.updatedAt))))return false;
  if(!Array.isArray(d.snippets)||d.snippets.length>10000||!unique(d.snippets)||!d.snippets.every(s=>s&&bounded(s.id,100)&&bounded(s.name,100)&&s.name.trim()&&bounded(s.description,500)&&bounded(s.code,20000)&&categories.includes(s.category)))return false;
  if(!Array.isArray(d.favorites)||!d.favorites.every(id=>resources.some(r=>r[0]===id)))return false;

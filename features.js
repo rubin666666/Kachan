@@ -5,7 +5,8 @@ const categories=['HTML','CSS','JavaScript','TypeScript','Git'];
 function readData(key,fallback,validate){try{const value=JSON.parse(localStorage.getItem(key));return validate(value)?value:fallback;}catch{return fallback;}}
 function writeData(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true;}catch{notice(t().storageFailed);return false;}}
 function t(){return translations[document.documentElement.lang];}
-function notice(message){document.querySelector('#app-notice').textContent=message;}
+let noticeTimer;
+function notice(message){clearTimeout(noticeTimer);document.querySelector('#app-notice').textContent=message;noticeTimer=setTimeout(()=>{document.querySelector('#app-notice').textContent='';},5000);}
 let snippets=readData('devspace-snippets',[
 {id:'css-center',name:'Flexbox center',category:'CSS',description:'',code:'.container {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}'},
 {id:'js-array',name:'Array filter',category:'JavaScript',description:'',code:'const activeTasks = tasks.filter(task => !task.completed);'}

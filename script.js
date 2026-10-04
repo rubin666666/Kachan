@@ -53,10 +53,22 @@ try {
 
 Object.assign(translations.uk, { manageTasks: 'Керувати задачами ↗', taskEyebrow: 'КРОК ЗА КРОКОМ', taskIntro: 'Звільни голову. Запиши задачу та рухайся далі.', newTask: 'Нова задача', addTask: 'Додати задачу', taskList: 'Список задач', taskFilters: 'Фільтри задач', filterAll: 'Усі', filterActive: 'Активні', filterCompleted: 'Виконані', deleteTask: 'Видалити задачу', emptyAll: 'Задач поки немає. Додай першу вище.', emptyActive: 'Активних задач немає. Час для нової ідеї!', emptyCompleted: 'Виконаних задач поки немає.', inputHint: 'Наприклад, вивчити CSS Grid', storageFailed: 'Не вдалося зберегти. Зміни доступні до закриття сторінки.', completedHint: 'Виконано з твого списку', starterTasks: 'Твій список — відмічай виконане.', next: 'Наступний крок — сторінка Projects з усіма проєктами.' });
 Object.assign(translations.en, { manageTasks: 'Manage tasks ↗', taskEyebrow: 'ONE STEP AT A TIME', taskIntro: 'Clear your head. Write a task and keep moving.', newTask: 'New task', addTask: 'Add task', taskList: 'Task list', taskFilters: 'Task filters', filterAll: 'All', filterActive: 'Active', filterCompleted: 'Completed', deleteTask: 'Delete task', emptyAll: 'No tasks yet. Add your first one above.', emptyActive: 'No active tasks. Time for a new idea!', emptyCompleted: 'No completed tasks yet.', inputHint: 'For example, learn CSS Grid', storageFailed: 'Could not save. Changes are available until this page closes.', completedHint: 'Finished from your task list', starterTasks: 'Your task list — check off what you finish.', next: 'Next up — a Projects page for all your projects.' });
+
+Object.assign(translations.uk,{menu:'Меню',taskProject:'Проєкт',noProject:'Без проєкту',priority:'Пріоритет',low:'Низький',medium:'Середній',high:'Високий',deadline:'Дедлайн',overdue:'Прострочено',editTask:'Редагувати задачу',saveTask:'Зберегти зміни',sortTasks:'Сортування',originalOrder:'Порядок додавання',deadlineOrder:'Найближчий дедлайн',priorityOrder:'Високий пріоритет спочатку',taskProgress:'Прогрес за задачами',linkedTasks:'Пов’язані задачі',deletedProject:'Проєкт видалено',manualProgress:'Ручний прогрес (без пов’язаних задач)'});
+Object.assign(translations.en,{menu:'Menu',taskProject:'Project',noProject:'No project',priority:'Priority',low:'Low',medium:'Medium',high:'High',deadline:'Deadline',overdue:'Overdue',editTask:'Edit task',saveTask:'Save changes',sortTasks:'Sort',originalOrder:'Creation order',deadlineOrder:'Nearest deadline',priorityOrder:'High priority first',taskProgress:'Progress from tasks',linkedTasks:'Linked tasks',deletedProject:'Project deleted',manualProgress:'Manual progress (without linked tasks)'});
+function validTaskDate(value){if(value==='')return true;if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))return false;const date=new Date(value+'T12:00:00Z');return Number.isFinite(date.getTime())&&date.toISOString().slice(0,10)===value;}
+function validTaskExtras(task){return (task.projectId===undefined||typeof task.projectId==='string')&&(task.priority===undefined||['low','medium','high'].includes(task.priority))&&(task.deadline===undefined||validTaskDate(task.deadline));}
+function todayInKyiv(){const parts=new Intl.DateTimeFormat('en-GB',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Europe/Kyiv'}).formatToParts(new Date());const value=type=>parts.find(p=>p.type===type).value;return value('year')+'-'+value('month')+'-'+value('day');}
+let editingTaskId=null;
+function resetTaskForm(){editingTaskId=null;document.querySelector('#task-form').reset();document.querySelector('#cancel-task-edit').hidden=true;document.querySelector('#task-submit').textContent=translations[document.documentElement.lang].addTask;}
+function renderTaskProjects(){const select=document.querySelector('#task-project');const selected=select.value;select.replaceChildren();const text=translations[document.documentElement.lang];const option=document.createElement('option');option.value='';option.textContent=text.noProject;select.append(option);for(const project of projects){const option=document.createElement('option');option.value=project.id;option.textContent=project.name;select.append(option);}select.value=projects.some(p=>p.id===selected)?selected:'';}
+function projectTaskProgress(project){const linked=tasks.filter(task=>task.projectId===project.id);return {linked,value:linked.length?Math.round(linked.filter(task=>task.completed).length/linked.length*100):project.progress};}
+function markProjectWorked(projectId){const project=projects.find(p=>p.id===projectId);if(project){project.updatedAt=new Date().toISOString();saveProjects();}}
+
 let tasks = ['taskFlex', 'taskArrays', 'taskPush', 'taskLayout'].map(key => ({ id: key, translationKey: key, completed: savedProgress[key] === true }));
 try {
   const stored = JSON.parse(localStorage.getItem('devspace-tasks'));
-  if (Array.isArray(stored) && stored.every(task => task && typeof task.id === 'string' && typeof task.completed === 'boolean' && (typeof task.title === 'string' || ['taskFlex','taskArrays','taskPush','taskLayout'].includes(task.translationKey))) && new Set(stored.map(task => task.id)).size === stored.length) tasks = stored;
+  if (Array.isArray(stored) && stored.every(task => task && validTaskExtras(task) && typeof task.id === 'string' && typeof task.completed === 'boolean' && (typeof task.title === 'string' || ['taskFlex','taskArrays','taskPush','taskLayout'].includes(task.translationKey))) && new Set(stored.map(task => task.id)).size === stored.length) tasks = stored;
 } catch { /* Keep starter tasks if storage is invalid. */ }
 let taskFilter = 'all';
 let taskStorageFailed = false;
@@ -67,7 +79,11 @@ function saveTasks() {
 function renderTasks() {
   const text = translations[document.documentElement.lang] || translations.uk;
   const shown = tasks.filter(task => (taskFilter === 'all' || task.completed === (taskFilter === 'completed')) && matchesSearch('tasks', [task.translationKey ? text[task.translationKey] : task.title]));
+  const order=document.querySelector('#task-sort').value;
+  if(order==='deadline')shown.sort((a,b)=>(a.deadline||'9999-12-31').localeCompare(b.deadline||'9999-12-31'));
+  if(order==='priority'){const rank={high:0,medium:1,low:2};shown.sort((a,b)=>rank[a.priority||'medium']-rank[b.priority||'medium']);}
   searchStatus('tasks', shown.length, text);
+  document.querySelector('#task-submit').textContent=editingTaskId?text.saveTask:text.addTask;
   function renderList(selector, items, allowDelete) {
     const list = document.querySelector(selector);
     list.replaceChildren();
@@ -75,12 +91,20 @@ function renderTasks() {
       const li = document.createElement('li');
       const label = document.createElement('label'); label.className = 'task-row';
       const checkbox = document.createElement('input'); checkbox.type = 'checkbox'; checkbox.checked = task.completed;
-      checkbox.addEventListener('change', () => { task.completed = checkbox.checked; saveTasks(); renderTasks(); });
+      checkbox.addEventListener('change', () => { task.completed = checkbox.checked; saveTasks(); markProjectWorked(task.projectId); renderTasks(); renderProjects(); });
       const title = document.createElement('span'); title.textContent = task.translationKey ? text[task.translationKey] : task.title;
-      label.append(checkbox, title); li.append(label);
+      label.append(checkbox, title);
+      const content=document.createElement('div');content.className='task-content';content.append(label);
+      const metadata=document.createElement('div');metadata.className='task-metadata';
+      const priority=document.createElement('span');priority.className='priority-tag priority-'+(task.priority||'medium');priority.textContent=text[task.priority||'medium'];metadata.append(priority);
+      if(task.projectId){const project=projects.find(p=>p.id===task.projectId);const link=document.createElement(project?'a':'span');link.textContent=project?project.name:text.deletedProject;if(project)link.href='#projects';metadata.append(link);}
+      if(task.deadline){const date=document.createElement('time');date.dateTime=task.deadline;date.textContent=new Intl.DateTimeFormat(document.documentElement.lang==='en'?'en-GB':'uk-UA',{day:'numeric',month:'short',year:'numeric',timeZone:'Europe/Kyiv'}).format(new Date(task.deadline+'T12:00:00Z'));if(!task.completed&&task.deadline<todayInKyiv()){date.className='overdue';date.textContent=text.overdue+' · '+date.textContent;}metadata.append(date);}
+      content.append(metadata);li.append(content);
       if (allowDelete) {
+        const edit=document.createElement('button');edit.type='button';edit.className='secondary-button task-edit';edit.textContent=text.editTask;edit.setAttribute('aria-label',text.editTask+': '+title.textContent);
+        edit.addEventListener('click',()=>{editingTaskId=task.id;document.querySelector('#task-input').value=title.textContent;document.querySelector('#task-project').value=projects.some(p=>p.id===task.projectId)?task.projectId:'';document.querySelector('#task-priority').value=task.priority||'medium';document.querySelector('#task-deadline').value=task.deadline||'';document.querySelector('#cancel-task-edit').hidden=false;document.querySelector('#task-submit').textContent=text.saveTask;document.querySelector('#task-input').focus();});li.append(edit);
         const button = document.createElement('button'); button.type = 'button'; button.className = 'delete-task'; button.textContent = '×'; button.setAttribute('aria-label', text.deleteTask + ': ' + title.textContent);
-        button.addEventListener('click', () => { tasks = tasks.filter(item => item.id !== task.id); saveTasks(); renderTasks(); document.querySelector('#task-input').focus(); });
+        button.addEventListener('click', () => { tasks = tasks.filter(item => item.id !== task.id); saveTasks();markProjectWorked(task.projectId);if(editingTaskId===task.id)resetTaskForm();renderTasks();renderProjects();document.querySelector('#task-input').focus(); });
         li.append(button);
       }
       list.append(li);
@@ -114,8 +138,14 @@ document.querySelector('#task-form').addEventListener('submit', event => {
   const input = document.querySelector('#task-input');
   const title = input.value.trim();
   if (!title) { input.value = ''; input.reportValidity(); return; }
-  tasks.push({ id: crypto.randomUUID(), title, completed: false });
-  taskFilter = 'all'; saveTasks(); renderTasks(); input.value = ''; input.focus();
+  const projectId=document.querySelector('#task-project').value;
+  const priority=document.querySelector('#task-priority').value;
+  const deadline=document.querySelector('#task-deadline').value;
+  if(!validTaskDate(deadline))return;
+  const oldTask=tasks.find(task=>task.id===editingTaskId);
+  const task={id:editingTaskId||crypto.randomUUID(),title,completed:oldTask?.completed||false,projectId,priority,deadline};
+  if(editingTaskId)tasks=tasks.map(item=>item.id===editingTaskId?task:item);else tasks.push(task);
+  taskFilter='all';saveTasks();markProjectWorked(oldTask?.projectId);markProjectWorked(projectId);resetTaskForm();renderTasks();renderProjects();input.focus();
 });
 document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => { taskFilter = button.dataset.filter; renderTasks(); }));
 window.addEventListener('hashchange', showView);
@@ -129,7 +159,6 @@ document.querySelectorAll('[data-topic]').forEach(input => {
     updateProgress();
   });
 });
-renderTasks();
 
 Object.assign(translations.uk, { allProjects: 'Усі проєкти ↗', projectsIntro: 'Від ідеї до релізу — твоя колекція проєктів.', newProject: 'Новий проєкт', editProject: 'Редагувати проєкт', projectName: 'Назва', projectTech: 'Технології (через кому)', githubLink: 'GitHub URL', liveLink: 'URL сайту', projectDescriptionLabel: 'Опис', projectStatus: 'Статус', projectProgress: 'Прогрес (%)', planning: 'Планування', finished: 'Завершено', saveProject: 'Зберегти проєкт', cancel: 'Скасувати', deleteProject: 'Видалити проєкт', emptyProjects: 'Проєктів ще немає. Створи перший вище.', progressLabel: 'Прогрес', liveWebsite: 'Відкрити сайт ↗', urlError: 'Використовуй посилання з http:// або https://.', nameError: 'Введи назву проєкту.', projectHint: 'У твоєму робочому просторі', next: 'Наступний крок — окрема сторінка Learning з темами навчання.' });
 Object.assign(translations.en, { allProjects: 'All projects ↗', projectsIntro: 'From idea to release — your project collection.', newProject: 'New project', editProject: 'Edit project', projectName: 'Name', projectTech: 'Technologies (comma separated)', githubLink: 'GitHub URL', liveLink: 'Website URL', projectDescriptionLabel: 'Description', projectStatus: 'Status', projectProgress: 'Progress (%)', planning: 'Planning', finished: 'Finished', saveProject: 'Save project', cancel: 'Cancel', deleteProject: 'Delete project', emptyProjects: 'No projects yet. Create your first one above.', progressLabel: 'Progress', liveWebsite: 'Visit website ↗', urlError: 'Use links starting with http:// or https://.', nameError: 'Enter a project name.', projectHint: 'In your workspace', next: 'Next up — a dedicated Learning page with study topics.' });
@@ -159,11 +188,13 @@ function resetProjectForm() {
   document.querySelector('#project-editor').open = false;
   document.querySelector('#project-form-error').textContent = '';
   renderProjects();
+  renderTasks();
 }
 function renderProjects() {
   const lang = document.documentElement.lang;
   const text = translations[lang] || translations.uk;
   document.querySelector('#project-count').textContent = projects.length;
+  renderTaskProjects();
   document.querySelector('#project-form-title').textContent = editingProjectId ? text.editProject : text.newProject;
   document.querySelector('#project-save-status').textContent = projectStorageFailed ? text.storageFailed : text.savedLocally;
   const sorted = [...projects].sort((a,b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
@@ -179,8 +210,9 @@ function renderProjects() {
       const info = projectElement('div','project-info'); info.append(projectElement('h3','',project.name), projectElement('p','',project.descriptionKey === 'projectDescription' ? text.projectDescription : project.description));
       heading.append(icon,info,projectElement('span','project-status',text[project.status]));
       const stack = projectElement('div','stack'); project.technologies.forEach(tech => stack.append(projectElement('span','',tech)));
-      const progressLabel = projectElement('div','progress-label'); progressLabel.append(projectElement('span','',text.progressLabel),projectElement('span','',project.progress + '%'));
-      const bar = projectElement('progress'); bar.max = 100; bar.value = project.progress; bar.textContent = project.progress + '%'; bar.setAttribute('aria-label',project.name + ': ' + text.progressLabel);
+      const taskProgress=projectTaskProgress(project);
+      const progressLabel = projectElement('div','progress-label'); progressLabel.append(projectElement('span','',taskProgress.linked.length?text.taskProgress:text.progressLabel),projectElement('span','',taskProgress.value + '%'));
+      const bar = projectElement('progress'); bar.max = 100; bar.value = taskProgress.value; bar.textContent = taskProgress.value + '%'; bar.setAttribute('aria-label',project.name + ': ' + text.progressLabel);
       const footer = projectElement('div','project-footer');
       const date = projectElement('time','',new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'uk-UA',{day:'numeric',month:'short',year:'numeric',timeZone:'Europe/Kyiv'}).format(new Date(project.updatedAt))); date.dateTime = project.updatedAt;
       const last = projectElement('span','',text.lastWorked + ' '); last.append(date); footer.append(last);
@@ -190,6 +222,10 @@ function renderProjects() {
         const link = projectElement('a','',label); link.href=url; link.target='_blank'; link.rel='noopener noreferrer'; links.append(link);
       }
       footer.append(links); card.append(heading,stack,progressLabel,bar,footer);
+      if (editable && taskProgress.linked.length) {
+        const details=projectElement('details','project-task-list');details.append(projectElement('summary','',text.linkedTasks+' · '+taskProgress.linked.length));
+        for(const task of taskProgress.linked){const label=projectElement('label','topic-row');const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=task.completed;checkbox.addEventListener('change',()=>{task.completed=checkbox.checked;saveTasks();markProjectWorked(project.id);renderTasks();renderProjects();});label.append(checkbox,projectElement('span','',task.translationKey?text[task.translationKey]:task.title));details.append(label);}card.append(details);
+      }
       if (editable) {
         const actions = projectElement('div','editor-actions');
         const edit = projectElement('button','secondary-button',text.editProject); edit.type='button';
@@ -204,7 +240,7 @@ function renderProjects() {
           document.querySelector('#project-name').focus();
         });
         const remove=projectElement('button','secondary-button danger-button',text.deleteProject); remove.type='button';
-        remove.addEventListener('click',()=>{projects=projects.filter(p=>p.id!==project.id); saveProjects(); if(editingProjectId===project.id)resetProjectForm(); else renderProjects();});
+        remove.addEventListener('click',()=>{projects=projects.filter(p=>p.id!==project.id); saveProjects();tasks.forEach(task=>{if(task.projectId===project.id)task.projectId='';});saveTasks();renderTasks(); if(editingProjectId===project.id)resetProjectForm(); else renderProjects();});
         actions.append(edit,remove);card.append(actions);
       }
       container.append(card);
@@ -257,3 +293,9 @@ setLanguage(initialLanguage);
 
 
 for(const [section,render] of [['tasks',renderTasks],['projects',renderProjects]]){document.querySelector('#'+section+'-search').addEventListener('input',render);document.querySelector('[data-clear-search="'+section+'"]').addEventListener('click',()=>{const input=document.querySelector('#'+section+'-search');input.value='';render();input.focus();});}
+
+document.querySelector('#cancel-task-edit').addEventListener('click',resetTaskForm);document.querySelector('#task-sort').addEventListener('change',renderTasks);
+
+const menuToggle=document.querySelector('#menu-toggle');
+menuToggle.addEventListener('click',()=>{const open=document.querySelector('.sidebar').classList.toggle('menu-open');menuToggle.setAttribute('aria-expanded',String(open));});
+document.querySelectorAll('[data-view-link]').forEach(link=>link.addEventListener('click',()=>{document.querySelector('.sidebar').classList.remove('menu-open');menuToggle.setAttribute('aria-expanded','false');}));

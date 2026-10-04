@@ -51,3 +51,11 @@ Settings can export a versioned `kachan-backup-YYYY-MM-DD.json` file containing 
 Projects can list public repositories for a GitHub username through the GitHub REST API, with pagination. Add repositories individually; matching GitHub URLs are not duplicated. Imported projects start in Planning with 0% progress because GitHub does not provide learning progress. Existing project details are preserved. No token is requested; private repositories are unavailable and GitHub's unauthenticated rate limit applies. Errors and retry states appear in the interface.
 
 API reference: https://docs.github.com/en/rest/repos/repos#list-repositories-for-a-user
+
+## Task planning and design verification
+
+Tasks now support editing, project links, priority, deadlines, and sorting. Overdue dates use Europe/Kyiv. Project cards calculate progress from linked tasks and allow checking them off; projects without tasks keep manual progress. Deleting a project keeps its tasks and removes their project link. New task fields are included in JSON backup validation; older tasks and backups remain supported.
+
+Design checks covered all seven pages in Ukrainian and English, dark and light themes, at 320, 390, 768, and 1440 pixel widths. Mobile navigation uses a collapsible menu. Search spacing, form order, contrast, light progress tracks, control sizes, and temporary status messages were adjusted after screenshot review.
+
+Future work, including practice-based lessons and a notebook, is listed in [ROADMAP.md](ROADMAP.md).
