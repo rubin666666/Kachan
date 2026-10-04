@@ -1,0 +1,27 @@
+{
+  "name": "Kachan",
+  "short_name": "Kachan",
+  "id": "./",
+  "start_url": "./index.html#dashboard",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101114",
+  "theme_color": "#ff3838",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "corn.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

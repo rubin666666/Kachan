@@ -1,20 +1,21 @@
 Object.assign(translations.uk,{backupTitle:'Резервна копія',backupInfo:'Експортуй дані у JSON та перенеси їх в інший браузер. Імпорт замінює поточні дані після підтвердження.',exportData:'Завантажити JSON',importData:'Обрати JSON для імпорту',replaceData:'Замінити дані',importConfirm:'Замінити поточні дані Kachan цією резервною копією?',badBackup:'Неправильний або пошкоджений файл Kachan. Максимум 5 МБ.',backupReady:'Готово до імпорту',githubImport:'Імпортувати з GitHub',githubUser:'GitHub username',loadRepos:'Завантажити репозиторії',loadingRepos:'Завантаження…',repoError:'Не вдалося завантажити. Перевір мережу й повтори.',repoNotFound:'Користувача не знайдено.',repoRate:'Ліміт GitHub API вичерпано. Спробуй пізніше.',noRepos:'Публічних репозиторіїв немає.',addRepo:'Додати в Projects',alreadyAdded:'Уже додано',repoAdded:'Проєкт додано',importFailed:'Імпорт не виконано: браузер не зміг зберегти дані.'});
 Object.assign(translations.en,{backupTitle:'Backup',backupInfo:'Export data as JSON and transfer it to another browser. Import replaces current data after confirmation.',exportData:'Download JSON',importData:'Choose JSON to import',replaceData:'Replace data',importConfirm:'Replace current Kachan data with this backup?',badBackup:'Invalid or damaged Kachan file. Maximum 5 MB.',backupReady:'Ready to import',githubImport:'Import from GitHub',githubUser:'GitHub username',loadRepos:'Load repositories',loadingRepos:'Loading…',repoError:'Could not load. Check your connection and retry.',repoNotFound:'User not found.',repoRate:'GitHub API rate limit reached. Try again later.',noRepos:'No public repositories.',addRepo:'Add to Projects',alreadyAdded:'Already added',repoAdded:'Project added',importFailed:'Import failed: browser could not save the data.'});
-const backupKeys=['settings','snippets','favorites','progress','tasks','projects','language','htmlCourse','notes','dashboard','workspace'];
+const backupKeys=['settings','snippets','favorites','progress','tasks','projects','language','htmlCourse','notes','dashboard','workspace','extras'];
 const bounded=(v,max)=>typeof v==='string'&&v.length<=max;
 const unique=items=>new Set(items.map(item=>item.id)).size===items.length;
 function validateBackup(value){
- if(!value||value.app!=='Kachan'||![1,2,3,4,5].includes(value.version)||!value.data)return false;
+ if(!value||value.app!=='Kachan'||![1,2,3,4,5,6].includes(value.version)||!value.data)return false;
  const d=value.data;
- if(value.version===5&&!Object.hasOwn(d,'workspace'))return false;
+ if(value.version>=6&&!validExtras(d.extras))return false;
+ if(value.version>=5&&!Object.hasOwn(d,'workspace'))return false;
  if(value.version>=4&&!Object.hasOwn(d,'dashboard'))return false;
  if(value.version>=3&&(!Object.hasOwn(d,'notes')||!Object.hasOwn(d,'htmlCourse')))return false;
- if(!backupKeys.filter(k=>!['htmlCourse','notes','dashboard','workspace'].includes(k)).every(k=>Object.hasOwn(d,k)))return false;
+ if(!backupKeys.filter(k=>!['htmlCourse','notes','dashboard','workspace','extras'].includes(k)).every(k=>Object.hasOwn(d,k)))return false;
  if(!['uk','en'].includes(d.language)||!d.settings||!bounded(d.settings.userName,50)||!d.settings.userName.trim()||!Object.hasOwn(palette,d.settings.accent)||!['dark','light'].includes(d.settings.theme))return false;
  if(!Array.isArray(d.tasks)||d.tasks.length>10000||!unique(d.tasks)||!d.tasks.every(s=>s&&validTaskExtras(s)&&bounded(s.id,100)&&typeof s.completed==='boolean'&&(bounded(s.title,160)||['taskFlex','taskArrays','taskPush','taskLayout'].includes(s.translationKey))))return false;
  if(!Array.isArray(d.projects)||d.projects.length>10000||!unique(d.projects)||!d.projects.every(p=>p&&validProjectExtras(p)&&bounded(p.id,100)&&bounded(p.name,100)&&p.name.trim()&&bounded(p.description,1000)&&Array.isArray(p.technologies)&&p.technologies.every(t=>bounded(t,500))&&['planning','inProgress','finished'].includes(p.status)&&Number.isFinite(p.progress)&&p.progress>=0&&p.progress<=100&&bounded(p.github,500)&&bounded(p.live,500)&&validProjectUrl(p.github)&&validProjectUrl(p.live)&&bounded(p.updatedAt,100)&&Number.isFinite(Date.parse(p.updatedAt))))return false;
  if(!Array.isArray(d.snippets)||d.snippets.length>10000||!unique(d.snippets)||!d.snippets.every(s=>s&&bounded(s.id,100)&&bounded(s.name,100)&&s.name.trim()&&bounded(s.description,500)&&bounded(s.code,20000)&&categories.includes(s.category)))return false;
- if(!Array.isArray(d.favorites)||!d.favorites.every(id=>resources.some(r=>r[0]===id)))return false;
+ if(!Array.isArray(d.favorites)||!d.favorites.every(id=>resources.some(r=>r[0]===id)||d.extras?.customResources.some(r=>r.id===id)))return false;
  if(!d.progress||typeof d.progress!=='object'||Array.isArray(d.progress))return false;
  const allowed=[...document.querySelectorAll('[data-topic]')].map(input=>input.dataset.topic).concat(['taskFlex','taskArrays','taskPush','taskLayout','htmlStructure','htmlForms','htmlSemantic']);
  if(d.workspace!==undefined&&!validWorkspace(d.workspace))return false;
@@ -24,8 +25,8 @@ function validateBackup(value){
  return Object.entries(d.progress).every(([key,v])=>allowed.includes(key)&&typeof v==='boolean');
 }
 document.querySelector('#export-data').addEventListener('click',()=>{
- const data={settings,snippets,favorites,progress:savedProgress,tasks,projects,language:document.documentElement.lang,htmlCourse,notes,dashboard:dashboardData,workspace};
- const blob=new Blob([JSON.stringify({app:'Kachan',version:5,exportedAt:new Date().toISOString(),data},null,2)],{type:'application/json'});
+ const data={settings,snippets,favorites,progress:savedProgress,tasks,projects,language:document.documentElement.lang,htmlCourse,notes,dashboard:dashboardData,workspace,extras:{...extras,timer:null}};
+ const blob=new Blob([JSON.stringify({app:'Kachan',version:6,exportedAt:new Date().toISOString(),data},null,2)],{type:'application/json'});
  const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='kachan-backup-'+new Date().toISOString().slice(0,10)+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 });
 let pendingBackup=null,importGeneration=0;
@@ -36,7 +37,7 @@ document.querySelector('#import-file').addEventListener('change',async e=>{
 });
 document.querySelector('#confirm-import').addEventListener('click',()=>{
  if(!pendingBackup||!window.confirm(t().importConfirm))return;
- const previous={};try{for(const key of backupKeys)previous[key]=localStorage.getItem('devspace-'+key);for(const key of backupKeys)localStorage.setItem('devspace-'+key,key==='language'?pendingBackup[key]:JSON.stringify(key==='workspace'?(pendingBackup.workspace||{version:1,trash:[]}):key==='dashboard'?(pendingBackup.dashboard||{version:1,activity:[],goals:{day:{text:'',period:todayInKyiv()},week:{text:'',period:weekStart()}}}):key==='notes'?(pendingBackup.notes||[]):key==='htmlCourse'?(pendingBackup[key]||{version:1,selected:'document',lessons:{}}):pendingBackup[key]));location.reload();}catch{try{for(const key of Object.keys(previous)){if(previous[key]===null)localStorage.removeItem('devspace-'+key);else localStorage.setItem('devspace-'+key,previous[key]);}}catch{}notice(t().importFailed);}
+ const previous={};try{for(const key of backupKeys)previous[key]=localStorage.getItem('devspace-'+key);for(const key of backupKeys)localStorage.setItem('devspace-'+key,key==='language'?pendingBackup[key]:JSON.stringify(key==='extras'?(pendingBackup.extras||extraDefault()):key==='workspace'?(pendingBackup.workspace||{version:1,trash:[]}):key==='dashboard'?(pendingBackup.dashboard||{version:1,activity:[],goals:{day:{text:'',period:todayInKyiv()},week:{text:'',period:weekStart()}}}):key==='notes'?(pendingBackup.notes||[]):key==='htmlCourse'?(pendingBackup[key]||{version:1,selected:'document',lessons:{}}):pendingBackup[key]));extras.timer=null;timer.end=null;window.dispatchEvent(new Event('kachan-data-imported'));location.reload();}catch{try{for(const key of Object.keys(previous)){if(previous[key]===null)localStorage.removeItem('devspace-'+key);else localStorage.setItem('devspace-'+key,previous[key]);}}catch{}notice(t().importFailed);}
 });
 let githubRepos=[],githubState='';
 function repoExists(repo){return projects.some(p=>p.id==='github-'+repo.id||p.github.replace(/\.git$|\/$/g,'').toLowerCase()===repo.html_url.replace(/\/$/,'').toLowerCase());}

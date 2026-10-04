@@ -89,3 +89,19 @@ Projects include a details view with linked tasks and notes, attachable snippets
 Tasks include project/priority filters, multi-selection with bulk completion/move/priority changes, a Kanban board with explicit state controls, subtasks, and a recoverable Trash. Daily/weekly recurrence creates the next task exactly once on completion, using the existing deadline or today's date. Reopening and completing the same occurrence does not create another duplicate. Future recurring occurrences are editable independent records.
 
 Version 5 JSON backups include Trash and all extended project/task fields; older backups remain importable. Browser checks cover recurrence, subtasks, filters, Kanban, bulk actions, recovery, details, manual progress, stages, archives, persistence, backups, both languages, and mobile widths.
+
+## Materials, focus, comfort and offline support
+
+Snippets have safe DOM-based syntax coloring, tags, favorites, pinning, lesson/project links, and file downloads. Resources support custom HTTPS/HTTP links, editing/removal, personal autosaved comments, search, favorites, and topic collections. Custom resources can also be attached to project details.
+
+Dashboard includes work/break timers, adjustable durations, task/lesson associations, recorded session history, and user-created review cards. Remembered cards are scheduled after 3 days and then double their interval (up to 365 days); difficult cards return tomorrow. Time is measured using timestamps and persisted across reloads. Notification reminders require an explicit browser permission and work only while the site is open; there are no background push reminders.
+
+Ctrl+K opens a native-dialog global search/command palette; Alt+N creates a note. Comfort settings include system theme, larger text, compact spacing and notification preferences. Keyboard focus, a skip link, reduced-motion rules, and an unsaved-form close guard are included. This is not a formal accessibility certification.
+
+Version 6 JSON backups include all productivity data and support versions 1–5. Merge import adds new IDs, keeps existing IDs and local preferences, and rolls back storage on write errors. Backup exports do not transfer a running timer. The manifest and service worker support installation and offline use after the first successful online visit. Network APIs and external resources still require a connection. Service worker caches are scoped to this site.
+
+Supabase connection, email/password sign-in, manual cloud transfer, 10 backup revisions and conflict detection are prepared. See [SUPABASE.md](SUPABASE.md) and [supabase/schema.sql](supabase/schema.sql). A real project must be configured before cloud features work; no production credentials are bundled.
+
+## Regression checks
+
+Start a static server, install Playwright locally or point `KACHAN_PLAYWRIGHT` at an available Playwright package, then run `node tests/productivity.cjs` and `node tests/cloud.cjs`. Default browser is installed Edge; set `KACHAN_BROWSER` and `KACHAN_URL` to override. Tests use fresh browser contexts and do not modify your normal browser data. Cloud tests mock HTTP responses; they do not verify live SQL or RLS. Screenshots are saved under ignored `.qa/`.

@@ -146,6 +146,7 @@ document.querySelector('#task-form').addEventListener('submit', event => {
   if(!validTaskDate(deadline))return;
   const oldTask=tasks.find(task=>task.id===editingTaskId);
   const task={...oldTask,id:editingTaskId||crypto.randomUUID(),title,completed:oldTask?.completed||false,projectId,priority,deadline,repeat:document.querySelector('#task-repeat').value};
+  delete task.translationKey;
   if(editingTaskId)tasks=tasks.map(item=>item.id===editingTaskId?task:item);else tasks.push(task);
   taskFilter='all';saveTasks();markProjectWorked(oldTask?.projectId);markProjectWorked(projectId);resetTaskForm();renderTasks();renderProjects();input.focus();
 });

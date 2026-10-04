@@ -7,6 +7,8 @@
   <meta name="description" content="Kachan — personal workspace for projects, tasks, learning, and code snippets.">
   <link rel="icon" href="corn.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#ff3838">
   <script src="script.js" defer></script>
   <script src="features.js" defer></script>
   <script src="html-course.js" defer></script>
@@ -14,8 +16,11 @@
   <script src="workspace.js" defer></script>
   <script src="dashboard.js" defer></script>
   <script src="data-tools.js" defer></script>
+  <script src="productivity.js" defer></script>
+  <script src="cloud.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Перейти до вмісту / Skip to content</a>
   <aside class="sidebar">
     <a class="brand" href="index.html"><img class="brand-icon" src="corn.svg" alt="" width="34" height="34"> Kachan<span class="brand-dot">.</span></a>
     <button id="menu-toggle" class="secondary-button menu-toggle" type="button" aria-expanded="false" aria-controls="workspace-navigation" data-i18n="menu"></button>
@@ -34,7 +39,7 @@
       <div class="profile"><span class="avatar">R</span><div><strong>Rubin</strong><p data-i18n="personal">Особистий простір</p></div><span class="online" aria-label="Активний"></span></div>
     </div>
   </aside>
-  <main>
+  <main id="main-content" tabindex="-1">
     <header class="topbar">
       <span><span data-i18n="breadcrumb">Робочий простір</span><span class="separator">/</span><strong id="page-breadcrumb">Головна</strong></span>
       <div class="topbar-actions"><span class="date" id="today"></span><div class="language-switch" role="group" aria-label="Мова сайту"><button type="button" data-language="uk" aria-pressed="true" lang="uk">UA</button><button type="button" data-language="en" aria-pressed="false" lang="en">EN</button></div></div>
