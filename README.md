@@ -43,3 +43,11 @@ Browser checks cover navigation, task and project CRUD, persistence, learning pr
 ## Branding
 
 Kachan uses a custom SVG corn cob icon (`corn.svg`) for the logo and favicon. Existing `devspace-*` storage keys are retained for compatibility with saved user data.
+
+## Backup and GitHub import
+
+Settings can export a versioned `kachan-backup-YYYY-MM-DD.json` file containing projects, tasks, learning progress, snippets, favorites, language, and settings. Import accepts a validated Kachan backup up to 5 MB, previews record counts, and replaces current data only after confirmation. Download a backup first if you want to keep both sets of data.
+
+Projects can list public repositories for a GitHub username through the GitHub REST API, with pagination. Add repositories individually; matching GitHub URLs are not duplicated. Imported projects start in Planning with 0% progress because GitHub does not provide learning progress. Existing project details are preserved. No token is requested; private repositories are unavailable and GitHub's unauthenticated rate limit applies. Errors and retry states appear in the interface.
+
+API reference: https://docs.github.com/en/rest/repos/repos#list-repositories-for-a-user

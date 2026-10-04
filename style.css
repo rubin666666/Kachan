@@ -175,3 +175,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .brand-icon { background:transparent; object-fit:contain; }
 .code-art { opacity:1; padding-right:20px; letter-spacing:normal; }
 .code-art img { width:128px; height:128px; transform:rotate(12deg); }
+.backup-panel { margin-top:24px; }
+.backup-panel .form-field { margin-top:24px; }
+#github-repos { margin-top:20px; }
+button:disabled { opacity:.5; cursor:default; }
