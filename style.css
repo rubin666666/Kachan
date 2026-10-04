@@ -264,3 +264,22 @@ progress::-moz-progress-bar { background:var(--accent); }
 .course-pagination { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; margin-top:24px; }
 @media(max-width:1100px) { .course-layout { grid-template-columns:1fr; } .lesson-navigation { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:600px) { .lesson-navigation { grid-template-columns:1fr; } .course-code { font-size:12px; } }
+.notes-toolbar { display:flex; flex-wrap:wrap; align-items:end; gap:16px; margin:28px 0; }
+.notes-toolbar .form-field { min-width:220px; }
+.notes-layout { display:grid; grid-template-columns:280px minmax(0,1fr); gap:20px; align-items:start; }
+.notes-browser { padding:20px; }
+.notes-browser .form-field + .form-field { margin-top:16px; }
+.note-list-item { display:grid; gap:8px; width:100%; text-align:left; margin:8px 0; padding:14px; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text); cursor:pointer; font:inherit; }
+.note-list-item strong { overflow-wrap:anywhere; }
+.note-list-item > span { font-size:11px; color:var(--muted); }
+.note-list-item[aria-pressed="true"] { border-color:var(--accent); background:var(--accent-soft); }
+.note-metadata { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:22px 0; }
+.note-metadata .form-field:last-child { grid-column:1/-1; }
+#note-body { min-height:360px; line-height:1.8; }
+.note-editor { min-width:0; }
+@media(max-width:1100px) { .notes-layout { grid-template-columns:1fr; } #notes-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; max-height:300px; overflow:auto; } }
+@media(max-width:600px) { .note-metadata { grid-template-columns:1fr; } #notes-list { grid-template-columns:1fr; } .notes-toolbar { align-items:stretch; } }
+.markdown-preview { font-size:14px; line-height:1.8; overflow-wrap:anywhere; }
+.markdown-preview blockquote { margin:16px 0; padding-left:16px; border-left:3px solid var(--accent); color:var(--muted); }
+.markdown-preview code { font-family:Consolas,monospace; }
+.markdown-preview pre { white-space:pre-wrap; }

@@ -1,9 +1,9 @@
 const translations = {
   uk: {
-    workspace: 'РОБОЧИЙ ПРОСТІР', dashboard: 'Головна', projects: 'Проєкти', tasks: 'Задачі', learning: 'Навчання', snippets: 'Фрагменти коду', resources: 'Ресурси', settings: 'Налаштування', soon: 'скоро', personal: 'Особистий простір', breadcrumb: 'Робочий простір', eyebrow: 'ТВІЙ ПРОСТІР ДЛЯ РОЗРОБКИ', heading: 'Продовжуй творити', tagline: 'Маленькі кроки. Нові навички. Великі ідеї.', ready: 'Простір готовий', welcome: 'Твій простір для наступної ідеї.', description: 'Проєкти, задачі та навчання — усе в одному місці.', detail: 'Починаємо з основи й поступово додаємо можливості.', foundation: 'Основа готова', next: 'Наступний крок — картки статистики та поточні проєкти.', step: 'ПЕРШИЙ КРОК', footer: 'Створюємо крок за кроком.', navigation: 'Основна навігація', online: 'Активний', language: 'Мова сайту'
+    notes:'Нотатки', workspace: 'РОБОЧИЙ ПРОСТІР', dashboard: 'Головна', projects: 'Проєкти', tasks: 'Задачі', learning: 'Навчання', snippets: 'Фрагменти коду', resources: 'Ресурси', settings: 'Налаштування', soon: 'скоро', personal: 'Особистий простір', breadcrumb: 'Робочий простір', eyebrow: 'ТВІЙ ПРОСТІР ДЛЯ РОЗРОБКИ', heading: 'Продовжуй творити', tagline: 'Маленькі кроки. Нові навички. Великі ідеї.', ready: 'Простір готовий', welcome: 'Твій простір для наступної ідеї.', description: 'Проєкти, задачі та навчання — усе в одному місці.', detail: 'Починаємо з основи й поступово додаємо можливості.', foundation: 'Основа готова', next: 'Наступний крок — картки статистики та поточні проєкти.', step: 'ПЕРШИЙ КРОК', footer: 'Створюємо крок за кроком.', navigation: 'Основна навігація', online: 'Активний', language: 'Мова сайту'
   },
   en: {
-    workspace: 'WORKSPACE', dashboard: 'Dashboard', projects: 'Projects', tasks: 'Tasks', learning: 'Learning', snippets: 'Snippets', resources: 'Resources', settings: 'Settings', soon: 'soon', personal: 'Personal workspace', breadcrumb: 'Workspace', eyebrow: 'YOUR DEVELOPER WORKSPACE', heading: 'Keep building', tagline: 'Small steps. New skills. Big ideas.', ready: 'Workspace ready', welcome: 'Your space for the next idea.', description: 'Projects, tasks, and learning — all in one place.', detail: 'Start with the foundation and add new features along the way.', foundation: 'Foundation ready', next: 'Next up — statistics cards and recent projects.', step: 'FIRST STEP', footer: 'Built one step at a time.', navigation: 'Main navigation', online: 'Online', language: 'Site language'
+    notes:'Notes', workspace: 'WORKSPACE', dashboard: 'Dashboard', projects: 'Projects', tasks: 'Tasks', learning: 'Learning', snippets: 'Snippets', resources: 'Resources', settings: 'Settings', soon: 'soon', personal: 'Personal workspace', breadcrumb: 'Workspace', eyebrow: 'YOUR DEVELOPER WORKSPACE', heading: 'Keep building', tagline: 'Small steps. New skills. Big ideas.', ready: 'Workspace ready', welcome: 'Your space for the next idea.', description: 'Projects, tasks, and learning — all in one place.', detail: 'Start with the foundation and add new features along the way.', foundation: 'Foundation ready', next: 'Next up — statistics cards and recent projects.', step: 'FIRST STEP', footer: 'Built one step at a time.', navigation: 'Main navigation', online: 'Online', language: 'Site language'
   }
 };
 
@@ -122,11 +122,11 @@ function renderTasks() {
   updateProgress();
 }
 function showView() {
-  const view = ['tasks', 'projects', 'learning', 'snippets', 'resources', 'settings'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'dashboard';
+  const view = ['tasks', 'projects', 'learning', 'snippets', 'resources', 'notes', 'settings'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'dashboard';
   document.querySelector('#dashboard-view').hidden = view !== 'dashboard';
   document.querySelector('#tasks-view').hidden = view !== 'tasks';
   document.querySelector('#projects-view').hidden = view !== 'projects';
-  for (const key of ['learning','snippets','resources','settings']) document.querySelector('#' + key + '-view').hidden = view !== key;
+  for (const key of ['learning','snippets','resources','notes','settings']) document.querySelector('#' + key + '-view').hidden = view !== key;
   document.querySelector('#page-breadcrumb').textContent = translations[document.documentElement.lang][view];
   document.querySelectorAll('[data-view-link]').forEach(link => {
     const active = link.dataset.viewLink === view;

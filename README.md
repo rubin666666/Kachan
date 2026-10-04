@@ -67,3 +67,11 @@ Learning includes an original bilingual foundational HTML module with 10 lessons
 Drafts are saved immediately. Passing an exercise records completion and updates the HTML progress on Dashboard. A previously passed lesson stays complete while you experiment. Preview uses an isolated sandbox iframe; scripts, form submission, and external navigation are disabled. Checks use DOMParser and assess the listed structural conditions, not full HTML conformance or visual quality.
 
 HTML course data is included in version 2 JSON backups. Version 1 backups remain importable and start the new course from zero. Browser verification covers all 10 solutions and incomplete examples, persistence, hints, feedback, progress, backup compatibility, preview isolation, both languages, and responsive widths.
+
+## Notes
+
+The notebook supports immediate autosave, categories, tags, search, pinning, sorting, project links, and blank/study/idea/daily/bug templates. A safe lightweight Markdown preview supports headings, unordered lists, read-only checklists, quotes, bold text, inline code, and fenced code; raw HTML is displayed as text. Individual notes export as UTF-8 TXT or Markdown.
+
+Deleting a note moves it to Trash; it can be restored or permanently deleted after confirmation. Notes, including Trash, are included in version 3 JSON backups. Backups from versions 1 and 2 remain supported and restore an empty notebook. Storage remains local to the browser/site origin. When saving fails, the editor reports the failure and allows downloading the current note.
+
+Browser checks cover editing and autosave, template creation, tags/search/pinning, project links, safe preview, export, Trash restore/delete confirmation, backup import/export, both languages, and responsive widths.
