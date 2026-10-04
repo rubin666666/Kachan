@@ -39,8 +39,14 @@ body{background:radial-gradient(ellipse at 90% 0%,var(--accent-soft),transparent
 .command-result{transition:background .15s,transform .15s}
 .command-result:hover{transform:translateX(3px)}
 .course-example[open],.material-editor[open]{border-color:var(--accent-border)}
+.primary-button,.secondary-button,.nav-item{position:relative;overflow:hidden;isolation:isolate}
+.click-ripple{position:absolute;border-radius:50%;background:currentColor;pointer-events:none;z-index:-1}
+.project-icon,.stat-icon,.brand-icon{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+@media(hover:hover){.project-card:hover .project-icon{transform:rotate(-5deg) scale(1.08)}.stat-card:hover .stat-icon{transform:scale(1.12)}.brand:hover .brand-icon{transform:rotate(-8deg)}}
+details summary::marker{color:var(--accent)}
+.task-row input[type=checkbox]{transition:accent-color .2s,transform .2s}
 progress::-webkit-progress-value{transition:width .35s ease-out}
 .timer-clock{background:linear-gradient(120deg,var(--text),var(--muted));background-clip:text;-webkit-background-clip:text;color:transparent}
 @keyframes window-appear{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(max-width:600px){.editor-window{width:calc(100vw - 20px);max-height:calc(100dvh - 24px);border-radius:16px}.editor-window-header{padding:18px}.editor-window .task-form,.editor-window #project-form{padding:18px}.editor-window .task-options{grid-template-columns:1fr}.view-toolbar{justify-content:stretch}.view-toolbar>.primary-button{width:100%}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.project-card:hover,.resource-card:hover,.stat-card:hover,.primary-button:hover,.command-result:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.project-card:hover,.resource-card:hover,.stat-card:hover,.primary-button:hover,.command-result:hover,.project-card:hover .project-icon,.stat-card:hover .stat-icon,.brand:hover .brand-icon{transform:none}}
