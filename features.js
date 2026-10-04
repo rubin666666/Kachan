@@ -15,8 +15,9 @@ function filterButtons(container,values,current,change){container.replaceChildre
 function renderSnippets(){
 filterButtons(document.querySelector('#snippet-filters'),['all',...categories],snippetFilter,v=>{snippetFilter=v;renderSnippets();});
 const list=document.querySelector('#snippet-list');list.replaceChildren();
-const items=snippets.filter(s=>snippetFilter==='all'||s.category===snippetFilter);
-if(!items.length)list.append(projectElement('p','empty-state',t().emptySnippets));
+const items=snippets.filter(s=>(snippetFilter==='all'||s.category===snippetFilter)&&matchesSearch('snippets',[s.name,s.description,s.category,s.code]));
+searchStatus('snippets',items.length,t());
+if(!items.length)list.append(projectElement('p','empty-state',document.querySelector('#snippets-search').value.trim()?t().noSearchResults:t().emptySnippets));
 for(const snippet of items){const card=projectElement('article','dashboard-panel');card.append(projectElement('span','badge',snippet.category),projectElement('h2','',snippet.name),projectElement('p','panel-note',snippet.description));const pre=projectElement('pre','snippet-code');const code=projectElement('code','',snippet.code);pre.append(code);card.append(pre);const actions=projectElement('div','editor-actions');
 const copy=projectElement('button','secondary-button',t().copy);copy.type='button';copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(snippet.code);notice(t().copied);}catch{const range=document.createRange();range.selectNodeContents(code);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);notice(t().copyError);}});
 const edit=projectElement('button','secondary-button',t().edit);edit.type='button';edit.addEventListener('click',()=>{editingSnippet=snippet.id;const form=document.querySelector('#snippet-form');for(const key of ['name','category','description','code'])form.elements[key].value=snippet[key];document.querySelector('#snippet-editor').open=true;document.querySelector('#snippet-name').focus();});
@@ -55,3 +56,5 @@ for (const [selector, key] of [['#theme-select', 'theme'], ['#accent-color', 'ac
     if (writeData('devspace-settings', settings)) notice(t().saved);
   });
 }
+
+document.querySelector('#snippets-search').addEventListener('input',renderSnippets);document.querySelector('[data-clear-search="snippets"]').addEventListener('click',()=>{const input=document.querySelector('#snippets-search');input.value='';renderSnippets();input.focus();});

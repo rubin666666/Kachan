@@ -17,6 +17,18 @@ Object.assign(translations.en, {
 Object.assign(translations.uk, {"currentTasks":"Поточні задачі","starterTasks":"Стартові задачі — відмічай виконане.","savedLocally":"Зберігається в цьому браузері.","learningInstructions":"Відкрий технологію та відміть пройдені теми.","taskFlex":"Вивчити Flexbox","taskArrays":"Попрактикувати масиви JavaScript","taskPush":"Відправити проєкт на GitHub","taskLayout":"Завершити макет Dashboard","htmlStructure":"Структура документа","htmlForms":"Форми та поля вводу","htmlSemantic":"Семантичний HTML","cssSelectors":"Селектори та каскад","cssFlex":"Flexbox","cssGrid":"CSS Grid","jsVariables":"Змінні та типи даних","jsArrays":"Масиви та їх методи","jsDom":"DOM та події","tsTypes":"Базові типи","tsInterfaces":"Інтерфейси","tsGenerics":"Узагальнені типи","gitCommit":"Коміти","gitBranches":"Гілки та злиття","gitRemote":"Віддалені репозиторії","figmaFrames":"Фрейми та Auto Layout","figmaComponents":"Компоненти","figmaPrototype":"Прототипування","tasksHint":"Позначай задачі нижче","completedHint":"Виконано зі стартового списку","learningHint":"На основі пройдених тем","next":"Наступний крок — окрема сторінка задач: створення, видалення та фільтри.","stageCount":"3 / 8 етапів"});
 Object.assign(translations.en, {"currentTasks":"Current tasks","starterTasks":"Starter tasks — check off what you finish.","savedLocally":"Saved in this browser.","learningInstructions":"Expand a technology and check completed topics.","taskFlex":"Learn Flexbox","taskArrays":"Practice JavaScript arrays","taskPush":"Push project to GitHub","taskLayout":"Finish Dashboard layout","htmlStructure":"Document structure","htmlForms":"Forms and inputs","htmlSemantic":"Semantic HTML","cssSelectors":"Selectors and cascade","cssFlex":"Flexbox","cssGrid":"CSS Grid","jsVariables":"Variables and data types","jsArrays":"Arrays and methods","jsDom":"DOM and events","tsTypes":"Basic types","tsInterfaces":"Interfaces","tsGenerics":"Generics","gitCommit":"Commits","gitBranches":"Branches and merging","gitRemote":"Remote repositories","figmaFrames":"Frames and Auto Layout","figmaComponents":"Components","figmaPrototype":"Prototyping","tasksHint":"Check off tasks below","completedHint":"Finished from the starter list","learningHint":"Based on completed topics","next":"Next up — a dedicated Tasks page: add, delete, and filter tasks.","stageCount":"3 / 8 stages"});
 
+
+Object.assign(translations.uk,{searchtasks:'Пошук задач',searchprojects:'Пошук проєктів',searchsnippets:'Пошук фрагментів коду',clearSearch:'Очистити',noSearchResults:'Нічого не знайдено. Зміни запит або фільтр.',searchResults:'Знайдено'});
+Object.assign(translations.en,{searchtasks:'Search tasks',searchprojects:'Search projects',searchsnippets:'Search code snippets',clearSearch:'Clear',noSearchResults:'No results. Change your query or filter.',searchResults:'Found'});
+function matchesSearch(section, values) {
+ const query=document.querySelector('#'+section+'-search').value.trim().toLocaleLowerCase();
+ return values.filter(value=>typeof value==='string').join(' ').toLocaleLowerCase().includes(query);
+}
+function searchStatus(section,count,text){
+ document.querySelector('#'+section+'-search-status').textContent=text.searchResults+': '+count;
+ document.querySelector('[data-clear-search="'+section+'"]').disabled=!document.querySelector('#'+section+'-search').value;
+}
+
 function updateProgress() {
   const completed = tasks.filter(task => task.completed).length;
   document.querySelector('#active-task-count').textContent = tasks.length - completed;
@@ -54,7 +66,8 @@ function saveTasks() {
 }
 function renderTasks() {
   const text = translations[document.documentElement.lang] || translations.uk;
-  const shown = tasks.filter(task => taskFilter === 'all' || task.completed === (taskFilter === 'completed'));
+  const shown = tasks.filter(task => (taskFilter === 'all' || task.completed === (taskFilter === 'completed')) && matchesSearch('tasks', [task.translationKey ? text[task.translationKey] : task.title]));
+  searchStatus('tasks', shown.length, text);
   function renderList(selector, items, allowDelete) {
     const list = document.querySelector(selector);
     list.replaceChildren();
@@ -77,7 +90,7 @@ function renderTasks() {
   renderList('#all-tasks', shown, true);
   document.querySelector('#tasks-page-summary').textContent = tasks.filter(task => task.completed).length + ' / ' + tasks.length;
   const empty = document.querySelector('#task-empty'); empty.hidden = shown.length > 0;
-  empty.textContent = text[{all:'emptyAll',active:'emptyActive',completed:'emptyCompleted'}[taskFilter]];
+  empty.textContent = document.querySelector('#tasks-search').value.trim() ? text.noSearchResults : text[{all:'emptyAll',active:'emptyActive',completed:'emptyCompleted'}[taskFilter]];
   document.querySelector('#task-input').placeholder = text.inputHint;
   document.querySelector('#task-save-status').textContent = taskStorageFailed ? text.storageFailed : text.savedLocally;
   document.querySelectorAll('[data-filter]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === taskFilter)));
@@ -154,9 +167,10 @@ function renderProjects() {
   document.querySelector('#project-form-title').textContent = editingProjectId ? text.editProject : text.newProject;
   document.querySelector('#project-save-status').textContent = projectStorageFailed ? text.storageFailed : text.savedLocally;
   const sorted = [...projects].sort((a,b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
-  for (const [selector, items, editable] of [['#recent-projects', sorted.slice(0,3), false], ['#all-projects', sorted, true]]) {
+  for (const [selector, items, editable] of [['#recent-projects', sorted.slice(0,3), false], ['#all-projects', sorted.filter(project=>matchesSearch('projects',[project.name,project.descriptionKey === 'projectDescription' ? text.projectDescription : project.description,...project.technologies,text[project.status]])), true]]) {
     const container = document.querySelector(selector); container.replaceChildren();
-    if (!items.length) container.append(projectElement('p','empty-state',text.emptyProjects));
+    if (editable) searchStatus('projects',items.length,text);
+    if (!items.length) container.append(projectElement('p','empty-state',editable && document.querySelector('#projects-search').value.trim() ? text.noSearchResults : text.emptyProjects));
     items.forEach(project => {
       const card = projectElement('article','project-card');
       const heading = projectElement('div','project-heading');
@@ -241,3 +255,5 @@ document.querySelectorAll('[data-language]').forEach(button => {
 setLanguage(initialLanguage);
 
 
+
+for(const [section,render] of [['tasks',renderTasks],['projects',renderProjects]]){document.querySelector('#'+section+'-search').addEventListener('input',render);document.querySelector('[data-clear-search="'+section+'"]').addEventListener('click',()=>{const input=document.querySelector('#'+section+'-search');input.value='';render();input.focus();});}
