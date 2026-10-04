@@ -58,12 +58,12 @@ Object.assign(translations.en, { manageTasks: 'Manage tasks ↗', taskEyebrow: '
 Object.assign(translations.uk,{menu:'Меню',taskProject:'Проєкт',noProject:'Без проєкту',priority:'Пріоритет',low:'Низький',medium:'Середній',high:'Високий',deadline:'Дедлайн',overdue:'Прострочено',editTask:'Редагувати задачу',saveTask:'Зберегти зміни',sortTasks:'Сортування',originalOrder:'Порядок додавання',deadlineOrder:'Найближчий дедлайн',priorityOrder:'Високий пріоритет спочатку',taskProgress:'Прогрес за задачами',linkedTasks:'Пов’язані задачі',deletedProject:'Проєкт видалено',manualProgress:'Ручний прогрес (без пов’язаних задач)'});
 Object.assign(translations.en,{menu:'Menu',taskProject:'Project',noProject:'No project',priority:'Priority',low:'Low',medium:'Medium',high:'High',deadline:'Deadline',overdue:'Overdue',editTask:'Edit task',saveTask:'Save changes',sortTasks:'Sort',originalOrder:'Creation order',deadlineOrder:'Nearest deadline',priorityOrder:'High priority first',taskProgress:'Progress from tasks',linkedTasks:'Linked tasks',deletedProject:'Project deleted',manualProgress:'Manual progress (without linked tasks)'});
 function validTaskDate(value){if(value==='')return true;if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))return false;const date=new Date(value+'T12:00:00Z');return Number.isFinite(date.getTime())&&date.toISOString().slice(0,10)===value;}
-function validTaskExtras(task){return (task.projectId===undefined||typeof task.projectId==='string')&&(task.priority===undefined||['low','medium','high'].includes(task.priority))&&(task.deadline===undefined||validTaskDate(task.deadline));}
+function validTaskExtras(task){return (task.projectId===undefined||typeof task.projectId==='string')&&(task.priority===undefined||['low','medium','high'].includes(task.priority))&&(task.deadline===undefined||validTaskDate(task.deadline))&&(task.repeatGenerated===undefined||typeof task.repeatGenerated==='boolean')&&(task.repeat===undefined||['none','daily','weekly'].includes(task.repeat))&&(task.stage===undefined||['planning','inProgress','finished'].includes(task.stage))&&(task.subtasks===undefined||(Array.isArray(task.subtasks)&&task.subtasks.length<=100&&task.subtasks.every(s=>s&&typeof s.title==='string'&&s.title.length<=160&&typeof s.completed==='boolean')));}
 function todayInKyiv(){const parts=new Intl.DateTimeFormat('en-GB',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Europe/Kyiv'}).formatToParts(new Date());const value=type=>parts.find(p=>p.type===type).value;return value('year')+'-'+value('month')+'-'+value('day');}
 let editingTaskId=null;
 function resetTaskForm(){editingTaskId=null;document.querySelector('#task-form').reset();document.querySelector('#cancel-task-edit').hidden=true;document.querySelector('#task-submit').textContent=translations[document.documentElement.lang].addTask;}
 function renderTaskProjects(){const select=document.querySelector('#task-project');const selected=select.value;select.replaceChildren();const text=translations[document.documentElement.lang];const option=document.createElement('option');option.value='';option.textContent=text.noProject;select.append(option);for(const project of projects){const option=document.createElement('option');option.value=project.id;option.textContent=project.name;select.append(option);}select.value=projects.some(p=>p.id===selected)?selected:'';}
-function projectTaskProgress(project){const linked=tasks.filter(task=>task.projectId===project.id);return {linked,value:linked.length?Math.round(linked.filter(task=>task.completed).length/linked.length*100):project.progress};}
+function projectTaskProgress(project){const linked=tasks.filter(task=>task.projectId===project.id);return {linked,value:linked.length&&project.progressMode!=='manual'?Math.round(linked.filter(task=>task.completed).length/linked.length*100):project.progress};}
 function markProjectWorked(projectId){const project=projects.find(p=>p.id===projectId);if(project){project.updatedAt=new Date().toISOString();saveProjects();}}
 
 let tasks = ['taskFlex', 'taskArrays', 'taskPush', 'taskLayout'].map(key => ({ id: key, translationKey: key, completed: savedProgress[key] === true }));
@@ -79,7 +79,7 @@ function saveTasks() {
 }
 function renderTasks() {
   const text = translations[document.documentElement.lang] || translations.uk;
-  const shown = tasks.filter(task => (taskFilter === 'all' || task.completed === (taskFilter === 'completed')) && matchesSearch('tasks', [task.translationKey ? text[task.translationKey] : task.title]));
+  const shown = tasks.filter(task => (typeof workspaceTaskMatches!=='function'||workspaceTaskMatches(task)) && (taskFilter === 'all' || task.completed === (taskFilter === 'completed')) && matchesSearch('tasks', [task.translationKey ? text[task.translationKey] : task.title]));
   const order=document.querySelector('#task-sort').value;
   if(order==='deadline')shown.sort((a,b)=>(a.deadline||'9999-12-31').localeCompare(b.deadline||'9999-12-31'));
   if(order==='priority'){const rank={high:0,medium:1,low:2};shown.sort((a,b)=>rank[a.priority||'medium']-rank[b.priority||'medium']);}
@@ -103,7 +103,7 @@ function renderTasks() {
       content.append(metadata);li.append(content);
       if (allowDelete) {
         const edit=document.createElement('button');edit.type='button';edit.className='secondary-button task-edit';edit.textContent=text.editTask;edit.setAttribute('aria-label',text.editTask+': '+title.textContent);
-        edit.addEventListener('click',()=>{editingTaskId=task.id;document.querySelector('#task-input').value=title.textContent;document.querySelector('#task-project').value=projects.some(p=>p.id===task.projectId)?task.projectId:'';document.querySelector('#task-priority').value=task.priority||'medium';document.querySelector('#task-deadline').value=task.deadline||'';document.querySelector('#cancel-task-edit').hidden=false;document.querySelector('#task-submit').textContent=text.saveTask;document.querySelector('#task-input').focus();});li.append(edit);
+        edit.addEventListener('click',()=>{editingTaskId=task.id;document.querySelector('#task-input').value=title.textContent;document.querySelector('#task-project').value=projects.some(p=>p.id===task.projectId)?task.projectId:'';document.querySelector('#task-priority').value=task.priority||'medium';document.querySelector('#task-deadline').value=task.deadline||'';document.querySelector('#task-repeat').value=task.repeat||'none';document.querySelector('#cancel-task-edit').hidden=false;document.querySelector('#task-submit').textContent=text.saveTask;document.querySelector('#task-input').focus();});li.append(edit);
         const button = document.createElement('button'); button.type = 'button'; button.className = 'delete-task'; button.textContent = '×'; button.setAttribute('aria-label', text.deleteTask + ': ' + title.textContent);
         button.addEventListener('click', () => { tasks = tasks.filter(item => item.id !== task.id); saveTasks();markProjectWorked(task.projectId);if(editingTaskId===task.id)resetTaskForm();renderTasks();renderProjects();document.querySelector('#task-input').focus(); });
         li.append(button);
@@ -120,9 +120,10 @@ function renderTasks() {
   document.querySelector('#task-save-status').textContent = taskStorageFailed ? text.storageFailed : text.savedLocally;
   document.querySelectorAll('[data-filter]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === taskFilter)));
   updateProgress();
+  if(typeof renderWorkspaceTasks==='function')renderWorkspaceTasks(shown);
 }
 function showView() {
-  const view = ['tasks', 'projects', 'learning', 'snippets', 'resources', 'notes', 'settings'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'dashboard';
+  const view = ['tasks', 'projects', 'learning', 'snippets', 'resources', 'notes', 'settings'].includes(location.hash.slice(1).split('?')[0]) ? location.hash.slice(1).split('?')[0] : 'dashboard';
   document.querySelector('#dashboard-view').hidden = view !== 'dashboard';
   document.querySelector('#tasks-view').hidden = view !== 'tasks';
   document.querySelector('#projects-view').hidden = view !== 'projects';
@@ -144,7 +145,7 @@ document.querySelector('#task-form').addEventListener('submit', event => {
   const deadline=document.querySelector('#task-deadline').value;
   if(!validTaskDate(deadline))return;
   const oldTask=tasks.find(task=>task.id===editingTaskId);
-  const task={id:editingTaskId||crypto.randomUUID(),title,completed:oldTask?.completed||false,projectId,priority,deadline};
+  const task={...oldTask,id:editingTaskId||crypto.randomUUID(),title,completed:oldTask?.completed||false,projectId,priority,deadline,repeat:document.querySelector('#task-repeat').value};
   if(editingTaskId)tasks=tasks.map(item=>item.id===editingTaskId?task:item);else tasks.push(task);
   taskFilter='all';saveTasks();markProjectWorked(oldTask?.projectId);markProjectWorked(projectId);resetTaskForm();renderTasks();renderProjects();input.focus();
 });
@@ -163,6 +164,7 @@ document.querySelectorAll('[data-topic]').forEach(input => {
 
 Object.assign(translations.uk, { allProjects: 'Усі проєкти ↗', projectsIntro: 'Від ідеї до релізу — твоя колекція проєктів.', newProject: 'Новий проєкт', editProject: 'Редагувати проєкт', projectName: 'Назва', projectTech: 'Технології (через кому)', githubLink: 'GitHub URL', liveLink: 'URL сайту', projectDescriptionLabel: 'Опис', projectStatus: 'Статус', projectProgress: 'Прогрес (%)', planning: 'Планування', finished: 'Завершено', saveProject: 'Зберегти проєкт', cancel: 'Скасувати', deleteProject: 'Видалити проєкт', emptyProjects: 'Проєктів ще немає. Створи перший вище.', progressLabel: 'Прогрес', liveWebsite: 'Відкрити сайт ↗', urlError: 'Використовуй посилання з http:// або https://.', nameError: 'Введи назву проєкту.', projectHint: 'У твоєму робочому просторі', next: 'Наступний крок — окрема сторінка Learning з темами навчання.' });
 Object.assign(translations.en, { allProjects: 'All projects ↗', projectsIntro: 'From idea to release — your project collection.', newProject: 'New project', editProject: 'Edit project', projectName: 'Name', projectTech: 'Technologies (comma separated)', githubLink: 'GitHub URL', liveLink: 'Website URL', projectDescriptionLabel: 'Description', projectStatus: 'Status', projectProgress: 'Progress (%)', planning: 'Planning', finished: 'Finished', saveProject: 'Save project', cancel: 'Cancel', deleteProject: 'Delete project', emptyProjects: 'No projects yet. Create your first one above.', progressLabel: 'Progress', liveWebsite: 'Visit website ↗', urlError: 'Use links starting with http:// or https://.', nameError: 'Enter a project name.', projectHint: 'In your workspace', next: 'Next up — a dedicated Learning page with study topics.' });
+function validProjectExtras(p){return (p.archived===undefined||typeof p.archived==='boolean')&&(p.progressMode===undefined||['auto','manual'].includes(p.progressMode))&&(p.stages===undefined||(Array.isArray(p.stages)&&p.stages.length<=100&&p.stages.every(s=>s&&typeof s.title==='string'&&s.title.length<=160&&typeof s.completed==='boolean')))&&['snippets','resources'].every(key=>p[key]===undefined||(Array.isArray(p[key])&&p[key].length<=10000&&p[key].every(id=>typeof id==='string')));}
 function validProjectUrl(value) {
   if (!value) return true;
   try { return ['http:', 'https:'].includes(new URL(value).protocol); } catch { return false; }
@@ -170,7 +172,7 @@ function validProjectUrl(value) {
 let projects = [{ id: 'dev-dashboard', name: 'Kachan', description: '', descriptionKey: 'projectDescription', technologies: ['HTML', 'CSS', 'JavaScript'], status: 'inProgress', progress: 50, github: 'https://github.com/rubin666666/Kachan', live: '', updatedAt: '2026-10-04T12:00:00Z' }];
 try {
   const stored = JSON.parse(localStorage.getItem('devspace-projects'));
-  if (Array.isArray(stored) && stored.every(p => p && typeof p.id === 'string' && typeof p.name === 'string' && typeof p.description === 'string' && Array.isArray(p.technologies) && p.technologies.every(t => typeof t === 'string') && ['planning','inProgress','finished'].includes(p.status) && Number.isFinite(p.progress) && p.progress >= 0 && p.progress <= 100 && typeof p.github === 'string' && typeof p.live === 'string' && validProjectUrl(p.github) && validProjectUrl(p.live) && typeof p.updatedAt === 'string' && Number.isFinite(Date.parse(p.updatedAt))) && new Set(stored.map(p => p.id)).size === stored.length) projects = stored;
+  if (Array.isArray(stored) && stored.every(p => p && validProjectExtras(p) && typeof p.id === 'string' && typeof p.name === 'string' && typeof p.description === 'string' && Array.isArray(p.technologies) && p.technologies.every(t => typeof t === 'string') && ['planning','inProgress','finished'].includes(p.status) && Number.isFinite(p.progress) && p.progress >= 0 && p.progress <= 100 && typeof p.github === 'string' && typeof p.live === 'string' && validProjectUrl(p.github) && validProjectUrl(p.live) && typeof p.updatedAt === 'string' && Number.isFinite(Date.parse(p.updatedAt))) && new Set(stored.map(p => p.id)).size === stored.length) projects = stored;
 } catch { /* Keep the initial project when storage is invalid. */ }
 // Rename only the original starter project; preserve personal projects and storage keys.
 projects.forEach(project => { if (project.id === 'dev-dashboard' && project.name === 'Dev Dashboard') project.name = 'Kachan'; });
@@ -198,8 +200,8 @@ function renderProjects() {
   renderTaskProjects();
   document.querySelector('#project-form-title').textContent = editingProjectId ? text.editProject : text.newProject;
   document.querySelector('#project-save-status').textContent = projectStorageFailed ? text.storageFailed : text.savedLocally;
-  const sorted = [...projects].sort((a,b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
-  for (const [selector, items, editable] of [['#recent-projects', sorted.slice(0,3), false], ['#all-projects', sorted.filter(project=>matchesSearch('projects',[project.name,project.descriptionKey === 'projectDescription' ? text.projectDescription : project.description,...project.technologies,text[project.status]])), true]]) {
+  const sorted = [...projects].filter(p=>!p.archived).sort((a,b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
+  for (const [selector, items, editable] of [['#recent-projects', sorted.slice(0,3), false], ['#all-projects', projects.filter(project=>(!!project.archived===document.querySelector('#project-archive-toggle').classList.contains('active'))&&matchesSearch('projects',[project.name,project.descriptionKey === 'projectDescription' ? text.projectDescription : project.description,...project.technologies,text[project.status]])), true]]) {
     const container = document.querySelector(selector); container.replaceChildren();
     if (editable) searchStatus('projects',items.length,text);
     if (!items.length) container.append(projectElement('p','empty-state',editable && document.querySelector('#projects-search').value.trim() ? text.noSearchResults : text.emptyProjects));
@@ -212,7 +214,7 @@ function renderProjects() {
       heading.append(icon,info,projectElement('span','project-status',text[project.status]));
       const stack = projectElement('div','stack'); project.technologies.forEach(tech => stack.append(projectElement('span','',tech)));
       const taskProgress=projectTaskProgress(project);
-      const progressLabel = projectElement('div','progress-label'); progressLabel.append(projectElement('span','',taskProgress.linked.length?text.taskProgress:text.progressLabel),projectElement('span','',taskProgress.value + '%'));
+      const progressLabel = projectElement('div','progress-label'); progressLabel.append(projectElement('span','',taskProgress.linked.length&&project.progressMode!=='manual'?text.taskProgress:text.progressLabel),projectElement('span','',taskProgress.value + '%'));
       const bar = projectElement('progress'); bar.max = 100; bar.value = taskProgress.value; bar.textContent = taskProgress.value + '%'; bar.setAttribute('aria-label',project.name + ': ' + text.progressLabel);
       const footer = projectElement('div','project-footer');
       const date = projectElement('time','',new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'uk-UA',{day:'numeric',month:'short',year:'numeric',timeZone:'Europe/Kyiv'}).format(new Date(project.updatedAt))); date.dateTime = project.updatedAt;
@@ -229,6 +231,7 @@ function renderProjects() {
       }
       if (editable) {
         const actions = projectElement('div','editor-actions');
+        const detail=projectElement('a','secondary-button',text.projectDetails||'Details');detail.href='#projects?project='+encodeURIComponent(project.id);actions.append(detail);
         const edit = projectElement('button','secondary-button',text.editProject); edit.type='button';
         edit.addEventListener('click',()=>{
           editingProjectId=project.id;
@@ -253,7 +256,7 @@ document.querySelector('#project-form').addEventListener('submit',event=>{
   event.preventDefault(); const form=event.currentTarget; const text=translations[document.documentElement.lang];
   const name=form.elements.name.value.trim(); const github=form.elements.github.value.trim(); const live=form.elements.live.value.trim();
   if (!name || !validProjectUrl(github) || !validProjectUrl(live)) { document.querySelector('#project-form-error').textContent=!name?text.nameError:text.urlError;return; }
-  const project={id:editingProjectId || crypto.randomUUID(),name,description:form.elements.description.value.trim(),technologies:form.elements.technologies.value.split(',').map(t=>t.trim()).filter(Boolean),status:form.elements.status.value,progress:Number(form.elements.progress.value),github,live,updatedAt:new Date().toISOString()};
+  const project={...projects.find(p=>p.id===editingProjectId),id:editingProjectId || crypto.randomUUID(),name,description:form.elements.description.value.trim(),technologies:form.elements.technologies.value.split(',').map(t=>t.trim()).filter(Boolean),status:form.elements.status.value,progress:Number(form.elements.progress.value),github,live,updatedAt:new Date().toISOString()};
   if(editingProjectId)projects=projects.map(p=>p.id===editingProjectId?project:p);else projects.push(project);
   saveProjects();resetProjectForm();
 });

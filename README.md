@@ -81,3 +81,11 @@ Browser checks cover editing and autosave, template creation, tags/search/pinnin
 Dashboard now highlights overdue tasks, tasks due today, and deadlines within the next seven days. Quick actions open a task/project form or create a blank note. Resume continues the current unfinished HTML lesson or the next unfinished lesson. Recent notes prioritize pinned entries.
 
 Day and week goals are saved locally with calendar periods in Europe/Kyiv. Activity tracking records new task actions, project creation, note creation/edits, and HTML lesson completion from this release onward; it does not fabricate historical events. The seven-day chart counts unique completed tasks and lessons per day. History is retained up to 1,000 entries. Version 4 backups include goals and history, while older backups remain supported.
+
+## Projects and task workspace
+
+Projects include a details view with linked tasks and notes, attachable snippets/resources, stage checklists, archive/unarchive, and automatic or manual progress. Task completion drives automatic progress; stage and subtask checklists are independent of the parent task completion state. Archived projects keep their data and remain available through the archive toggle.
+
+Tasks include project/priority filters, multi-selection with bulk completion/move/priority changes, a Kanban board with explicit state controls, subtasks, and a recoverable Trash. Daily/weekly recurrence creates the next task exactly once on completion, using the existing deadline or today's date. Reopening and completing the same occurrence does not create another duplicate. Future recurring occurrences are editable independent records.
+
+Version 5 JSON backups include Trash and all extended project/task fields; older backups remain importable. Browser checks cover recurrence, subtasks, filters, Kanban, bulk actions, recovery, details, manual progress, stages, archives, persistence, backups, both languages, and mobile widths.

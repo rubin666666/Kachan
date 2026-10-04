@@ -296,3 +296,22 @@ progress::-moz-progress-bar { background:var(--accent); }
 .chart-column { display:flex; flex-direction:column; align-items:center; gap:8px; font-size:11px; color:var(--muted); }
 .chart-bar { width:100%; max-width:50px; background:var(--accent); border-radius:5px 5px 0 0; min-height:2px; }
 @media(max-width:800px) { .daily-grid { grid-template-columns:1fr; } }
+.workspace-controls { display:flex; flex-wrap:wrap; gap:12px; align-items:end; margin:20px 0; }
+.workspace-controls select,#project-detail select,.subtask-editor input,.kanban-card select { padding:10px; border:1px solid var(--border); border-radius:6px; color:var(--text); background:var(--bg); max-width:100%; }
+.kanban-board { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.kanban-card { padding:14px; border:1px solid var(--border); border-radius:8px; margin-top:12px; overflow-wrap:anywhere; }
+.subtask-editor { margin:16px 0; font-size:12px; }
+.subtask-editor summary { cursor:pointer; color:var(--muted); }
+.subtask-editor form { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.subtask-editor label { margin-top:10px; }
+.trash-task { display:flex; flex-wrap:wrap; gap:12px; align-items:center; padding:14px 0; border-bottom:1px solid var(--border); }
+#project-detail { margin-top:24px; }
+#project-detail h3 { margin-top:26px; }
+#project-detail .text-link { margin-right:16px; }
+@media(max-width:900px) { .kanban-board { grid-template-columns:1fr; } }
+#projects-view.project-open > .project-editor,#projects-view.project-open > .search-box,#projects-view.project-open > #project-save-status,#projects-view.project-open > #project-archive-toggle { display:none; }
+#project-detail > label.form-field { display:block; margin:18px 0 10px; }
+#project-detail > label.form-field select { display:block; width:100%; margin-top:8px; }
+#project-detail > .secondary-button { margin:10px 8px 10px 0; }
+#project-detail > select { margin-right:10px; }
+#project-detail form.subtask-editor { display:flex; flex-wrap:wrap; gap:10px; }
