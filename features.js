@@ -46,3 +46,12 @@ function refreshFeatures(){renderSnippets();renderResources();renderLearningOver
 window.addEventListener('languagechange',refreshFeatures);
 document.addEventListener('change',e=>{if(e.target.matches('[data-topic]'))renderLearningOverview();});
 applySettings();setLanguage(document.documentElement.lang);
+// Appearance changes apply immediately; the Save button remains for the user name.
+for (const [selector, key] of [['#theme-select', 'theme'], ['#accent-color', 'accent']]) {
+  document.querySelector(selector).addEventListener('change', event => {
+    settings[key] = event.target.value;
+    document.documentElement.dataset.theme = settings.theme;
+    document.documentElement.style.setProperty('--accent', palette[settings.accent]);
+    if (writeData('devspace-settings', settings)) notice(t().saved);
+  });
+}
