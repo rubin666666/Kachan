@@ -7,6 +7,7 @@
   <meta name="description" content="Kachan — personal workspace for projects, tasks, learning, and code snippets.">
   <link rel="icon" href="corn.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="design.css">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#ff3838">
   <script src="storage.js" defer></script>
@@ -20,16 +21,16 @@
     <button id="menu-toggle" class="secondary-button menu-toggle" type="button" aria-expanded="false" aria-controls="workspace-navigation" data-i18n="menu"></button>
     <p class="nav-label" data-i18n="workspace">РОБОЧИЙ ПРОСТІР</p>
     <nav id="workspace-navigation" aria-label="Основна навігація">
-      <a class="nav-item active" href="#dashboard" data-view-link="dashboard" aria-current="page"><span>▦</span><span class="nav-text" data-i18n="dashboard">Головна</span></a>
-      <a class="nav-item" href="#projects" data-view-link="projects"><span>◫</span><span class="nav-text" data-i18n="projects">Проєкти</span></a>
-      <a class="nav-item" href="#tasks" data-view-link="tasks"><span>☑</span><span class="nav-text" data-i18n="tasks">Задачі</span></a>
-      <a class="nav-item" href="#learning" data-view-link="learning"><span>▤</span><span class="nav-text" data-i18n="learning"></span></a>
-      <a class="nav-item" href="#snippets" data-view-link="snippets"><span>⌘</span><span class="nav-text" data-i18n="snippets"></span></a>
-      <a class="nav-item" href="#notes" data-view-link="notes"><span>✎</span><span class="nav-text" data-i18n="notes">Нотатки</span></a>
-      <a class="nav-item" href="#resources" data-view-link="resources"><span>↗</span><span class="nav-text" data-i18n="resources"></span></a>
+      <a class="nav-item active" href="#dashboard" data-view-link="dashboard" aria-current="page"><span aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="nav-text" data-i18n="dashboard">Головна</span></a>
+      <a class="nav-item" href="#projects" data-view-link="projects"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="nav-text" data-i18n="projects">Проєкти</span></a>
+      <a class="nav-item" href="#tasks" data-view-link="tasks"><span aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="m7 12 3 3 7-7"/></svg></span><span class="nav-text" data-i18n="tasks">Задачі</span></a>
+      <a class="nav-item" href="#learning" data-view-link="learning"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5c-3-2-6-2-9-1v15c3-1 6-1 9 1 3-2 6-2 9-1V4c-3-1-6-1-9 1zm0 0v15"/></svg></span><span class="nav-text" data-i18n="learning"></span></a>
+      <a class="nav-item" href="#snippets" data-view-link="snippets"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 6-6 6 6 6m8-12 6 6-6 6m-2-14-4 16"/></svg></span><span class="nav-text" data-i18n="snippets"></span></a>
+      <a class="nav-item" href="#notes" data-view-link="notes"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9M16 3l5 5-9 9-5 1 1-5z"/></svg></span><span class="nav-text" data-i18n="notes">Нотатки</span></a>
+      <a class="nav-item" href="#resources" data-view-link="resources"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3h7v7m0-7L10 14m0-11H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/></svg></span><span class="nav-text" data-i18n="resources"></span></a>
     </nav>
     <div class="sidebar-bottom">
-      <a class="nav-item" href="#settings" data-view-link="settings"><span>⚙</span><span class="nav-text" data-i18n="settings"></span></a>
+      <a class="nav-item" href="#settings" data-view-link="settings"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg></span><span class="nav-text" data-i18n="settings"></span></a>
       <div class="profile"><span class="avatar">R</span><div><strong>Rubin</strong><p data-i18n="personal">Особистий простір</p></div><span class="online" aria-label="Активний"></span></div>
     </div>
   </aside>

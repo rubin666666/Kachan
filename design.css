@@ -1,0 +1,144 @@
+/* Shared visual system. Layout rules stay scoped to their own views. */
+:root{--surface-raised:#191b21;--muted:#a0a4af;--radius:14px;--control-radius:8px}
+[data-theme=light]{--surface-raised:#f3f4f7;--muted:#606775}
+body{font-family:'Segoe UI',system-ui,sans-serif;line-height:1.55}
+.sidebar{width:224px;padding:28px 16px 20px;background:var(--panel);z-index:20}
+main{margin-left:224px}
+.brand{font-size:24px;letter-spacing:-.8px}
+.nav-label{margin-top:34px;font-size:10px}
+.nav-item{min-height:44px;border-radius:9px;gap:12px;transition:background .15s,color .15s}
+.nav-item:hover{background:var(--surface-raised);color:var(--text)}
+.nav-item.active{background:var(--accent-soft);color:var(--text);box-shadow:inset 3px 0 var(--accent)}
+.nav-item>span:first-child{display:grid;place-items:center;width:18px;height:18px}
+.nav-item svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.topbar{min-height:68px;padding:16px 36px;background:var(--bg)}
+.topbar strong{color:var(--text)}
+.topbar-actions{gap:14px;flex-wrap:wrap;justify-content:flex-end}
+.content{max-width:1400px;padding:36px 36px 28px}
+.page-heading{margin-bottom:28px}
+.page-heading h1{font-size:clamp(28px,3vw,38px);letter-spacing:-1.2px;line-height:1.2;margin:10px 0 12px}
+.page-heading>p:last-child{font-size:14px;max-width:640px;line-height:1.65}
+.eyebrow{font-size:10px;letter-spacing:1.6px;font-weight:600}
+h2{font-size:19px;line-height:1.35;letter-spacing:-.3px}
+h3{font-size:15px;line-height:1.5}
+.dashboard-panel,.project-card,.stat-card,.resource-card{border-radius:var(--radius);padding:24px;background:var(--panel);box-shadow:0 2px 5px #00000008}
+.dashboard-panel>h2:first-child{margin-top:0}
+.panel-note,.panel-footnote{font-size:12px;line-height:1.65}
+.panel-note:empty,.panel-footnote:empty{display:none}
+.section-heading{gap:12px;margin-bottom:20px}
+.section-heading h2,.dashboard-panel .section-heading h2{font-size:18px}
+.primary-button,.secondary-button,.task-filters button{min-height:38px;padding:9px 14px;border-radius:var(--control-radius);font-size:12px;font-weight:600;line-height:1.45;cursor:pointer;transition:background .15s,border-color .15s}
+.primary-button{color:#fff;background:var(--accent);border:1px solid var(--accent)}
+.secondary-button{background:var(--surface-raised);color:var(--text);border:1px solid var(--border)}
+.secondary-button:hover{border-color:var(--muted);background:var(--panel)}
+.danger-button{color:var(--accent)}
+button:disabled{opacity:.45;cursor:default}
+.editor-actions,.daily-actions,.workspace-controls{gap:8px}
+.editor-actions{display:flex;flex-wrap:wrap;margin-top:20px}
+.task-filters{gap:6px;flex-wrap:wrap;margin:20px 0}
+.task-filters button{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.task-filters button[aria-pressed=true]{background:var(--accent-soft);border-color:var(--accent);color:var(--text)}
+.form-field{min-width:0;gap:7px}
+.form-field:has(>input[type=checkbox]){display:flex;flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:10px}
+.form-field:has(>input[type=checkbox]) label{margin:0}
+.form-field label,.task-form>label,.search-box>label{font-size:12px;font-weight:500;color:var(--muted)}
+input:not([type=checkbox]):not([type=radio]):not([type=color]),select,textarea,.workspace-controls select{min-height:40px;max-width:100%;border:1px solid var(--border);border-radius:var(--control-radius);background:var(--bg);color:var(--text);padding:10px 12px;font:inherit;font-size:13px}
+textarea{line-height:1.65;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+.search-row{gap:8px}
+.search-box{margin-bottom:20px}
+.empty-state{padding:24px 16px;line-height:1.7;border:1px dashed var(--border);border-radius:10px;margin:16px 0;background:var(--bg);font-size:13px}
+.project-grid,.resource-grid{gap:18px}
+.project-heading{align-items:flex-start}
+.project-heading h3{font-size:16px;line-height:1.4}
+.project-heading p{font-size:12px}
+.project-icon{width:40px;height:40px;background:var(--surface-raised);border-color:var(--border)}
+.project-status,.badge{font-size:11px;padding:4px 9px}
+.project-footer{margin-top:18px;padding-top:14px;flex-wrap:wrap;line-height:1.6}
+.task-row{padding:14px 0;font-size:13px;align-items:flex-start}
+.task-row input{margin-top:4px}
+.task-actions{display:flex;gap:6px;flex-wrap:wrap}
+.task-linked-notes,.subtask-editor{font-size:12px;padding:8px 0;margin:4px 0}
+details>summary{cursor:pointer;line-height:1.6}
+.course-example,.material-editor{border:1px solid var(--border);border-radius:10px;padding:14px 16px;background:var(--bg);margin:16px 0}
+.course-example>summary,.material-editor>summary{font-size:13px;font-weight:600;margin:0}
+.course-example[open]>summary,.material-editor[open]>summary{margin-bottom:16px}
+.snippet-code,.course-code{font-family:Consolas,'Cascadia Code',monospace;font-size:13px;line-height:1.7}
+.snippet-code{padding:16px;border-radius:10px;background:var(--bg);border:1px solid var(--border)}
+/* The daily workspace has a clear rhythm instead of twelve full-width sections. */
+#dashboard-view{gap:20px;align-items:stretch}
+#dashboard-view>.page-heading{margin:0}
+#dashboard-view>.daily-actions{margin:0 0 4px}
+#dashboard-view>[data-dashboard-block=stats]{grid-column:1/-1;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stat-card{padding:18px 20px}
+.stat-top{color:var(--muted);font-size:12px}
+.stat-card>strong{font-size:30px;margin-top:12px}
+#dashboard-view>[data-dashboard-block=chart],#dashboard-view>[data-dashboard-block=calendar]{grid-column:1/-1}
+#dashboard-view>[data-dashboard-block=focus]{grid-column:1/-1}
+.today-panel .empty-state{padding:16px;margin-bottom:0}
+.daily-goals-form{display:grid;gap:12px}
+.activity-chart{min-height:105px;margin-top:20px}
+.calendar-controls{gap:6px;margin:16px 0}
+.calendar-controls button{padding:7px 9px;min-height:34px;font-size:11px}
+.calendar-controls strong{order:-1;flex-basis:100%;margin-bottom:4px;font-size:14px}
+.calendar-day{min-height:36px;border-radius:6px;font-size:12px}
+.productivity-grid{gap:32px}
+.productivity-grid>div+div{border-left:1px solid var(--border);padding-left:28px}
+.timer-clock{color:var(--text);font-size:54px;line-height:1.15;letter-spacing:-2px;margin:24px 0}
+/* Forms and secondary controls form distinct groups. */
+.task-form{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px;display:grid;grid-template-columns:2fr 1fr;gap:12px 18px}
+.task-form>label,.task-form>.task-options,.task-form>.editor-actions{grid-column:1/-1}
+.task-form>.task-input-row{min-width:0;align-self:end}
+.task-form>.form-field{margin:0}
+.task-options{gap:14px;margin:4px 0 0}
+.task-form>.editor-actions{margin:4px 0 0}
+.tasks-page-panel .workspace-controls{padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;margin:12px 0}
+.tasks-page-panel .workspace-controls .form-field{flex:1;min-width:120px}
+.task-sort{max-width:280px}
+#settings-view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+#settings-view>.page-heading,#settings-form,#dashboard-settings{grid-column:1/-1}
+#settings-view>.dashboard-panel{margin:0;min-width:0}
+#settings-form{grid-template-columns:repeat(3,minmax(0,1fr))}
+#settings-form>.editor-actions{grid-column:1/-1}
+.layout-setting-row{padding:10px 0;gap:8px}
+.layout-setting-row button{min-height:32px;font-size:11px;padding:6px 10px}
+#dashboard-settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px}
+#dashboard-settings>h2,#dashboard-settings>p,#dashboard-settings>button{grid-column:1/-1}
+#dashboard-settings>button{justify-self:start;margin-top:16px}
+#dashboard-settings .layout-setting-row .form-field{margin:0;min-height:38px;flex-direction:row-reverse;justify-content:flex-end}
+#dashboard-settings .layout-setting-row .form-field label{flex:1}
+.task-form{position:relative}
+.task-form>label{margin:0 0 -4px}
+.task-form>.form-field{align-self:end}
+#all-tasks li{display:grid;grid-template-columns:18px minmax(0,1fr) auto auto;gap:8px 12px;padding:16px 0;align-items:center}
+#all-tasks li>.task-content{min-width:0;padding:0;grid-column:2}
+#all-tasks li>.subtask-editor,#all-tasks li>.task-linked-notes{grid-column:2/-1;margin:0;padding:2px 0}
+#all-tasks li>input{margin:6px 0 0;align-self:start}
+#all-tasks .task-edit{margin:0}
+.notes-layout{grid-template-columns:280px minmax(0,1fr);gap:20px}
+.notes-browser{padding:18px}
+.note-list-item{background:transparent;border-color:transparent;padding:12px;margin:4px 0;border-radius:8px}
+.note-list-item:hover{background:var(--surface-raised)}
+.note-list-item[aria-pressed=true]{background:var(--accent-soft);border-color:var(--border);box-shadow:inset 3px 0 var(--accent)}
+.note-editor #note-title{font-size:20px;font-weight:600}
+#note-body{min-height:340px;font-size:14px}
+.note-metadata{gap:12px;margin:20px 0}
+.course-layout{grid-template-columns:230px minmax(0,1fr);gap:20px;align-items:start}
+.lesson-navigation{background:var(--panel);border:1px solid var(--border);padding:10px;border-radius:12px;gap:4px}
+.lesson-button{border:0;background:transparent;padding:12px;border-radius:8px;text-align:left;font-size:12px;line-height:1.6}
+.lesson-button[aria-current=step]{background:var(--accent-soft);color:var(--text);box-shadow:inset 3px 0 var(--accent)}
+.lesson-theory{font-size:14px;line-height:1.85;max-width:75ch}
+.academy-panel{margin-top:24px}
+.academy-panel>.task-filters{padding:6px;background:var(--panel);border:1px solid var(--border);border-radius:12px;gap:6px}
+.academy-panel>.task-filters button{flex:1;border-color:transparent}
+.exercise-editors{border-top:1px solid var(--border);padding-top:4px}
+.course-results{border-radius:10px;overflow-wrap:anywhere}
+.check-pass,.check-fail{padding:8px 12px;margin:8px 0;border-left:2px solid currentColor;background:var(--bg);font-size:13px}
+footer{margin-top:40px;border-color:var(--border);font-size:11px;color:var(--muted)}
+.compact .dashboard-panel,.compact .project-card{padding:16px}
+@media(min-width:1500px){.content{padding-inline:48px}.topbar{padding-inline:48px}}
+@media(max-width:1100px){.sidebar{width:200px}main{margin-left:200px}.content{padding:28px 24px}.topbar{padding:16px 24px}.course-layout{grid-template-columns:190px minmax(0,1fr)}.notes-layout{grid-template-columns:230px minmax(0,1fr)}#dashboard-view>[data-dashboard-block=stats]{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:850px){#dashboard-view>[data-dashboard-block=chart],#dashboard-view>[data-dashboard-block=calendar]{grid-column:1/-1}.course-layout,.notes-layout,#settings-view{grid-template-columns:minmax(0,1fr)}#settings-form{grid-template-columns:repeat(2,minmax(0,1fr))}.productivity-grid{grid-template-columns:1fr}.productivity-grid>div+div{border-left:0;padding-left:0;border-top:1px solid var(--border);padding-top:24px}.lesson-navigation{max-height:230px;overflow:auto}.notes-browser{max-height:420px;overflow:auto}.task-form{grid-template-columns:1fr}.task-form>*{grid-column:1!important}}
+@media(max-width:600px){.sidebar{position:static;width:100%;padding:16px;border-bottom:1px solid var(--border)}main{margin-left:0}.sidebar nav{margin-top:16px;gap:4px}.sidebar .nav-item{padding:9px 12px;min-height:40px}.sidebar .nav-item.active{box-shadow:inset 0 -2px var(--accent)}.topbar{padding:12px 16px;gap:8px;align-items:flex-start}.topbar-actions{gap:8px}.date{display:none}.storage-status{font-size:10px}.content{padding:24px 16px}.page-heading h1{font-size:30px}.dashboard-panel,.project-card,.resource-card,.task-form{padding:18px}.stat-card{padding:16px}.stat-top{font-size:11px}.stat-card>strong{font-size:27px}.daily-actions{gap:6px}.daily-actions button{padding:9px 11px;font-size:11px}#dashboard-view{gap:16px}#settings-form{grid-template-columns:1fr}.academy-panel>.task-filters button{flex:1 0 28%}.layout-setting-row .form-field{flex-basis:100%}.note-metadata{grid-template-columns:1fr}.note-metadata>*{grid-column:1}.project-status{margin-left:0}.task-options{grid-template-columns:1fr}.course-layout{gap:16px}.topbar-actions .storage-status{flex-basis:100%;text-align:right}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media(max-width:850px){#dashboard-settings{grid-template-columns:1fr}#all-tasks li{grid-template-columns:18px minmax(0,1fr) auto}#all-tasks li>.task-edit{grid-column:2;justify-self:start}#all-tasks li>.task-delete{grid-column:3}#all-tasks li>.task-content{grid-column:2/-1}}
