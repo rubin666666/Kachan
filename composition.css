@@ -1,0 +1,14 @@
+.composition-tabs{display:flex;gap:6px;flex-wrap:wrap;padding:6px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin:0 0 20px;grid-column:1/-1}
+.composition-tabs button{background:transparent;border:1px solid transparent;color:var(--muted);box-shadow:none;flex:1}
+.composition-tabs button[aria-pressed=true]{background:var(--accent-soft);color:var(--text);border-color:var(--accent-border)}
+#dashboard-view>#workday-tabs{margin:0}.lesson-step-tabs{margin:20px 0 24px}.lesson-step-tabs button{flex:1}
+#settings-view>#settings-tabs{margin:0}#settings-view>#notification-settings{grid-column:1/-1}
+#settings-view>.productivity-panel{grid-column:1/-1}
+#all-tasks li{grid-template-columns:18px minmax(0,1fr) 40px;align-items:start;padding:14px 0}
+#all-tasks li>.task-content{grid-column:2}.task-action-menu{grid-column:3;position:relative;margin-top:2px}
+.task-action-menu>summary{list-style:none;display:grid;place-items:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--border);font-size:22px;line-height:1;background:var(--surface-raised);cursor:pointer}
+.task-action-menu>summary::-webkit-details-marker{display:none}
+.task-action-popover{position:absolute;right:0;top:44px;width:min(280px,calc(100vw - 80px));z-index:25;padding:12px;background:var(--panel);border:1px solid var(--border);box-shadow:0 16px 40px #0005;border-radius:12px;display:grid;gap:8px}
+.task-action-popover>button{width:100%;margin:0!important;text-align:left}.task-action-popover details{grid-column:auto!important;padding:8px 0!important}.task-action-popover .task-linked-notes button{width:100%;white-space:normal}
+.empty-state{padding:20px;text-align:center}.empty-state button{display:block;margin:14px auto 0}.empty-state p{margin:0}
+@media(max-width:600px){.composition-tabs{gap:4px}.composition-tabs button{font-size:.8125rem;padding:9px 10px}#all-tasks li>.task-content{grid-column:2}.task-action-popover{width:240px}.lesson-step-tabs button{flex:1}.task-action-menu{grid-column:3}}
