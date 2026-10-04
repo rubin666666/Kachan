@@ -105,3 +105,17 @@ Supabase connection, email/password sign-in, manual cloud transfer, 10 backup re
 ## Regression checks
 
 Start a static server, install Playwright locally or point `KACHAN_PLAYWRIGHT` at an available Playwright package, then run `node tests/productivity.cjs` and `node tests/cloud.cjs`. Default browser is installed Edge; set `KACHAN_BROWSER` and `KACHAN_URL` to override. Tests use fresh browser contexts and do not modify your normal browser data. Cloud tests mock HTTP responses; they do not verify live SQL or RLS. Screenshots are saved under ignored `.qa/`.
+
+## Current release: learning, connections, custom dashboard and IndexedDB
+
+This section supersedes the earlier LocalStorage-only and version-6 notes.
+
+The learning path has 34 foundation lessons: 10 HTML and 6 each for CSS, JavaScript, Git and TypeScript. New modules include theory, practice, hints, quizzes and mini projects. See [LEARNING.md](LEARNING.md) for coverage and limits. CSS uses sandbox previews and computed-style checks. JavaScript pure functions run in a time-limited Worker inside an opaque-origin iframe. DOM and TypeScript use source checks, not a DOM execution engine or TS compiler. Git is simulated.
+
+Notes link independently to projects, tasks and lessons. Task lists and lessons show linked notes. Review cards link to lessons and appear on a calendar. Dashboard block visibility and order are configurable; at least one block stays visible. Resume follows the current module.
+
+Boot hydrates a synchronous working cache from IndexedDB before loading classic scripts sequentially. Atomic per-key transactions check revisions. The topbar reports pending, saved or failed states. LocalStorage migrates once and legacy records are removed only after successful commit. First launches without IndexedDB fall back to LocalStorage. If an already migrated database is unavailable, boot stops instead of replacing data with stale defaults. Browser storage remains origin-scoped and can be cleared; keep backups.
+
+Another tab's writes warn and block stale writes. Download current drafts before reloading that tab. Import, merge and reset await storage completion. Version 7 backups include academy and personalization; versions 1–6 remain accepted. Import limit: 50 MB. Reset does not resurrect migration records. Supabase is postponed: cloud.js is retained but not loaded and no cloud requests run.
+
+Run `node tests/productivity.cjs`, `node tests/academy.cjs` and `node tests/storage.cjs` with Playwright available (`KACHAN_PLAYWRIGHT` can specify its path). Checks cover reference solutions, wrong code, runaway execution, isolation, completion, links, settings, >5 MB persistence/import, older backups, concurrent tabs, offline, 128 route/language/theme/width combinations, and keyboard search. Storage tests cover aborted transactions, reset and fallback. Cloud tests are reserved for reconnection and do not prove live SQL/RLS correctness.

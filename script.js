@@ -48,7 +48,7 @@ function updateProgress() {
 
 let savedProgress = {};
 try {
-  const stored = JSON.parse(localStorage.getItem('devspace-progress') || '{}');
+  const stored = JSON.parse(kachanStorage.getItem('devspace-progress') || '{}');
   if (stored && typeof stored === 'object' && !Array.isArray(stored)) savedProgress = stored;
 } catch { /* Ignore invalid or unavailable storage. */ }
 
@@ -68,13 +68,13 @@ function markProjectWorked(projectId){const project=projects.find(p=>p.id===proj
 
 let tasks = ['taskFlex', 'taskArrays', 'taskPush', 'taskLayout'].map(key => ({ id: key, translationKey: key, completed: savedProgress[key] === true }));
 try {
-  const stored = JSON.parse(localStorage.getItem('devspace-tasks'));
+  const stored = JSON.parse(kachanStorage.getItem('devspace-tasks'));
   if (Array.isArray(stored) && stored.every(task => task && validTaskExtras(task) && typeof task.id === 'string' && typeof task.completed === 'boolean' && (typeof task.title === 'string' || ['taskFlex','taskArrays','taskPush','taskLayout'].includes(task.translationKey))) && new Set(stored.map(task => task.id)).size === stored.length) tasks = stored;
 } catch { /* Keep starter tasks if storage is invalid. */ }
 let taskFilter = 'all';
 let taskStorageFailed = false;
 function saveTasks() {
-  try { localStorage.setItem('devspace-tasks', JSON.stringify(tasks)); taskStorageFailed = false; }
+  try { kachanStorage.setItem('devspace-tasks', JSON.stringify(tasks)); taskStorageFailed = false; }
   catch { taskStorageFailed = true; }
 }
 function renderTasks() {
@@ -158,7 +158,7 @@ document.querySelectorAll('[data-topic]').forEach(input => {
   input.checked = savedProgress[key] === true;
   input.addEventListener('change', () => {
     savedProgress[key] = input.checked;
-    try { localStorage.setItem('devspace-progress', JSON.stringify(savedProgress)); } catch { /* Keep working without storage. */ }
+    try { kachanStorage.setItem('devspace-progress', JSON.stringify(savedProgress)); } catch { /* Keep working without storage. */ }
     updateProgress();
   });
 });
@@ -172,7 +172,7 @@ function validProjectUrl(value) {
 }
 let projects = [{ id: 'dev-dashboard', name: 'Kachan', description: '', descriptionKey: 'projectDescription', technologies: ['HTML', 'CSS', 'JavaScript'], status: 'inProgress', progress: 50, github: 'https://github.com/rubin666666/Kachan', live: '', updatedAt: '2026-10-04T12:00:00Z' }];
 try {
-  const stored = JSON.parse(localStorage.getItem('devspace-projects'));
+  const stored = JSON.parse(kachanStorage.getItem('devspace-projects'));
   if (Array.isArray(stored) && stored.every(p => p && validProjectExtras(p) && typeof p.id === 'string' && typeof p.name === 'string' && typeof p.description === 'string' && Array.isArray(p.technologies) && p.technologies.every(t => typeof t === 'string') && ['planning','inProgress','finished'].includes(p.status) && Number.isFinite(p.progress) && p.progress >= 0 && p.progress <= 100 && typeof p.github === 'string' && typeof p.live === 'string' && validProjectUrl(p.github) && validProjectUrl(p.live) && typeof p.updatedAt === 'string' && Number.isFinite(Date.parse(p.updatedAt))) && new Set(stored.map(p => p.id)).size === stored.length) projects = stored;
 } catch { /* Keep the initial project when storage is invalid. */ }
 // Rename only the original starter project; preserve personal projects and storage keys.
@@ -180,7 +180,7 @@ projects.forEach(project => { if (project.id === 'dev-dashboard' && project.name
 let editingProjectId = null;
 let projectStorageFailed = false;
 function saveProjects() {
-  try { localStorage.setItem('devspace-projects', JSON.stringify(projects)); projectStorageFailed = false; }
+  try { kachanStorage.setItem('devspace-projects', JSON.stringify(projects)); projectStorageFailed = false; }
   catch { projectStorageFailed = true; }
 }
 function projectElement(tag, className, text) {
@@ -285,11 +285,11 @@ function setLanguage(language) {
   renderProjects();
   showView();
   window.dispatchEvent(new Event('languagechange'));
-  try { localStorage.setItem('devspace-language', selected); } catch { /* Language switching also works when storage is unavailable. */ }
+  try { kachanStorage.setItem('devspace-language', selected); } catch { /* Language switching also works when storage is unavailable. */ }
 }
 
 let initialLanguage = 'uk';
-try { initialLanguage = localStorage.getItem('devspace-language') || 'uk'; } catch { /* Use the default language. */ }
+try { initialLanguage = kachanStorage.getItem('devspace-language') || 'uk'; } catch { /* Use the default language. */ }
 document.querySelectorAll('[data-language]').forEach(button => {
   button.addEventListener('click', () => setLanguage(button.dataset.language));
 });

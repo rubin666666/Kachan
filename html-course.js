@@ -87,7 +87,7 @@ function syncHtmlProgress(){
  const group=document.querySelector('[data-tech="HTML"]').closest('.topic-list');group.replaceChildren();
  for(const lesson of htmlLessons){const input=document.createElement('input');input.type='checkbox';input.hidden=true;input.dataset.topic='htmlLesson-'+lesson.id;input.dataset.tech='HTML';input.checked=htmlCourse.lessons[lesson.id]?.completed===true;group.append(input);savedProgress[input.dataset.topic]=input.checked;}
  const note=projectElement('a','text-link',t().htmlCourseTitle+' ↗');note.href='#html-course';note.addEventListener('click',e=>{e.preventDefault();document.querySelector('#html-course').scrollIntoView({behavior:'smooth'});});group.append(note);
- try{localStorage.setItem('devspace-progress',JSON.stringify(savedProgress));}catch{}
+ try{kachanStorage.setItem('devspace-progress',JSON.stringify(savedProgress));}catch{}
  updateProgress();renderLearningOverview();
 }
 function coursePreview(){const frame=document.querySelector('#course-preview');const code=document.querySelector('#course-code').value;
