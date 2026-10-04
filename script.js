@@ -39,6 +39,7 @@ function updateProgress() {
   document.querySelectorAll('[data-progress]').forEach(progress => {
     const group = topics.filter(input => input.dataset.tech === progress.dataset.progress);
     const count = group.filter(input => input.checked).length;
+    progress.max = group.length;
     progress.value = count;
     progress.textContent = Math.round(count / group.length * 100) + '%';
     document.querySelector('[data-percent="' + progress.dataset.progress + '"]').textContent = progress.textContent;

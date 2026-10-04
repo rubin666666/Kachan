@@ -59,3 +59,11 @@ Tasks now support editing, project links, priority, deadlines, and sorting. Over
 Design checks covered all seven pages in Ukrainian and English, dark and light themes, at 320, 390, 768, and 1440 pixel widths. Mobile navigation uses a collapsible menu. Search spacing, form order, contrast, light progress tracks, control sizes, and temporary status messages were adjusted after screenshot review.
 
 Future work, including practice-based lessons and a notebook, is listed in [ROADMAP.md](ROADMAP.md).
+
+## HTML course
+
+Learning includes an original bilingual foundational HTML module with 10 lessons: document structure, text, links, lists, images, semantics, forms, tables, accessibility, and a portfolio project. Each lesson includes theory, a syntax example, an exercise, three progressive hints, structural checks, and a reference solution unlocked after the first attempt.
+
+Drafts are saved immediately. Passing an exercise records completion and updates the HTML progress on Dashboard. A previously passed lesson stays complete while you experiment. Preview uses an isolated sandbox iframe; scripts, form submission, and external navigation are disabled. Checks use DOMParser and assess the listed structural conditions, not full HTML conformance or visual quality.
+
+HTML course data is included in version 2 JSON backups. Version 1 backups remain importable and start the new course from zero. Browser verification covers all 10 solutions and incomplete examples, persistence, hints, feedback, progress, backup compatibility, preview isolation, both languages, and responsive widths.

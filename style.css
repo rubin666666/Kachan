@@ -243,3 +243,24 @@ progress::-moz-progress-bar { background:var(--accent); }
 }
 .primary-button { color:#210f16; }
 .badge,.stack span,.section-count,.profile p,footer { font-size:11px; }
+.html-course { margin-top:36px; }
+.course-layout { display:grid; grid-template-columns:230px minmax(0,1fr); gap:20px; align-items:start; }
+.lesson-navigation { display:grid; gap:6px; padding:12px; border:1px solid var(--border); border-radius:12px; background:var(--panel); }
+.lesson-button { text-align:left; padding:12px; border:0; border-radius:6px; background:transparent; color:var(--muted); cursor:pointer; font:inherit; line-height:1.5; }
+.lesson-button[aria-current] { background:var(--accent-soft); color:var(--accent-ink); }
+.lesson-done,.check-pass { color:var(--accent-ink); }
+.lesson-theory { font-size:14px; line-height:1.85; color:var(--text); }
+#html-lesson { min-width:0; }
+#html-lesson h3 { margin:28px 0 12px; font-size:15px; }
+.course-example { margin:20px 0; padding:14px; border:1px solid var(--border); border-radius:8px; }
+.course-example summary { cursor:pointer; color:var(--accent-ink); line-height:1.6; }
+.course-code-label { display:block; font-size:13px; margin:20px 0 10px; }
+.course-code { width:100%; min-height:290px; resize:vertical; padding:16px; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text); font:13px/1.7 Consolas,monospace; tab-size:2; }
+.course-code:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.course-hints { font-size:13px; line-height:1.8; padding-left:22px; }
+.course-results { font-size:13px; line-height:1.7; }
+.check-fail { color:var(--muted); }
+#course-preview { width:100%; height:300px; border:1px solid var(--border); border-radius:8px; background:#fff; }
+.course-pagination { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; margin-top:24px; }
+@media(max-width:1100px) { .course-layout { grid-template-columns:1fr; } .lesson-navigation { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) { .lesson-navigation { grid-template-columns:1fr; } .course-code { font-size:12px; } }
