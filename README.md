@@ -127,3 +127,5 @@ Another tab's writes warn and block stale writes. Download current drafts before
 Run `node tests/productivity.cjs`, `node tests/academy.cjs` and `node tests/storage.cjs` with Playwright available (`KACHAN_PLAYWRIGHT` can specify its path). Checks cover reference solutions, wrong code, runaway execution, isolation, completion, links, settings, >5 MB persistence/import, older backups, concurrent tabs, offline, 128 route/language/theme/width combinations, and keyboard search. Storage tests cover aborted transactions, reset and fallback. Cloud tests are reserved for reconnection and do not prove live SQL/RLS correctness.
 
 Зручність: глобальне створення, клавіатурний пошук, картки/список, закріплення проєктів, головна задача дня й останні матеріали. Після видалення можна скасувати дію протягом 10 секунд; остаточне очищення корзини не скасовується. Налаштування інтерфейсу входять до наявної резервної копії.
+
+Блокнот: власні папки, закріплені записи та швидке збереження думки. Видалення папки зберігає нотатки. У проєкті є переходи до задач, коду й нотаток; додаткові списки розгортаються за потреби.
