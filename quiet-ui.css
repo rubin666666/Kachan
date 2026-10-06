@@ -1,0 +1,68 @@
+/* A flatter, denser interface with one accent and fewer competing surfaces. */
+body{background:var(--bg)}
+.content{padding-top:32px}
+.focus-hero{padding:32px 0 28px;max-width:720px}
+.focus-hero .eyebrow{display:none}
+.focus-hero h1{font-size:clamp(30px,3.5vw,46px);margin:0 0 16px}
+.focus-hero>p:last-child{font-size:16px;max-width:600px;margin:0;line-height:1.6}
+.focus-portals{gap:14px}
+.focus-portal{border-radius:18px;padding:24px;box-shadow:none}
+.focus-portal:hover{transform:none;box-shadow:none;background:var(--surface-raised)}
+.focus-portal-icon{width:36px;height:36px;font-size:22px;background:transparent;border-radius:0;justify-content:start}
+.focus-portal h2{font-size:22px;margin:18px 0 10px}
+.focus-portal p{font-size:15px;margin-bottom:0}
+.focus-portal-arrow{top:28px;right:24px;color:var(--muted)}
+.focus-secondary{margin-top:24px;padding-top:20px;gap:20px}
+.focus-secondary>.panel-note{font-size:14px;max-width:650px}
+.nav-item,.nav-item.active{border-radius:12px}
+.focus-nav-label{margin-top:16px;font-size:10px}
+.view-header{padding-bottom:18px;margin-bottom:20px}
+.view-header h1{font-size:28px}
+.dashboard-panel,.project-card,.resource-card,.learning-course-card,.tool-catalog-card{box-shadow:none;border-radius:16px}
+.project-card:hover,.resource-card:hover,.learning-course-card:hover{transform:none;box-shadow:none;border-color:var(--border)}
+.primary-button,.primary-button:hover{box-shadow:none}
+#global-create{background:var(--surface-raised);border:1px solid var(--border);color:var(--text)}
+#global-create:hover{border-color:var(--accent)}
+.composition-tabs{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:6px;padding:0;border:0;border-radius:0;background:transparent}
+.composition-tabs button{flex:0 1 auto;padding:10px 16px;border-radius:10px;min-height:42px}
+.composition-tabs button[aria-pressed=true]{background:var(--accent-soft);box-shadow:none}
+#project-focus-tabs,#learning-focus-tabs{margin:0 0 20px}
+.project-scope-bar{margin:0 0 20px;gap:12px}
+.nested-actions{margin:12px 0 20px}
+.tool-catalog{gap:12px}
+.tool-catalog-card{padding:20px;min-height:82px;font-size:16px;gap:14px}
+.tool-card-mark{font-size:22px;min-width:30px}
+.tool-body>.panel-note:first-child{display:none}
+.quiet-tool-search{display:flex;align-items:center;gap:12px;margin:0 0 20px}
+.quiet-tool-search label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.quiet-tool-search input{min-width:0;max-width:480px;flex:1}
+.quiet-tool-search button{min-height:42px}
+#resource-filters{gap:8px;margin:16px 0}
+.quiet-resource-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.quiet-resource-controls #resource-filters,.quiet-resource-controls .display-mode{margin:0}
+.quiet-resource-search{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,280px);gap:16px;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;margin:0 0 20px}
+.quiet-resource-search .form-field{margin:0}
+.quiet-resource-search>.purpose-button{display:none}
+#resource-filters button:nth-child(n+3){display:none}
+#resource-list .resource-type-group{margin-top:0}
+.resource-type-group>summary{padding:18px 0;min-height:64px}
+.resource-type-group>summary h2{font-size:20px}
+.resource-type-group>.purpose-button,.resource-card>.purpose-button,.notes-browser>.purpose-button,.note-editor>.purpose-button{display:none}
+.resource-topic-title{font-size:16px;margin:16px 0 12px}
+.resource-card{padding:20px}
+.resource-card>.badge{display:none}
+.learning-library-intro{margin-bottom:20px!important}
+.learning-library-intro h2{font-size:22px}
+.learning-course-card{padding:22px}
+.learning-card-top{margin-bottom:16px}
+.learning-course-card h3{font-size:20px}
+.learning-course-description{font-size:14px;line-height:1.6}
+.notes-browser,.note-editor{padding:20px}
+.notes-toolbar{margin:16px 0}
+input,select,textarea{max-width:100%}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+footer{margin-top:32px;padding-top:20px}
+@media(max-width:700px){.content{padding-top:24px}.focus-hero{padding:12px 0 24px}.focus-hero h1{font-size:32px}.focus-portals{grid-template-columns:1fr}.focus-portals .focus-portal:last-child{grid-column:auto}.focus-portal{padding:20px}.focus-portal h2{margin-top:12px}.focus-portal p{max-width:none}.focus-secondary{gap:12px}.focus-secondary>.panel-note{display:none}.view-header h1{font-size:26px}.quiet-tool-search{gap:8px}.quiet-tool-search button{max-width:120px}.resource-type-group>summary h2{font-size:19px}.learning-course-card{padding:20px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media(max-width:700px){.quiet-resource-search{grid-template-columns:minmax(0,1fr);gap:12px}}
+@media(max-width:700px){.topbar>span{display:none}.topbar{min-height:64px;padding:12px 16px}.topbar-actions{width:100%;justify-content:space-between;gap:8px}}
