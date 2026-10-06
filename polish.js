@@ -22,7 +22,7 @@ Q('quick-project').addEventListener('click',()=>openEditorWindow('project'));
 Q('cancel-task-edit').addEventListener('click',()=>editorWindows.get('task').dialog.close());
 document.addEventListener('click',e=>{if(e.target.closest('.task-edit')){openEditorWindow('task');queueMicrotask(updateWindowLabels);}},true);
 window.addEventListener('languagechange',updateWindowLabels);
-window.addEventListener('hashchange',()=>{const route=location.hash.slice(1).split('?')[0];for(const [kind,state] of editorWindows)if(state.dialog.open&&route!==(kind==='task'?'tasks':'projects'))state.dialog.close();});
+window.addEventListener('hashchange',()=>{const route=location.hash.slice(1).split('?')[0];for(const [kind,state] of editorWindows)if(state.dialog.open&&!(kind==='task'?(route==='tasks'||(route==='projects'&&new URLSearchParams(location.hash.split('?')[1]).get('tab')==='tasks')):route==='projects'))state.dialog.close();});
 // Animate newly visible routes, rather than every render of a timer or a task.
 let animatedRoute='';const motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
 function animateRoute(){const route=(location.hash.slice(1)||'dashboard').split('?')[0];if(route===animatedRoute)return;animatedRoute=route;const view=Q(route+'-view');if(!view||motionPreference.matches)return;playMotion(view,[{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],{duration:300});[...view.children].slice(0,12).forEach((el,index)=>{if(!el.hidden)playMotion(el,[{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'translateY(0)'}],{duration:450,delay:Math.min(index*40,240)});});}

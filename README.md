@@ -1,10 +1,10 @@
 # Kachan
 
-При відкритті головної показується стартовий екран із швидкими переходами та продовженням навчання. Детальна статистика доступна у «Робочому дні». Фрагменти коду, власні ресурси, деталі проєкту, фільтри задач, прогрес навчання та параметри нотатки відкриваються в окремих вікнах; дані й автозбереження використовують ті самі моделі.
+Основні розділи Kachan — Ресурси, Навчання та Інструменти. Головна містить три прості переходи. Задачі й нотатки доступні у вкладках Проєктів із вибором проєкту або записів без прив’язки; старі дані збережені. Бібліотека фрагментів коду знаходиться у Навчанні. Старі посилання автоматично відкривають нові розділи.
 
 Каталог Resources містить 47 вбудованих ресурсів у 13 тематичних добірках, двомовні описи, пошук, обране та особисті коментарі. Показується по 12 карток на сторінку. Каталог зберігається офлайн; зовнішні матеріали потребують інтернету. Власні посилання додаються окремо й входять у резервну копію.
 
-Інтерфейс має вкладки Dashboard «Робочий день / Фокус / Історія / Календар», навчання «Теорія / Практика / Тест» та налаштувань «Вигляд / Dashboard / Дані / Сповіщення». Для HTML вкладка «Тест» запускає структурні перевірки вправи. Дії задач доступні через меню «⋯»; панель масових дій з’являється після вибору задач. Закріплена панель переходів показує лише видимі блоки поточної вкладки.
+Головна тепер показує лише три основні напрямки. Навчання має вкладки «Теорія / Практика / Тест» та налаштування «Вигляд / Dashboard / Дані / Сповіщення». Для HTML вкладка «Тест» запускає структурні перевірки вправи. Дії задач доступні через меню «⋯»; панель масових дій з’являється після вибору задач. Закріплена панель переходів показує лише видимі блоки поточної вкладки.
 
 Personal developer workspace built with HTML, CSS, and vanilla JavaScript.
 
@@ -153,3 +153,9 @@ Learning opens with six course cards showing the scope, completed lessons and a 
 Every lesson now has an additional bilingual explanation question and a separate optional experiment with an expected result: 40 of each. Six module glossaries contain 36 terms. Concept examples can be copied without replacing a saved draft. The library highlights the next lesson and opens any course outline in a native dialog. Reader controls show step status, offer an explicit read-to-practice action, and provide a focus mode. Compact sticky step tabs keep navigation available without covering the text with a bottom toolbar. Opening an HTML lesson now explicitly refreshes its material when the route does not change.
 
 Run node tests/learning-plus.cjs for all bilingual questions/experiments, glossary content, lesson-title consistency, modal navigation, focus mode, step transitions, clipboard, persistence, offline boot and responsive layouts.
+
+## Інструменти та перевірки
+
+Вісім інструментів: пісочниця HTML/CSS/JS, розбір сайтів, генератор ідей, шпаргалки, лабораторія дизайну, JSON-форматер, текст та URL, CSS-сітка. Нові утиліти обробляють введення локально; результати копіюються, чернетки JSON і тексту живуть у поточній сесії.
+
+`tests/site-focus.cjs` перевіряє нову навігацію, прив’язку й створення задач/нотаток, бібліотеку коду, нові утиліти, збереження, офлайн та 272 комбінації сторінок/мов/тем/ширини.
