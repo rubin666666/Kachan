@@ -145,3 +145,6 @@ Run `node tests/productivity.cjs`, `node tests/academy.cjs` and `node tests/stor
 ## Detailed lesson guides
 
 All 40 lessons include expandable explanations, a working sequence, common mistakes, extra practice and self-check prompts. The 34 code lessons include short annotated concept examples distinct from the full reference solution; full academy solutions remain locked until the first check. Six Figma lessons cover frames, Auto Layout, components, typography, prototypes and a responsive Kachan design. Figma report checks validate only reported values, never the actual Figma file. Existing code-lesson IDs and learner records remain stable. Both languages and offline cache include the additions. Run node tests/learning-depth.cjs for lesson, report, persistence and responsive coverage.
+## Learning interface
+
+Learning opens with six course cards showing the scope, completed lessons and a start/continue action. Inside a lesson, the course outline and Theory / Practice / Test tabs provide navigation. Extra exercises and study notes are folded away, redundant headings and the separate section-jump bar are hidden, and mobile lesson selection uses a collapsible outline. Lesson content, checks and saved progress remain unchanged. Run node tests/learning-look.cjs and node tests/learning-depth.cjs to verify navigation, bilingual layouts, reports and persistence.
