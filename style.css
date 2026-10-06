@@ -142,7 +142,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .secondary-button:hover { border-color: var(--muted); }
 .danger-button { color: #ff7777; }
 .project-info { min-width: 0; }
-.project-info h3, .project-info p { overflow-wrap: anywhere; }
+.project-info h2, .project-info p { overflow-wrap: anywhere; }
 .project-links { display: flex; flex-wrap: wrap; gap: 14px; }
 .stack { flex-wrap: wrap; }
 .stack span { overflow-wrap: anywhere; max-width: 100%; }

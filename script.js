@@ -211,7 +211,7 @@ function renderProjects() {
       const heading = projectElement('div','project-heading');
       const icon = projectElement('span','project-icon'); icon.setAttribute('aria-hidden','true');
       const image = document.createElement('img'); image.src = 'corn.svg'; image.alt = ''; image.width = 32; image.height = 32; icon.append(image);
-      const info = projectElement('div','project-info'); info.append(projectElement('h3','',project.name), projectElement('p','',project.descriptionKey === 'projectDescription' ? text.projectDescription : project.description));
+      const info = projectElement('div','project-info'); info.append(projectElement('h2','',project.name), projectElement('p','',project.descriptionKey === 'projectDescription' ? text.projectDescription : project.description));
       heading.append(icon,info,projectElement('span','project-status',text[project.status]));
       const stack = projectElement('div','stack'); project.technologies.forEach(tech => stack.append(projectElement('span','',tech)));
       const taskProgress=projectTaskProgress(project);

@@ -42,3 +42,8 @@ input[type=checkbox],progress{accent-color:var(--accent)}
 @media(max-width:1000px){.focus-portal{padding:28px;min-height:290px}.focus-portal h2{font-size:25px}.focus-portal-arrow{right:28px;top:30px}}
 @media(max-width:700px){.focus-hero{padding:24px 0 32px}.focus-hero h1{font-size:36px;margin-bottom:18px}.focus-hero>p:last-child{font-size:16px}.focus-portals{gap:16px}.focus-portal{min-height:220px;padding:28px}.focus-portal-icon{font-size:26px;margin-bottom:26px}.focus-portal h2{font-size:26px;margin-bottom:14px}.focus-portal p{max-width:none}.focus-secondary{padding:20px 0;margin-top:24px}}
 .learning-course-mark,.learning-course-start span,.purpose-button{color:var(--muted)!important;background:transparent!important;border-radius:4px!important}.tool-preview,.tool-output,.lab-stage{border-radius:4px!important}
+
+/* List rows must fill the collection even when the card grid aligns at start. */
+.collection-list{align-items:stretch!important}
+.project-info h2{font-size:1.1rem;margin:0 0 8px;line-height:1.4}
+.learning-continue,#github-import{border-radius:4px!important}
