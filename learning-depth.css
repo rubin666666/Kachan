@@ -1,0 +1,13 @@
+.lesson-deep-guide{margin:24px 0;max-width:900px}
+.lesson-deep-guide>h3{font-size:1.15rem;margin:0 0 14px}
+.lesson-detail{border:1px solid var(--border);border-radius:16px;margin:10px 0;background:var(--panel)}
+.lesson-detail>summary{padding:16px 18px;font-size:1rem;font-weight:600;cursor:pointer;line-height:1.5}
+.lesson-detail[open]>summary{color:var(--accent);border-bottom:1px solid var(--border)}
+.lesson-detail-content{padding:4px 18px 18px;font-size:1rem;line-height:1.8;overflow-wrap:anywhere}
+.lesson-detail-content p{margin:14px 0}.lesson-detail-content ol,.lesson-detail-content ul{padding-left:24px}
+.lesson-detail-content li{margin:12px 0}.lesson-detail-content h4{margin:20px 0 8px}
+.lesson-detail-content pre{max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere}
+.lesson-specific-task,.design-practice-note{border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 12px 12px 0;background:color-mix(in srgb, var(--accent) 7%, transparent);line-height:1.8}
+.lesson-doc-link{display:inline-block;padding:10px 0;color:var(--accent);text-decoration:underline;text-underline-offset:4px}
+.lesson-detail>summary:focus-visible,.lesson-doc-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:12px}
+@media(max-width:600px){.lesson-detail>summary{padding:14px}.lesson-detail-content{padding:2px 14px 14px}.lesson-deep-guide{margin:18px 0}}

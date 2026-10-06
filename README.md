@@ -116,7 +116,7 @@ Start a static server, install Playwright locally or point `KACHAN_PLAYWRIGHT` a
 
 This section supersedes the earlier LocalStorage-only and version-6 notes.
 
-The learning path has 34 foundation lessons: 10 HTML and 6 each for CSS, JavaScript, Git and TypeScript. New modules include theory, practice, hints, quizzes and mini projects. See [LEARNING.md](LEARNING.md) for coverage and limits. CSS uses sandbox previews and computed-style checks. JavaScript pure functions run in a time-limited Worker inside an opaque-origin iframe. DOM and TypeScript use source checks, not a DOM execution engine or TS compiler. Git is simulated.
+The learning path has 40 foundation lessons: 10 HTML and 6 each for CSS, JavaScript, Git, TypeScript and Figma. New modules include theory, practice, hints, quizzes and mini projects. See [LEARNING.md](LEARNING.md) for coverage and limits. CSS uses sandbox previews and computed-style checks. JavaScript pure functions run in a time-limited Worker inside an opaque-origin iframe. DOM exercises execute in an isolated preview; TypeScript uses the bundled strict compiler and runtime checks. Git is simulated. Figma practice happens in Figma, with a JSON report and required manual review in Kachan.
 
 Notes link independently to projects, tasks and lessons. Task lists and lessons show linked notes. Review cards link to lessons and appear on a calendar. Dashboard block visibility and order are configurable; at least one block stays visible. Resume follows the current module.
 
@@ -141,3 +141,7 @@ Run `node tests/productivity.cjs`, `node tests/academy.cjs` and `node tests/stor
 Розділи меню можна приховати у Вигляд і повернути; пошук залишається доступним. Проєкти за замовчуванням компактні, назви задач відкривають деталі. Створення задачі з проєкту одразу встановлює прив’язку; код із прив’язкою до проєкту відображається в його матеріалах.
 
 Інструменти: Пісочниця HTML/CSS/JavaScript з ізольованим DOM-прев’ю й консоллю; власні розбори сайтів; 12 ідей проєктів за рівнями; 18 шпаргалок із пошуком; лабораторія стилів із CSS та контрастом. Усі записи входять у JSON-копії та працюють офлайн. JavaScript прев’ю обмежує цикли й виклики, мережа та зовнішні ресурси недоступні.
+
+## Detailed lesson guides
+
+All 40 lessons include expandable explanations, a working sequence, common mistakes, extra practice and self-check prompts. The 34 code lessons include short annotated concept examples distinct from the full reference solution; full academy solutions remain locked until the first check. Six Figma lessons cover frames, Auto Layout, components, typography, prototypes and a responsive Kachan design. Figma report checks validate only reported values, never the actual Figma file. Existing code-lesson IDs and learner records remain stable. Both languages and offline cache include the additions. Run node tests/learning-depth.cjs for lesson, report, persistence and responsive coverage.
