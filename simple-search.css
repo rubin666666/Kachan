@@ -1,0 +1,23 @@
+.simple-search-label{position:absolute!important;width:1px!important;height:1px!important;margin:0!important;padding:0!important;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.simple-search-box{margin:12px 0 16px;padding:0;border:0;background:transparent}
+.simple-search-box>.panel-note{display:none}
+.simple-search-row,.search-row{display:flex;align-items:center;position:relative;gap:8px}
+.simple-search-row input,.search-row input{width:100%;min-width:0;flex:1}
+.simple-search-row [data-simple-clear],.search-row [data-clear-search]{width:40px;min-width:40px;padding:0;font-size:22px;background:transparent;border:0;color:var(--muted)}
+.quiet-resource-search{grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:12px}
+.simple-search-filters{min-width:90px;position:relative}
+.simple-search-filters>summary{cursor:pointer;padding:12px 14px;min-height:44px;border:1px solid var(--border);border-radius:10px;font-size:14px;color:var(--muted)}
+.simple-search-filters[open]{min-width:220px}
+.simple-search-filters>.form-field{margin-top:12px}
+.quiet-tool-search>[data-simple-clear]{display:none}
+.quiet-tool-search>button{font-size:14px}
+.command-dialog{position:fixed;border-radius:16px;padding:24px;max-width:600px;border-color:var(--border)}
+.command-dialog h2{font-size:22px;margin:0 40px 20px 0}
+.simple-search-close{position:absolute;right:18px;top:14px;width:40px;height:40px;border:0;background:transparent;color:var(--muted);font-size:26px;cursor:pointer}
+.command-dialog #global-query{margin:0 0 16px}
+.command-dialog>.panel-note{margin:0 0 16px;font-size:14px}
+.command-result{border-radius:8px!important;margin:0;padding:12px;min-height:44px}
+.command-result small{font-size:12px;background:transparent!important;color:var(--muted)!important;padding:0!important}
+@media(max-width:700px){.quiet-resource-search{grid-template-columns:minmax(0,1fr)}.simple-search-filters{justify-self:start;width:auto}.simple-search-filters[open]{width:100%}.simple-search-filters>summary{border:0;padding:6px 0;min-height:32px}.command-dialog{padding:20px}.command-result{flex-wrap:nowrap}.command-result small{max-width:110px;white-space:normal}}
+input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none}.quiet-tool-search>button{width:40px;min-width:40px;padding:0;font-size:22px;border:0;background:transparent}
+#search-start-label{display:none}
