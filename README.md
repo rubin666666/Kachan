@@ -148,3 +148,8 @@ All 40 lessons include expandable explanations, a working sequence, common mista
 ## Learning interface
 
 Learning opens with six course cards showing the scope, completed lessons and a start/continue action. Inside a lesson, the course outline and Theory / Practice / Test tabs provide navigation. Extra exercises and study notes are folded away, redundant headings and the separate section-jump bar are hidden, and mobile lesson selection uses a collapsible outline. Lesson content, checks and saved progress remain unchanged. Run node tests/learning-look.cjs and node tests/learning-depth.cjs to verify navigation, bilingual layouts, reports and persistence.
+## Deeper practice and guided navigation
+
+Every lesson now has an additional bilingual explanation question and a separate optional experiment with an expected result: 40 of each. Six module glossaries contain 36 terms. Concept examples can be copied without replacing a saved draft. The library highlights the next lesson and opens any course outline in a native dialog. Reader controls show step status, offer an explicit read-to-practice action, and provide a focus mode. Compact sticky step tabs keep navigation available without covering the text with a bottom toolbar. Opening an HTML lesson now explicitly refreshes its material when the route does not change.
+
+Run node tests/learning-plus.cjs for all bilingual questions/experiments, glossary content, lesson-title consistency, modal navigation, focus mode, step transitions, clipboard, persistence, offline boot and responsive layouts.
