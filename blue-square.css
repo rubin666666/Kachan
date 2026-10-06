@@ -1,0 +1,44 @@
+/* Quiet geometry: monochrome symbols, sky blue interaction, broad home surfaces. */
+:root{--radius:4px;--control-radius:4px;--shadow:none}
+.sidebar{background:var(--panel)}
+.nav-item,.nav-item.active,.language-switch,.language-switch button,
+.primary-button,.secondary-button,.task-filters button,.composition-tabs button,
+input,select,textarea,.search-row input,.simple-search-filters>summary,
+.dashboard-panel,.project-card,.resource-card,.stat-card,.learning-course-card,
+.focus-portal,.tool-catalog-card,.command-dialog,.utility-window,.editor-window,
+.learning-reader,.learning-map-dialog,.learning-example,.snippet-code,.note-list-item,
+.empty-state,.display-mode button,.badge,.project-status,.stack span,
+.grid-tool-preview,.grid-tool-preview>div,.folder-bar button{border-radius:4px!important;box-shadow:none!important}
+.nav-item.active{border-color:var(--border);background:var(--surface-raised);box-shadow:inset 2px 0 var(--accent)!important}
+.focus-portal-icon,.focus-portal-arrow,.tool-card-mark,.project-icon,.stat-icon,.home-launcher-icon,.brand-dot,.nav-item>span:first-child{color:var(--muted)!important;background:transparent!important;border-color:transparent!important}
+.brand-icon{background:transparent;border-radius:0;filter:none}
+[data-theme=light] .brand-icon{filter:brightness(.45)}
+.avatar{border-radius:4px;background:var(--surface-raised);color:var(--text)}
+.online{background:var(--muted)}
+.focus-hero{max-width:920px;padding:clamp(32px,5vw,72px) 0 44px}
+.focus-hero h1{font-size:clamp(34px,4vw,58px);letter-spacing:-.04em;line-height:1.12;margin-bottom:24px}
+.focus-hero>p:last-child{font-size:18px;max-width:720px;line-height:1.7}
+.focus-portals{gap:20px;align-items:stretch}
+.focus-portal{min-height:320px;padding:36px;display:flex;flex-direction:column;justify-content:flex-start;border-color:var(--border);background:var(--panel)}
+.focus-portal:hover{background:var(--surface-raised);border-color:var(--accent);transform:none}
+.focus-portal-icon{font-size:30px;width:44px;height:44px;margin-bottom:38px}
+.focus-portal h2{font-size:28px;margin:0 0 18px;line-height:1.2}
+.focus-portal p{font-size:16px;line-height:1.75;margin:0;max-width:300px}
+.focus-portal-arrow{top:38px;right:36px;font-size:20px}
+.focus-secondary{margin-top:32px;padding:24px 0;gap:28px}
+.focus-secondary>.text-link{font-size:16px;margin:0;white-space:nowrap}
+.focus-secondary>.panel-note{font-size:15px}
+.focus-utility,.learning-reader{box-shadow:none}
+.text-link,.language-switch button[aria-pressed=true],.task-filters [aria-pressed=true],.display-mode [aria-pressed=true]{color:var(--accent)}
+.language-switch button[aria-pressed=true],.composition-tabs button[aria-pressed=true],.task-filters [aria-pressed=true]{background:var(--accent-soft)}
+.project-status,.badge{color:var(--muted);background:transparent;border-color:var(--border)}
+.primary-button{background:var(--accent);color:#10212c;border-color:var(--accent)}
+[data-theme=light] .primary-button{color:#fff}
+.primary-button:hover{filter:brightness(.94);box-shadow:none}
+.tool-catalog-card:hover{background:var(--surface-raised);border-color:var(--accent)}
+.grid-tool-preview>div{background:var(--surface-raised);color:var(--text)}
+.syntax-keyword{color:var(--accent)}
+input[type=checkbox],progress{accent-color:var(--accent)}
+@media(max-width:1000px){.focus-portal{padding:28px;min-height:290px}.focus-portal h2{font-size:25px}.focus-portal-arrow{right:28px;top:30px}}
+@media(max-width:700px){.focus-hero{padding:24px 0 32px}.focus-hero h1{font-size:36px;margin-bottom:18px}.focus-hero>p:last-child{font-size:16px}.focus-portals{gap:16px}.focus-portal{min-height:220px;padding:28px}.focus-portal-icon{font-size:26px;margin-bottom:26px}.focus-portal h2{font-size:26px;margin-bottom:14px}.focus-portal p{max-width:none}.focus-secondary{padding:20px 0;margin-top:24px}}
+.learning-course-mark,.learning-course-start span,.purpose-button{color:var(--muted)!important;background:transparent!important;border-radius:4px!important}.tool-preview,.tool-output,.lab-stage{border-radius:4px!important}
