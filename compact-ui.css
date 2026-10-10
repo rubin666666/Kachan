@@ -10,3 +10,20 @@
 .page-heading{margin-bottom:20px!important}.learning-library-intro:empty{display:none}
 .card-more-body>.resource-use{flex-basis:100%;margin:0;padding:8px 0}.card-more-body{gap:12px}
 @media(max-width:700px){.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card){padding:18px!important}.content .back-control{min-height:44px}.tool-catalog-card{min-height:80px!important}}
+
+/* Remove repeated chrome and keep the lesson itself in focus. */
+.learning-course-count{display:none}
+.learning-library-intro>p{display:none}
+#learning-view #academy-panel>.task-filters{display:none!important}
+#learning-view .lesson-navigation{max-height:min(65vh,560px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.learning-syllabus>summary{padding:12px;border:1px solid var(--border);border-radius:4px;margin-bottom:10px;background:var(--panel);font-size:15px}
+.learning-syllabus>summary:after{content:'+';color:var(--accent);font-size:20px}.learning-syllabus[open]>summary:after{content:'−'}
+#learning-view .learning-reader{padding:24px!important}
+#learning-view .lesson-step-tabs{gap:10px;margin-bottom:24px}
+#learning-view .lesson-step-tabs button{padding:10px 12px}
+#learning-view .learning-course-toolbar{margin-bottom:16px;gap:12px}
+#learning-view .learning-current-course{border-left:0;padding-left:0}
+.quiet-resource-controls,.workspace-controls,.view-toolbar{gap:8px}
+.display-mode button,.task-filters button{padding:8px 12px;min-height:40px}
+.tool-body>.panel-note{margin:0 0 16px}
+@media(max-width:850px){#learning-view .lesson-navigation{max-height:280px}#learning-view .learning-reader{padding:20px!important}.learning-syllabus{position:static}}
