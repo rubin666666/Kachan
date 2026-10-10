@@ -24,7 +24,7 @@ body[data-focus-route=dashboard] footer{width:100%;max-width:none;margin:16px 0 
 @media(max-width:700px){body[data-focus-route=dashboard] .content{padding:24px 20px 20px;min-height:calc(100svh - 154px)}body[data-focus-route=dashboard] .focus-hero{grid-template-columns:1fr;gap:16px;padding:16px 0 28px;min-height:0}body[data-focus-route=dashboard] .focus-hero h1{font-size:36px;margin-bottom:16px}.home-hero-text>p:last-child{font-size:16px}.home-blueprint{max-width:300px;justify-self:center}body[data-focus-route=dashboard] .focus-portals{grid-template-columns:1fr;gap:16px}body[data-focus-route=dashboard] .focus-portal{min-height:180px;grid-column:auto!important}body[data-focus-route=dashboard] .focus-portal-icon{margin-bottom:20px}body[data-focus-route=dashboard] .focus-secondary{margin-top:24px}body[data-focus-route=dashboard] footer{font-size:11px}}
 @media(prefers-reduced-motion:reduce){body[data-focus-route=dashboard] .focus-portal{transition:none}}
 
-.home-quick-start{margin-top:28px;padding:28px 0;border-top:1px solid var(--border)}
+.home-quick-start{margin-top:auto;padding:28px 0 0;border-top:1px solid var(--border)}
 .home-quick-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:20px}
 .home-quick-heading h2{font-size:21px;margin:0}.home-quick-heading p{color:var(--muted);font-size:14px;margin:0}
 .home-quick-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
@@ -33,3 +33,5 @@ body[data-focus-route=dashboard] footer{width:100%;max-width:none;margin:16px 0 
 .home-quick-title{font-size:17px;font-weight:600}.home-quick-description{font-size:14px;line-height:1.7;color:var(--muted)}.home-quick-arrow{position:absolute;right:24px;top:24px;color:var(--accent)}
 @media(max-width:700px){.home-quick-heading{align-items:flex-start;flex-direction:column;gap:8px}.home-quick-actions{grid-template-columns:1fr;gap:12px}.home-quick-action{padding:20px 44px 20px 20px}}
 @media(prefers-reduced-motion:reduce){.home-quick-action{transition:none}}
+
+body[data-focus-route=dashboard] .focus-portals{margin-bottom:28px}
