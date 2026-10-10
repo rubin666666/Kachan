@@ -273,7 +273,7 @@ function setLanguage(language) {
     element.setAttribute('aria-label', text[element.dataset.labelKey]);
   });
   document.querySelector('nav').setAttribute('aria-label', text.navigation);
-  document.querySelector('.online').setAttribute('aria-label', text.online);
+
   document.querySelector('.language-switch').setAttribute('aria-label', text.language);
   document.querySelectorAll('[data-language]').forEach(button => {
     button.setAttribute('aria-pressed', String(button.dataset.language === selected));
