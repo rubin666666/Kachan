@@ -1,0 +1,10 @@
+
+.tool-group-filter,.tool-preset-actions{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}.tool-group-filter button{background:transparent}.tool-group-filter button[aria-pressed=true]{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-border)}
+.tool-preset-actions{justify-content:flex-end}.tool-preset-actions button{font-size:14px}
+.tool-stage-title{font-size:19px!important;line-height:1.4;margin:0 0 20px!important}
+.tool-advanced,.tool-generated-code{margin-top:20px}.tool-advanced>summary,.tool-generated-code>summary{cursor:pointer;font-size:15px;color:var(--accent);padding:8px 0}.tool-advanced>.form-field{margin-top:16px}.tool-generated-code>textarea{margin:12px 0;width:100%}.tool-generated-code>button{margin-top:8px}
+.practice-task{padding:20px;background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:4px;line-height:1.8;max-width:75ch}
+.exercise-editors,.practice-editors{min-width:0}.practice-results,.developer-checks{padding:20px;background:var(--surface-raised);border-radius:4px;line-height:1.8}
+@media(max-width:700px){.tool-preset-actions{justify-content:flex-start}.tool-group-filter button{flex:1 1 auto}.tool-stage-title{font-size:18px!important}.practice-task{padding:16px}}
+
+.practice-feedback:not(:empty){padding:18px;border:1px solid var(--accent-border);background:var(--accent-soft);border-radius:4px;line-height:1.8;overflow-wrap:anywhere}
