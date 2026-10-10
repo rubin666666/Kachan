@@ -93,3 +93,10 @@ const lessonExperiments={
 'figma-prototype':['Пройди Home → Project → Details → закриття → Home у Present.','Walk Home → Project → Details → close → Home in Present.','Не має бути тупиків: кожна дія й повернення повинні мати налаштований зв’язок.','There should be no dead ends; each action and return needs a configured connection.'],
 'figma-project':['Перевір порожній стан і довгу назву на Desktop та Mobile.','Test an empty state and long title on Desktop and Mobile.','Обидва макети зберігають важливий зміст і пояснюють наступну дію.','Both layouts should preserve important content and explain the next action.']
 };
+
+// New foundation lessons use their specific experiment and explanation.
+for (const id of ["javascript-comparisons","javascript-conditions","javascript-loops","javascript-strings","css-units","css-typography"]) {
+ const row=beginnerLessons[id];
+ lessonCases[id]=[row.uk[2],row.en[2],row.uk[3],row.en[3]];
+ lessonExperiments[id]=[row.uk[2],row.en[2],row.uk[3],row.en[3]];
+}

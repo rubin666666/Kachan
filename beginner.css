@@ -1,0 +1,12 @@
+.beginner-start{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 24px!important;padding:24px!important;border-left:2px solid var(--accent)!important}
+.beginner-start h2{font-size:22px;margin:0 0 8px}.beginner-start .panel-note{margin:0;max-width:70ch}.beginner-start button{flex-shrink:0}
+.beginner-lesson{max-width:72ch}.beginner-lesson h3{font-size:20px;margin:28px 0 12px!important}.beginner-lesson>h3:first-child{margin-top:0!important}.beginner-lesson p,.foundation-reader p{font-size:16px;line-height:1.85;overflow-wrap:anywhere}
+.beginner-lesson .snippet-code{font-size:14px;padding:20px;white-space:pre-wrap;overflow-wrap:anywhere}
+.beginner-deeper{margin-top:28px;border-bottom:0}.beginner-deeper>.lesson-detail-content{padding:16px 0}.beginner-deeper .learning-more{border:0}
+.foundation-reader{max-width:720px;margin:auto}.foundation-reader h2{font-size:28px;line-height:1.3;margin:12px 0 24px}.foundation-reader h3{font-size:20px;margin:28px 0 12px}.foundation-reader .editor-actions{justify-content:space-between;gap:12px;padding-top:16px}
+.tool-guide-label{display:flex;flex-direction:column;gap:8px;min-width:0;font-weight:600}.tool-guide-description{font-size:14px;line-height:1.65;color:var(--muted);font-weight:400}
+.tool-catalog-card{align-items:flex-start;min-height:160px}.tool-card-mark{padding-top:2px;flex-shrink:0}
+.tool-learning-guide{background:var(--panel);border:1px solid var(--border);border-left:2px solid var(--accent);padding:18px 24px;margin:0 0 24px}.tool-learning-guide p,.tool-learning-guide li{font-size:15px;line-height:1.8;max-width:75ch}.tool-learning-guide li{margin:10px 0}.tool-learning-guide h3{font-size:18px;margin-top:24px}
+.resource-use{margin-top:18px;border-top:1px solid var(--border);padding-top:12px}.resource-use summary{font-size:14px;cursor:pointer;color:var(--accent)}.resource-use p{font-size:14px;line-height:1.8;color:var(--muted);margin-bottom:0}
+.resource-starter{padding:18px 24px;border:1px solid var(--border);border-left:2px solid var(--accent);background:var(--panel);margin:0 0 20px}.resource-starter>a{display:block;margin:12px 0;font-size:15px}
+@media(max-width:700px){.beginner-start{align-items:flex-start;flex-direction:column;padding:20px!important;gap:16px}.beginner-start button{width:100%}.foundation-reader h2{font-size:24px}.beginner-lesson .snippet-code{padding:16px}.tool-learning-guide,.resource-starter{padding:16px 20px}.tool-catalog-card{min-height:130px}}
