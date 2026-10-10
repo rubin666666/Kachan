@@ -1,0 +1,45 @@
+/* Shared visual rules for the five main sections; previews keep their own styles. */
+:root{--section-gap:24px;--section-padding:24px;--section-title:30px}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view){max-width:1120px;margin-inline:auto;min-width:0}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view)>.page-heading{padding:0 0 24px;margin:0 0 24px;border-bottom:1px solid var(--border);min-height:72px;align-items:center}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view)>.page-heading h1{font-size:var(--section-title);line-height:1.25;letter-spacing:-.025em;margin:0}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view)>.page-heading .view-intro{font-size:15px;line-height:1.65;color:var(--muted);margin:8px 0 0;max-width:640px}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(.dashboard-panel,.resource-card,.project-card,.learning-course-card,.tool-catalog-card){background:var(--panel);border:1px solid var(--border);border-radius:4px!important;box-shadow:none!important;padding:var(--section-padding);min-width:0}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card):hover{background:var(--surface-raised);border-color:var(--accent-border);transform:none!important}
+:is(.resource-group-grid,.learning-course-grid,.tool-catalog,#all-projects){gap:var(--section-gap)}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(.section-heading h2,.dashboard-panel h2,.resource-card h3,.project-info h2,.learning-course-card h3){font-size:20px;line-height:1.4;letter-spacing:-.015em}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(.panel-note,.resource-card p,.learning-course-description,.project-heading p){font-size:15px;line-height:1.7;color:var(--muted)}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(.primary-button,.secondary-button){min-height:42px;padding:10px 16px;font-size:14px;line-height:1.4;border-radius:4px!important}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(input:not([type=checkbox]):not([type=range]):not([type=color]),select){min-height:44px;border-radius:4px!important;font-size:15px}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(.form-field label,.form-field>label){font-size:14px;line-height:1.5}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(.composition-tabs,.focused-tabs,.task-filters){box-shadow:none;border-radius:4px;gap:8px}
+:is(#project-focus-tabs,#learning-focus-tabs,#tool-tabs){margin:0 0 24px;padding:0 0 16px;border:0;border-bottom:1px solid var(--border);background:transparent}
+:is(#project-focus-tabs,#learning-focus-tabs,#tool-tabs) button{font-size:14px;padding:10px 16px;border-radius:4px!important}
+.learning-course-card{min-height:280px}.learning-card-top{margin-bottom:20px}.learning-course-mark,.tool-card-mark{font-size:20px;color:var(--muted)!important;background:transparent!important}
+.tool-catalog-card{min-height:112px;font-size:17px;line-height:1.5;gap:16px}
+#learning-view .learning-resume-banner{border-radius:4px!important;background:var(--panel);border:1px solid var(--border);padding:var(--section-padding);margin-bottom:24px;box-shadow:none}
+#projects-view #github-import{border-radius:4px!important;background:var(--panel);border:1px solid var(--border);padding:20px 24px;margin-bottom:24px}
+#resources-view .resource-type-group>summary .badge{padding:4px 8px;font-size:13px;border-radius:4px}
+#learning-view .learning-library-intro h2{font-size:20px;margin-bottom:8px}
+#learning-view .learning-library-intro{margin-bottom:24px}
+#learning-view :is(.learning-reader,.learning-example,.lesson-button,.learning-continue,.learning-syllabus){border-radius:4px!important;box-shadow:none}
+#resources-view .resource-type-group{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin-bottom:16px;overflow:hidden}
+#resources-view .resource-type-group>summary{padding:20px 24px;min-height:64px}
+#resources-view .resource-type-group>summary h2{font-size:20px}
+#resources-view .resource-group-grid{padding:0 24px 24px}
+#resources-view .resource-card{background:var(--bg)}
+#profile-view>.page-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px}
+#profile-view .profile-controls{margin:0;gap:8px;justify-content:flex-end}
+#profile-view .employer-profile{max-width:none;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+#profile-view .profile-hero,#profile-view .employer-profile>section{padding:24px;border:1px solid var(--border);border-radius:4px;background:var(--panel)}
+#profile-view .profile-hero{grid-column:1/-1}
+#profile-view .profile-hero .eyebrow{display:none}
+#profile-view .profile-hero h2{font-size:28px;margin:0 0 12px;line-height:1.25}
+#profile-view .profile-role{font-size:16px;line-height:1.6}
+#profile-view .employer-profile>section h2{font-size:20px;margin:0 0 16px}
+#profile-view .profile-about,#profile-view .profile-works{grid-column:1/-1}
+#profile-view :is(.profile-about>p,.profile-works>p){font-size:15px;line-height:1.8;margin-bottom:0}
+#profile-view .profile-skills-empty{font-size:15px;min-height:88px;padding:16px;border-radius:4px}
+#profile-view .profile-skills li{font-size:14px;padding:8px 12px;border-radius:4px}
+@media(max-width:700px){:root{--section-gap:16px;--section-padding:20px;--section-title:26px}#profile-view>.page-heading{grid-template-columns:1fr}#profile-view .profile-controls{justify-content:flex-start}#profile-view .employer-profile{grid-template-columns:1fr;gap:16px}#profile-view .profile-hero,#profile-view .employer-profile>section{padding:20px}#resources-view .resource-type-group>summary{padding:16px 20px}#resources-view .resource-group-grid{padding:0 20px 20px}.tool-catalog-card{min-height:92px}.learning-course-card{min-height:260px}}
+@media(prefers-reduced-motion:reduce){.learning-course-card,.tool-catalog-card,.resource-card,.project-card{transition:none}}
