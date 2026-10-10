@@ -16,3 +16,8 @@ dialog.editor-window,dialog.command-dialog,dialog.learning-map-dialog{width:min(
 .page-heading h1{overflow-wrap:anywhere}
 #settings-view>.page-heading{flex-wrap:wrap;gap:16px}
 @media(max-width:1000px){body[data-focus-route=dashboard] .focus-portals,.home-quick-actions{grid-template-columns:1fr}body[data-focus-route=dashboard] .focus-portal{min-height:180px;grid-column:auto!important}.home-quick-title,.home-quick-description{overflow-wrap:anywhere}}
+
+.page-top-button{position:fixed;right:24px;bottom:24px;z-index:20;width:44px;height:44px;border:1px solid var(--accent-border);border-radius:4px;background:var(--panel);color:var(--accent);font-size:23px;cursor:pointer;box-shadow:0 4px 16px #0002}.page-top-button:hover{background:var(--accent-soft)}
+.tool-empty-state:not([hidden]){display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:20px;border:1px dashed var(--border);border-radius:4px}.tool-empty-state button{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:600px){.page-top-button{right:16px;bottom:16px}}
