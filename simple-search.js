@@ -19,15 +19,17 @@ openSearch=function(){
  const input=E('input');input.id='global-query';input.type='search';input.maxLength=200;input.placeholder=ss().search;input.setAttribute('aria-label',t().shortSearch);
  const results=E('div','command-results'),hint=E('p','panel-note',ss().hint);hint.setAttribute('role','status');
  const close=button('×',()=>searchDialog.close(),'simple-search-close');close.setAttribute('aria-label',t().close);
- function render(){results.replaceChildren();const query=input.value.trim().toLocaleLowerCase();hint.hidden=!!query;
-  const items=query?searchItems().filter(item=>!item.command&&(item.id||toolTabs.some(([,key])=>t()[key]===item.name))).filter(item=>[item.name,item.body||''].join(' ').toLocaleLowerCase().includes(query)).slice(0,20):['resources','learning','tools','projects'].map(kind=>({name:t()[kind],kind,command:true}));
+ const resultCount=E('p','search-result-count');resultCount.setAttribute('role','status');resultCount.setAttribute('aria-live','polite');resultCount.setAttribute('aria-atomic','true');
+ function render(){results.replaceChildren();const query=input.value.trim().toLocaleLowerCase();const words=query.split(/\s+/).filter(Boolean);hint.hidden=!!query;
+  const items=query?searchItems().filter(item=>!item.command&&(item.id||toolTabs.some(([,key])=>t()[key]===item.name))).filter(item=>words.every(word=>[item.name,item.body||''].join(' ').toLocaleLowerCase().includes(word))).sort((a,b)=>Number(b.name.toLocaleLowerCase().includes(query))-Number(a.name.toLocaleLowerCase().includes(query))):['resources','learning','tools','projects'].map(kind=>({name:t()[kind],kind,command:true}));
+  resultCount.textContent=query?(document.documentElement.lang==='uk'?'Результатів: ':'Results: ')+items.length+(items.length>20?(document.documentElement.lang==='uk'?' · Показано перші 20':' · Showing first 20'):''):'';
   if(!items.length)results.append(E('p','panel-note',t().noResults));
-  for(const item of items){const row=button(item.name,()=>{searchDialog.close();if(item.action)item.action();else if(item.command){location.hash=item.kind;showView();}else openEntity(item.kind,item.id);},'command-result');if(query&&item.kind)row.append(E('small','panel-note',t()[item.kind]));results.append(row);}
+  for(const item of items.slice(0,20)){const row=button(item.name,()=>{searchDialog.close();if(item.action)item.action();else if(item.command){location.hash=item.kind;showView();}else openEntity(item.kind,item.id);},'command-result');if(query&&item.kind)row.append(E('small','panel-note',t()[item.kind]));results.append(row);}
  }
  input.addEventListener('input',render);input.addEventListener('keydown',event=>{if(event.key==='Enter'&&input.value.trim()){event.preventDefault();results.querySelector('button')?.click();}});
  searchDialog.onkeydown=navigateSearchResults;
- function navigateSearchResults(event){if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();const controls=[input,...results.querySelectorAll('button')],index=controls.indexOf(document.activeElement);controls[(index+(event.key==='ArrowDown'?1:-1)+controls.length)%controls.length]?.focus();}}
- searchDialog.append(title,close,input,hint,results);render();searchDialog.showModal();input.focus();
+ function navigateSearchResults(event){if(event.key==='Escape'){event.preventDefault();searchDialog.close();return;}if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();const controls=[input,...results.querySelectorAll('button')],index=controls.indexOf(document.activeElement);controls[(index+(event.key==='ArrowDown'?1:-1)+controls.length)%controls.length]?.focus();}}
+ searchDialog.append(title,close,input,hint,resultCount,results);render();searchDialog.showModal();input.focus();
 };
 for(const name of ['renderTools','renderResources','renderProjects','renderTasks','renderNotes','renderSnippets']){const original=window[name];window[name]=function(...args){const result=original.apply(this,args);simplifySearchFields();return result;};}
 window.addEventListener('languagechange',simplifySearchFields);simplifySearchFields();

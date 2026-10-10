@@ -6,7 +6,7 @@ pageTopButton.addEventListener('click',()=>{const heading=document.querySelector
 window.addEventListener('scroll',updatePageTop,{passive:true});window.addEventListener('hashchange',updatePageTop);document.addEventListener('toggle',updatePageTop,true);
 document.addEventListener('keydown',event=>{const input=event.target;if(event.key!=='Escape'||!(input instanceof HTMLInputElement)||input.closest('dialog')||!['resource-query','projects-search','tasks-search','notes-search','snippets-search','tool-catalog-search'].includes(input.id)||!input.value)return;event.preventDefault();event.stopPropagation();input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));input.focus();},true);
 function improveToolEmptyState(){const empty=toolsView.querySelector('.tool-catalog+ [role=status]');if(!empty||empty.querySelector('button'))return;const clear=button(convenienceCopy().filters,()=>{toolGroup='all';toolSearch='';toolCatalogOpen=true;renderTools();Q('tool-catalog-search')?.focus();});empty.classList.add('tool-empty-state');empty.append(clear);}
-const smallToolsBefore=renderTools;renderTools=function(){smallToolsBefore();improveToolEmptyState();updatePageTop();};
+const smallToolsBefore=renderTools;renderTools=function(){smallToolsBefore();improveToolEmptyState();updatePageTop();const heading=toolsView.querySelector('.page-heading h1');if(heading)heading.textContent=toolCatalogOpen?t().tools:(t()[toolTabs.find(([id])=>id===selectedTool)?.[1]]||t().tools);updatePageTitle();};
 function labelSmallControls(){for(const control of document.querySelectorAll('button[aria-label]'))if(control.textContent.trim().length<=2)control.title=control.getAttribute('aria-label');for(const input of document.querySelectorAll('#resource-query,#projects-search,#tasks-search,#notes-search,#snippets-search,#tool-catalog-search'))input.title=convenienceCopy().escape;updatePageTop();}
 let smallUiQueued=false;new MutationObserver(()=>{if(smallUiQueued)return;smallUiQueued=true;queueMicrotask(()=>{smallUiQueued=false;labelSmallControls();});}).observe(Q('main-content'),{childList:true,subtree:true});
 window.addEventListener('languagechange',()=>{labelSmallControls();improveToolEmptyState();});improveToolEmptyState();labelSmallControls();
@@ -20,3 +20,9 @@ document.addEventListener('click',event=>{const card=event.target.closest('.tool
 // Reset only when entering another section; filters and detail links keep their position.
 let convenienceRoute=location.hash.split('?')[0]||'#dashboard';
 window.addEventListener('hashchange',()=>{const next=location.hash.split('?')[0]||'#dashboard';if(next===convenienceRoute)return;convenienceRoute=next;requestAnimationFrame(()=>{window.scrollTo({top:0,left:0,behavior:'instant'});updatePageTop();});});
+
+// Keep a single action menu open, while allowing its nested disclosures.
+document.addEventListener('click',event=>{const summary=event.target.closest('.card-more>summary,.minimal-actions>summary,.task-action-menu>summary');if(!summary)return;const current=summary.parentElement;for(const menu of document.querySelectorAll('.card-more[open],.minimal-actions[open],.task-action-menu[open]'))if(menu!==current&&!menu.contains(current))menu.open=false;},true);
+
+function updatePageTitle(){const route=(location.hash.split('?')[0]||'#dashboard').slice(1);const label=route==='dashboard'?t().homeTab:route==='tools'&&!toolCatalogOpen?(t()[toolTabs.find(([id])=>id===selectedTool)?.[1]]||t().tools):t()[route];document.title=(label||'Kachan')+(label?' · Kachan':'');}
+window.addEventListener('hashchange',updatePageTitle);window.addEventListener('languagechange',updatePageTitle);updatePageTitle();

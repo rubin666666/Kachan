@@ -15,3 +15,23 @@
 .beginner-lesson>.chapter-fold{padding:20px;background:var(--accent-soft);border:1px solid var(--accent-border)}
 .empty-state-refined{display:flex;align-items:flex-start;flex-direction:column;gap:16px;padding:28px!important;border:1px dashed var(--accent-border)!important;background:var(--accent-soft)!important;line-height:1.8}.empty-state-title{display:block;font-size:18px;color:var(--text);font-weight:600}.empty-state-refined>button{margin:0;align-self:flex-start}
 @media(max-width:700px){.content .page-heading h1{font-size:27px}.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card){padding:20px!important}.lesson-reading-block{padding:18px}.empty-state-refined{padding:20px!important}}
+
+/* Group longer forms without adding another navigation layer. */
+.profile-form-group{min-width:0;margin:0 0 24px;padding:20px;border:1px solid var(--border);border-radius:4px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.profile-form-group legend{padding:0 8px;font-size:17px;font-weight:600;color:var(--text)}
+.profile-form-group .form-field{min-width:0;margin:0}
+.profile-form-group .form-field:has(textarea){grid-column:1/-1}
+.profile-form-group input,.profile-form-group textarea{width:100%;min-width:0}
+.tool-range-value{font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums}
+.search-result-count{font-size:13px;color:var(--muted);margin:10px 0}
+.search-result-count:empty{display:none}
+@media(max-width:600px){.profile-form-group{grid-template-columns:1fr;padding:16px;gap:16px} :is(.card-more,.minimal-actions,.task-action-menu)>summary{min-height:44px;display:flex;align-items:center} .tool-controls :is(button,select),.tool-body .editor-actions>button{min-height:44px}}
+
+#profile-form-error:empty{display:none}
+#profile-form-error:not(:empty){padding:12px 16px;margin:0 0 20px;border:1px solid var(--accent-border);background:var(--accent-soft);color:var(--text)}
+.tool-body button:disabled{cursor:wait;opacity:.55}
+
+.profile-form-group{margin-bottom:0}
+.profile-form-group textarea{min-height:100px}
+.profile-form-actions{position:sticky;bottom:0;background:var(--panel);padding:12px 0;margin:0;z-index:2;display:flex;justify-content:flex-end}
+@media(max-width:600px){.profile-form-actions{bottom:0}.profile-form-actions button{width:100%;min-height:44px}}
