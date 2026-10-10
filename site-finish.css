@@ -1,0 +1,46 @@
+/* One surface language throughout the app. Code previews remain independent. */
+:root{--radius:4px;--control-radius:4px;--site-tint:color-mix(in srgb,var(--accent) 4%,var(--panel));--site-surface:linear-gradient(145deg,var(--site-tint),var(--panel) 68%)}
+.content{background:radial-gradient(ellipse at 95% 0,color-mix(in srgb,var(--accent) 4%,transparent),transparent 48%)}
+.sidebar{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 3%,var(--panel)),var(--panel) 60%)}
+.topbar{background:var(--bg);border-bottom:1px solid var(--border)}
+.nav-item.active{background:var(--accent-soft)!important;border-color:var(--accent-border);box-shadow:inset 2px 0 var(--accent)!important}
+.dashboard-panel,.project-card,.resource-card,.learning-course-card,.tool-catalog-card,
+.learning-reader,.learning-resume-banner,.snippet-introduction,.employer-profile>section,.profile-hero{background:var(--site-surface)!important;border-color:var(--border);border-radius:4px!important;box-shadow:none!important}
+.dashboard-panel .dashboard-panel,.tool-output,.utility-output,.snippet-code,.learning-example,.learning-recall,.learning-glossary{background:var(--surface-raised);border:1px solid var(--border);border-radius:4px!important;box-shadow:none}
+.resource-card:hover,.project-card:hover,.learning-course-card:hover,.tool-catalog-card:hover{border-color:var(--accent-border)!important;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 8%,var(--panel)),var(--panel))!important;transform:none}
+.composition-tabs,.focused-tabs,.lesson-step-tabs,.folder-bar,.display-mode{border-radius:4px!important;box-shadow:none}
+.composition-tabs button,.focused-tabs button,.lesson-step-tabs button,.folder-bar button,.display-mode button,.task-filters button{border-radius:4px!important;min-height:40px;font-size:14px;box-shadow:none}
+.composition-tabs button[aria-pressed=true],.focused-tabs button[aria-pressed=true],.display-mode button[aria-pressed=true],.task-filters button[aria-pressed=true]{background:var(--accent-soft)!important;color:var(--accent);border-color:var(--accent-border)}
+.primary-button,.secondary-button,.editor-actions>button,.utility-actions>button{border-radius:4px!important;min-height:42px;font-size:14px;padding:10px 16px;line-height:1.4;box-shadow:none!important}
+.primary-button{background:var(--accent);border:1px solid var(--accent);color:#10212c}
+[data-theme=light] .primary-button{color:#fff}
+.secondary-button{background:var(--surface-raised);border:1px solid var(--border);color:var(--text)}
+.secondary-button:hover{background:var(--accent-soft);border-color:var(--accent-border)}
+.danger-button{color:var(--text);border-color:var(--border)}
+.danger-button:hover{color:#ef7373;border-color:#ef7373}
+.form-field{gap:8px}.form-field label{font-size:14px;line-height:1.5;color:var(--muted)}
+.form-field input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),.form-field select{min-height:44px;font-size:15px;border-radius:4px!important}
+.form-field textarea{border-radius:4px!important;line-height:1.7}
+.form-field :is(input,select,textarea):focus{border-color:var(--accent);outline-color:var(--accent)}
+.panel-note,.panel-footnote{font-size:14px;line-height:1.75;color:var(--muted)}
+.empty-state,.profile-skills-empty{border-radius:4px!important;background:transparent;border:1px dashed var(--border);color:var(--muted);font-size:15px;line-height:1.7;padding:24px}
+.badge,.project-status,.stack span,.section-count{border-radius:4px!important;color:var(--muted);background:transparent;font-size:13px;line-height:1.4}
+.project-section,.chapter-fold,.cheat-entry,.review-record,.settings-disclosure{border-color:var(--border);border-radius:4px!important;box-shadow:none}
+.project-section>summary,.chapter-fold>summary,.cheat-entry>summary,.review-record>summary{font-size:15px;line-height:1.6;min-height:40px}
+.task-row,.note-list-item,.review-record,.command-result{border-radius:4px!important}
+.task-row:hover,.note-list-item:hover,.command-result:hover{background:var(--accent-soft)}
+.learning-reader h3,.chapter-reader h3{font-size:21px;line-height:1.4;letter-spacing:-.015em}
+.learning-reader .lesson-theory,.chapter-reader p{font-size:16px;line-height:1.85}
+.learning-syllabus,.learning-map-item,.learning-step-footer,.learning-example,.learning-recall,.learning-glossary{border-radius:4px!important}
+.learning-step-footer{background:var(--panel);border:1px solid var(--border);box-shadow:0 4px 20px #00000010}
+dialog.command-dialog,dialog.utility-window,dialog.editor-window,dialog.learning-map-dialog{background:var(--site-surface);border:1px solid var(--accent-border);border-radius:4px!important;box-shadow:0 24px 80px #00000030;color:var(--text)}
+dialog::backdrop{background:#070b12a6;backdrop-filter:blur(4px)}
+.editor-window-header,.utility-window-header{background:var(--panel);padding:20px 24px;border-bottom:1px solid var(--border)}
+.editor-window-header h2,.utility-window-header h2,dialog>h2{font-size:22px;line-height:1.4;letter-spacing:-.02em}
+dialog .form-field{margin-bottom:16px}dialog .editor-actions{gap:10px}
+#app-notice:not(:empty){border-radius:4px;border:1px solid var(--accent-border);background:var(--panel);box-shadow:0 8px 30px #00000020;font-size:14px}
+.section-jump-bar{background:var(--panel);border-bottom:1px solid var(--border);box-shadow:none}
+.section-jump-links a,.section-jump-links button{border-radius:4px!important}
+footer{border-color:var(--border);font-size:12px;line-height:1.6;color:var(--muted)}
+@media(max-width:700px){dialog.command-dialog,dialog.utility-window,dialog.editor-window{max-width:calc(100vw - 24px)}.editor-window-header,.utility-window-header{padding:16px 20px}.empty-state{padding:20px}.primary-button,.secondary-button,.editor-actions>button{font-size:14px}.learning-reader h3,.chapter-reader h3{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.resource-card,.project-card,.learning-course-card,.tool-catalog-card,dialog[open]{animation:none;transition:none}}
