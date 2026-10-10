@@ -1,5 +1,5 @@
-body[data-focus-route=dashboard] .content{max-width:none;width:100%;min-height:calc(100svh - 82px);display:flex;flex-direction:column;padding:32px clamp(24px,4vw,64px) 20px;background:radial-gradient(ellipse at 85% 5%,color-mix(in srgb,var(--accent) 6%,transparent),transparent 52%)}
-body[data-focus-route=dashboard] #dashboard-view{flex:1;display:flex;flex-direction:column;width:100%;max-width:1480px;margin-inline:auto}
+body[data-focus-route=dashboard] .content{max-width:none;width:100%;min-height:calc(100svh - 82px);display:flex;flex-direction:column;padding:24px 32px 20px;background:radial-gradient(ellipse at 85% 5%,color-mix(in srgb,var(--accent) 6%,transparent),transparent 52%)}
+body[data-focus-route=dashboard] #dashboard-view{flex:1;display:flex;flex-direction:column;width:100%;max-width:none;margin-inline:0}
 body[data-focus-route=dashboard] #dashboard-view #home-surface{display:flex!important;flex:1;flex-direction:column}
 body[data-focus-route=dashboard] .focus-hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,1fr);align-items:center;gap:40px;max-width:none;width:100%;padding:clamp(24px,5vh,60px) 0 32px;min-height:clamp(260px,34vh,400px)}
 .home-hero-text{min-width:0}
@@ -18,7 +18,7 @@ body[data-focus-route=dashboard] .focus-secondary{margin-top:32px;padding:20px 0
 body[data-focus-route=dashboard] .focus-secondary a{font-size:14px;color:var(--muted)}
 body[data-focus-route=dashboard] .focus-secondary a:hover{color:var(--accent)}
 body[data-focus-route=dashboard] .focus-secondary>a:last-child{margin-left:0}
-body[data-focus-route=dashboard] footer{width:100%;max-width:1480px;margin:16px auto 0;padding-top:16px;border:0;font-size:12px;opacity:1;color:var(--muted)}
+body[data-focus-route=dashboard] footer{width:100%;max-width:none;margin:16px 0 0;padding-top:16px;border:0;font-size:12px;opacity:1;color:var(--muted)}
 @media(min-width:1800px){body[data-focus-route=dashboard] .focus-portals{min-height:0}body[data-focus-route=dashboard] .focus-portal{padding:32px}.home-blueprint{max-width:560px}}
 @media(max-width:900px){body[data-focus-route=dashboard] .focus-hero{gap:20px;grid-template-columns:minmax(0,1.4fr) minmax(200px,1fr)}body[data-focus-route=dashboard] .focus-portal{padding:24px}body[data-focus-route=dashboard] .focus-portal h2{font-size:23px}body[data-focus-route=dashboard] .focus-portal-arrow{right:24px;top:24px}}
 @media(max-width:700px){body[data-focus-route=dashboard] .content{padding:24px 20px 20px;min-height:calc(100svh - 154px)}body[data-focus-route=dashboard] .focus-hero{grid-template-columns:1fr;gap:16px;padding:16px 0 28px;min-height:0}body[data-focus-route=dashboard] .focus-hero h1{font-size:36px;margin-bottom:16px}.home-hero-text>p:last-child{font-size:16px}.home-blueprint{max-width:300px;justify-self:center}body[data-focus-route=dashboard] .focus-portals{grid-template-columns:1fr;gap:16px}body[data-focus-route=dashboard] .focus-portal{min-height:180px;grid-column:auto!important}body[data-focus-route=dashboard] .focus-portal-icon{margin-bottom:20px}body[data-focus-route=dashboard] .focus-secondary{margin-top:24px}body[data-focus-route=dashboard] footer{font-size:11px}}

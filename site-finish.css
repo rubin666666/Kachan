@@ -65,3 +65,9 @@ footer{border-color:var(--border);font-size:12px;line-height:1.6;color:var(--mut
 .editor-window :is(.form-field,.project-form-grid>*,.utility-content>*){min-width:0}
 .editor-window :is(.primary-button,.secondary-button){max-width:100%;white-space:normal;overflow-wrap:anywhere;height:auto}
 @media(max-width:700px){.utility-window>.utility-content{padding:20px}}
+
+#workspace-navigation>.profile{display:flex;align-items:center;gap:10px;padding:12px;margin:8px 0 0;border:1px solid var(--border);border-radius:4px;min-width:0;color:var(--text)}
+#workspace-navigation>.profile:hover,#workspace-navigation>.profile.active{background:var(--accent-soft);border-color:var(--accent-border)}
+#workspace-navigation>.profile strong{font-size:14px}#workspace-navigation>.profile p{font-size:12px}
+#workspace-navigation>.profile .avatar{flex-shrink:0}
+@media(max-width:600px){.sidebar.menu-open #workspace-navigation>.profile{display:flex;grid-column:1/-1}}
