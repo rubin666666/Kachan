@@ -35,3 +35,65 @@
 .profile-form-group textarea{min-height:100px}
 .profile-form-actions{position:sticky;bottom:0;background:var(--panel);padding:12px 0;margin:0;z-index:2;display:flex;justify-content:flex-end}
 @media(max-width:600px){.profile-form-actions{bottom:0}.profile-form-actions button{width:100%;min-height:44px}}
+
+/* Final visual rhythm: quiet surfaces, consistent controls, compact catalogs. */
+:root{--ui-card-surface:linear-gradient(160deg,color-mix(in srgb,var(--accent) 2%,var(--panel)),var(--panel) 70%)}
+body{line-height:1.55;-webkit-font-smoothing:antialiased}
+.content .page-heading{align-items:center;gap:16px;padding-bottom:8px;min-width:0}
+.content .page-heading h1{margin:0;font-weight:650}
+.content .page-heading .title-with-help{gap:10px;min-width:0}
+.content .page-heading :is(.editor-actions,.profile-controls,.view-header-actions){margin:0;gap:8px}
+.topbar{gap:16px}.topbar .separator{margin-inline:10px}
+.sidebar .nav-item{min-height:46px;gap:12px;transition:background-color .16s,color .16s}
+.sidebar .nav-item:not(.active):hover{background:color-mix(in srgb,var(--muted) 7%,transparent);color:var(--text)}
+.sidebar .nav-label{font-size:10px;letter-spacing:1.2px}
+.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card){background:var(--ui-card-surface)!important;transition:border-color .16s,background-color .16s}
+.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card):hover{background:var(--panel)!important;border-color:var(--accent-border)!important;box-shadow:none!important}
+.content :is(.resource-card,.project-card,.learning-course-card) :is(h2,h3,h4){font-weight:600;letter-spacing:-.015em}
+.tool-catalog-card{gap:16px;line-height:1.45;font-size:16px;min-height:92px!important}
+.tool-card-mark,.learning-course-mark{display:grid;place-items:center;flex-shrink:0;width:36px;height:36px;min-width:36px;font:500 17px/1 ui-monospace,Consolas,monospace;color:var(--muted)!important;background:var(--surface-raised)!important;border-radius:4px!important}
+.learning-card-top{margin-bottom:12px}.learning-course-card h3{margin-bottom:4px}
+.learning-course-card .compact-description{margin:8px 0 16px}
+.learning-course-card progress{height:3px;margin-top:0}
+.learning-card-meta{font-variant-numeric:tabular-nums;font-size:13px;margin:10px 0 18px}
+.learning-course-start{min-height:40px;margin-top:0;padding-block:8px;font-size:14px}
+.resource-type-group>summary{min-height:64px;padding:16px 20px!important;gap:12px}
+.resource-type-group>summary :is(h2,h3){font-size:18px!important;font-weight:600}
+.resource-type-group>summary .section-count{padding:3px 7px;font-size:12px;border:0;background:var(--surface-raised)}
+.resource-card>.text-link{font-size:14px;margin-top:16px}
+.resource-card>.card-more{padding-top:10px}
+.resource-card .card-more-body{padding-top:10px}
+.resource-card .resource-meta{gap:6px}
+:is(.primary-button,.secondary-button){font-weight:600;transition:background-color .16s,border-color .16s,color .16s}
+.primary-button:hover{filter:brightness(1.06)}
+:is(input,textarea,select)::placeholder{color:var(--muted);opacity:.72}
+.form-field label{font-weight:500}
+.form-field :is(input,select,textarea):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+:is(.composition-tabs,.focused-tabs,.lesson-step-tabs,.display-mode,.tool-group-filter) button{min-height:40px;font-weight:500}
+.tool-group-filter button[aria-pressed=true]{background:var(--accent-soft);border-color:var(--accent-border);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent-border)}
+:is(.utility-window,.editor-window) .editor-window-header{min-height:72px;gap:16px;align-items:center}
+:is(.utility-window,.editor-window) .editor-window-header h2{font-size:20px;margin:0}
+.window-close{width:36px;height:36px;min-width:36px;flex-shrink:0}
+:is(.tool-code-editor,.tool-output,.utility-output,.snippet-code){font-family:ui-monospace,Consolas,monospace;font-size:14px;line-height:1.75;tab-size:2}
+.learning-reader :is(h2,h3),.chapter-reader :is(h2,h3){text-wrap:balance}
+body[data-focus-route=dashboard] .focus-portal{min-height:210px;border-top-width:1px;padding:26px}
+body[data-focus-route=dashboard] .focus-portal h2{font-size:25px}
+body[data-focus-route=dashboard] .focus-portal-icon{width:40px;height:40px;font-size:25px;margin-bottom:18px}
+.home-quick-actions{gap:16px}.home-quick-action{padding:20px 44px 20px 20px}.home-quick-title{font-size:16px}
+[data-theme=light] .content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card){background:var(--panel)!important}
+@media(max-width:1100px){.tool-catalog,.learning-course-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.tool-catalog,.learning-course-grid{grid-template-columns:1fr}.tool-catalog-card{min-height:80px!important}.content .page-heading{gap:12px}.content .page-heading h1{font-size:26px}.resource-type-group>summary{padding:14px 16px!important}.resource-type-group>summary :is(h2,h3){font-size:17px!important}.window-close{width:40px;height:40px;min-width:40px}body[data-focus-route=dashboard] .focus-portal{min-height:170px;padding:22px}.home-quick-heading h2{font-size:19px}}
+@media(prefers-reduced-motion:reduce){.sidebar .nav-item,.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card),.primary-button,.secondary-button{transition:none}}
+
+.learning-course-card{display:grid;grid-template-columns:36px minmax(0,1fr);column-gap:12px;align-content:start}
+.learning-course-card>*{grid-column:1/-1;min-width:0}
+.learning-course-card>.learning-card-top{grid-column:1;grid-row:1;margin:0 0 8px}
+.learning-course-card>h3,.learning-course-card>.title-with-help{grid-column:2;grid-row:1;align-self:center;margin:0 0 8px}
+.learning-course-card>.compact-description{margin:4px 0 16px}
+.learning-course-card .learning-course-start{width:100%;justify-content:space-between}
+
+@media(max-width:700px){
+ .topbar-actions #global-search-open{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:10px;font-size:0;flex-shrink:0}
+ .topbar-actions #global-search-open:after{content:'';width:18px;height:18px;display:block;background:currentColor;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='10' cy='10' r='6.5' fill='none' stroke='black' stroke-width='1.8'/%3E%3Cpath d='m15 15 6 6' stroke='black' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+ .tool-group-filter button{flex:0 1 auto;padding:9px 12px;font-size:13px;min-height:40px}
+}
