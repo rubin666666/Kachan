@@ -10,3 +10,11 @@ function arrangeToolWorkflow(){const c=workflowCopy(),body=toolsView.querySelect
 const workflowToolsBefore=renderTools;renderTools=function(){workflowToolsBefore();arrangeToolWorkflow();};renderTools();
 
 const workflowLessonBefore=arrangeLesson;arrangeLesson=function(){workflowLessonBefore();const body=academy.course==='HTML'?Q('html-lesson'):academyPanel.querySelector('.course-layout>section');if(!body)return;for(const heading of body.querySelectorAll(':scope>h3'))if(heading.textContent===t().courseTask){const task=heading.nextElementSibling;if(task?.matches('p'))task.classList.add('practice-task');}for(const output of body.querySelectorAll('[role=status],#course-results'))output.classList.add('practice-feedback');};
+
+function downloadToolCode(code,extension){const url=URL.createObjectURL(new Blob([code],{type:{html:'text/html',css:'text/css',js:'text/javascript'}[extension]+';charset=utf-8'}));const link=E('a');link.href=url;link.download='kachan-'+selectedTool+'.'+extension;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function arrangeToolDownloads(){if(toolCatalogOpen)return;const body=toolsView.querySelector('.tool-body');const label=extension=>(document.documentElement.lang==='uk'?'Завантажити .':'Download .')+extension;
+ if(selectedTool==='playground'){const actions=Q('playground-code')?.parentElement.querySelector('.editor-actions');actions?.append(button(label(playgroundFile),()=>downloadToolCode(toolboxState().playground[playgroundFile],playgroundFile)));}
+ else if(selectedTool==='js-practice')Q('developer-js')?.parentElement.querySelector('.editor-actions')?.append(button(label('js'),()=>downloadToolCode(Q('developer-js').value,'js')));
+ else if(['flex','paint','form','grid','lab','markup'].includes(selectedTool)){const output=body.querySelector('textarea[readonly]');const code=selectedTool==='lab'?body.querySelector('pre.tool-output'):selectedTool==='markup'?Q('markup-code'):output;if(!code)return;const extension=['form','markup'].includes(selectedTool)?'html':'css';const target=code.closest('.tool-generated-code')||code.parentElement;target.append(button(label(extension),()=>downloadToolCode(selectedTool==='lab'?labCSS():(code.value??code.textContent),extension)));}
+}
+const downloadToolsBefore=renderTools;renderTools=function(){downloadToolsBefore();arrangeToolDownloads();};renderTools();
