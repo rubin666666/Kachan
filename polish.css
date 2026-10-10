@@ -23,7 +23,7 @@ body{background:radial-gradient(ellipse at 90% 0%,var(--accent-soft),transparent
 .view-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin:-4px 0 24px}
 .editor-window{width:min(700px,calc(100vw - 32px));max-height:calc(100dvh - 48px);padding:0;border:1px solid var(--border);border-radius:20px;background:var(--panel);color:var(--text);box-shadow:0 32px 100px #0008;overflow:auto;animation:window-appear .22s cubic-bezier(.2,.8,.2,1)}
 .editor-window::backdrop,.command-dialog::backdrop{background:#050811a8;backdrop-filter:blur(6px)}
-.editor-window-header{display:flex;align-items:center;justify-content:space-between;padding:22px 26px;border-bottom:1px solid var(--border);gap:16px;background:linear-gradient(120deg,var(--accent-soft),transparent)}
+.editor-window-header{display:flex;align-items:center;justify-content:space-between;padding:22px 26px;border-bottom:0;gap:16px;background:linear-gradient(120deg,var(--accent-soft),transparent)}
 .editor-window-header h2{margin:0;font-size:21px}
 .window-close{display:grid;place-items:center;width:34px;height:34px;flex-shrink:0;border:1px solid var(--border);border-radius:9px;background:var(--surface-raised);color:var(--muted);font:24px/1 system-ui;cursor:pointer}
 .window-close:hover{color:var(--text);border-color:var(--muted)}
@@ -33,7 +33,7 @@ body{background:radial-gradient(ellipse at 90% 0%,var(--accent-soft),transparent
 .editor-window .task-input-row{margin-bottom:18px}
 .editor-window .task-options{margin:18px 0;grid-template-columns:repeat(3,minmax(0,1fr))}
 .editor-window #project-form-title{display:none}
-.editor-window .editor-actions{justify-content:flex-end;padding-top:18px;border-top:1px solid var(--border)}
+.editor-window .editor-actions{justify-content:flex-end;padding-top:18px;border-top:0}
 .editor-window-open{overflow:hidden}
 .command-dialog[open]{animation:window-appear .2s ease-out;box-shadow:0 28px 90px #0007}
 .command-result{transition:background .15s,transform .15s}
@@ -48,7 +48,7 @@ details summary::marker{color:var(--accent)}
 progress::-webkit-progress-value{transition:width .35s ease-out}
 .timer-clock{background:linear-gradient(120deg,var(--text),var(--muted));background-clip:text;-webkit-background-clip:text;color:transparent}
 @keyframes window-appear{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-.section-jump-bar{position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:18px;padding:12px 36px;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(18px);box-shadow:0 8px 22px #0000000b}
+.section-jump-bar{position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:18px;padding:12px 36px;border-bottom:0;background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(18px);box-shadow:0 8px 22px #0000000b}
 .section-jump-title{font-size:12px;font-weight:600;color:var(--text);flex-shrink:0;padding-right:18px;border-right:1px solid var(--border)}
 .section-jump-links{display:flex;gap:6px;overflow-x:auto;min-width:0;scrollbar-width:thin;align-items:center;flex:1;padding:2px}
 .section-jump-button,.section-jump-top{font:inherit;font-size:12px;white-space:nowrap;border:1px solid transparent;background:transparent;color:var(--muted);border-radius:8px;padding:8px 12px;cursor:pointer;flex-shrink:0;transition:background .15s,color .15s}

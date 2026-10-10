@@ -1,7 +1,7 @@
 #settings-view{max-width:880px;margin-inline:auto}
 #settings-view .page-heading{margin-bottom:24px}
 #settings-view .settings-intro{font-size:16px;color:var(--muted);margin:12px 0 0;line-height:1.6}
-#settings-view #settings-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+#settings-view #settings-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:16px;border-bottom:0}
 #settings-view #settings-tabs button{padding:12px 18px;font-size:15px}
 #settings-view .dashboard-panel{margin:0 0 18px;padding:28px;box-shadow:none}
 #settings-view .dashboard-panel h2{font-size:21px;margin:0 0 14px}

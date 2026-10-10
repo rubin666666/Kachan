@@ -1,7 +1,7 @@
 /* Shared visual rules for the five main sections; previews keep their own styles. */
 :root{--section-gap:24px;--section-padding:24px;--section-title:30px}
 :is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view){max-width:1120px;margin-inline:auto;min-width:0}
-:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view)>.page-heading{padding:0 0 24px;margin:0 0 24px;border-bottom:1px solid var(--border);min-height:72px;align-items:center}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view)>.page-heading{padding:0 0 24px;margin:0 0 24px;border-bottom:0;min-height:72px;align-items:center}
 :is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view)>.page-heading h1{font-size:var(--section-title);line-height:1.25;letter-spacing:-.025em;margin:0}
 :is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view)>.page-heading .view-intro{font-size:15px;line-height:1.65;color:var(--muted);margin:8px 0 0;max-width:640px}
 :is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(.dashboard-panel,.resource-card,.project-card,.learning-course-card,.tool-catalog-card){background:var(--panel);border:1px solid var(--border);border-radius:4px!important;box-shadow:none!important;padding:var(--section-padding);min-width:0}
@@ -13,7 +13,7 @@
 :is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(input:not([type=checkbox]):not([type=range]):not([type=color]),select){min-height:44px;border-radius:4px!important;font-size:15px}
 :is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(.form-field label,.form-field>label){font-size:14px;line-height:1.5}
 :is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(.composition-tabs,.focused-tabs,.task-filters){box-shadow:none;border-radius:4px;gap:8px}
-:is(#project-focus-tabs,#learning-focus-tabs,#tool-tabs){margin:0 0 24px;padding:0 0 16px;border:0;border-bottom:1px solid var(--border);background:transparent}
+:is(#project-focus-tabs,#learning-focus-tabs,#tool-tabs){margin:0 0 24px;padding:0 0 16px;border:0;border-bottom:0;background:transparent}
 :is(#project-focus-tabs,#learning-focus-tabs,#tool-tabs) button{font-size:14px;padding:10px 16px;border-radius:4px!important}
 .learning-course-card{min-height:280px}.learning-card-top{margin-bottom:20px}.learning-course-mark,.tool-card-mark{font-size:20px;color:var(--muted)!important;background:transparent!important}
 .tool-catalog-card{min-height:112px;font-size:17px;line-height:1.5;gap:16px}
