@@ -54,3 +54,14 @@ footer{border-color:var(--border);font-size:12px;line-height:1.6;color:var(--mut
 .sidebar-bottom .profile strong{font-size:14px}
 .sidebar-bottom .profile p{font-size:12px}
 @media(max-width:600px){.sidebar .brand{padding-inline:0}.sidebar.menu-open #workspace-navigation{margin-top:24px}.sidebar.menu-open .sidebar-bottom .profile{display:flex}}
+
+/* Every utility window gives its content the same safe inset. */
+.utility-window>.utility-content{padding:24px;margin:0;min-width:0;max-width:100%;box-sizing:border-box}
+.utility-window>.utility-content :is(h2,h3,h4,p,label,summary){overflow-wrap:anywhere}
+.editor-window-header h2{min-width:0;overflow-wrap:anywhere}
+.editor-window-header .window-close{flex-shrink:0}
+.editor-window .editor-actions{display:flex;flex-wrap:wrap;gap:12px}
+.editor-window :is(input,select,textarea){max-width:100%;min-width:0}
+.editor-window :is(.form-field,.project-form-grid>*,.utility-content>*){min-width:0}
+.editor-window :is(.primary-button,.secondary-button){max-width:100%;white-space:normal;overflow-wrap:anywhere;height:auto}
+@media(max-width:700px){.utility-window>.utility-content{padding:20px}}
