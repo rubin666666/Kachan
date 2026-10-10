@@ -10,3 +10,9 @@ html{scrollbar-gutter:stable}
 dialog.editor-window,dialog.command-dialog,dialog.learning-map-dialog{width:min(880px,calc(100vw - 32px));max-width:calc(100vw - 32px);max-height:calc(100dvh - 48px)}
 .utility-window>.utility-content{min-height:240px}
 @media(max-width:600px){dialog.editor-window,dialog.command-dialog,dialog.learning-map-dialog{width:calc(100vw - 24px);max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px)}}
+
+.resource-type-group>summary h2{min-width:0;overflow-wrap:anywhere}
+.page-heading .title-with-help{min-width:0;max-width:100%}
+.page-heading h1{overflow-wrap:anywhere}
+#settings-view>.page-heading{flex-wrap:wrap;gap:16px}
+@media(max-width:1000px){body[data-focus-route=dashboard] .focus-portals,.home-quick-actions{grid-template-columns:1fr}body[data-focus-route=dashboard] .focus-portal{min-height:180px;grid-column:auto!important}.home-quick-title,.home-quick-description{overflow-wrap:anywhere}}
