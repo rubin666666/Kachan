@@ -44,3 +44,13 @@ dialog .form-field{margin-bottom:16px}dialog .editor-actions{gap:10px}
 footer{border-color:var(--border);font-size:12px;line-height:1.6;color:var(--muted)}
 @media(max-width:700px){dialog.command-dialog,dialog.utility-window,dialog.editor-window{max-width:calc(100vw - 24px)}.editor-window-header,.utility-window-header{padding:16px 20px}.empty-state{padding:20px}.primary-button,.secondary-button,.editor-actions>button{font-size:14px}.learning-reader h3,.chapter-reader h3{font-size:20px}}
 @media(prefers-reduced-motion:reduce){.resource-card,.project-card,.learning-course-card,.tool-catalog-card,dialog[open]{animation:none;transition:none}}
+
+.sidebar .brand{padding-inline:12px;gap:6px}
+.sidebar .brand-icon{width:24px;height:32px;margin:0;flex-shrink:0}
+.brand-wordmark{white-space:nowrap}
+.sidebar #workspace-navigation{margin-top:32px}
+.sidebar-bottom .profile{padding:18px 12px 12px;border-radius:4px;transition:background .2s}
+.sidebar-bottom .profile:hover,.sidebar-bottom .profile.active{background:var(--accent-soft)}
+.sidebar-bottom .profile strong{font-size:14px}
+.sidebar-bottom .profile p{font-size:12px}
+@media(max-width:600px){.sidebar .brand{padding-inline:0}.sidebar.menu-open #workspace-navigation{margin-top:24px}.sidebar.menu-open .sidebar-bottom .profile{display:flex}}
