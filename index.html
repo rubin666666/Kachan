@@ -6,40 +6,41 @@
   <title>Kachan</title>
   <meta name="description" content="Kachan — resources, practical learning and developer tools.">
   <link rel="icon" href="corn.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=49">
-  <link rel="stylesheet" href="design.css?v=49">
-  <link rel="stylesheet" href="polish.css?v=49">
-  <link rel="stylesheet" href="typography.css?v=49">
-  <link rel="stylesheet" href="composition.css?v=49">
-  <link rel="stylesheet" href="workspace-ui.css?v=49">
-  <link rel="stylesheet" href="convenience.css?v=49">
-  <link rel="stylesheet" href="notebook-hub.css?v=49">
-  <link rel="stylesheet" href="workflow-refinement.css?v=49">
-  <link rel="stylesheet" href="guidance.css?v=49">
-  <link rel="stylesheet" href="visual-system.css?v=49">
-  <link rel="stylesheet" href="minimal.css?v=49">
-  <link rel="stylesheet" href="everyday-ui.css?v=49">
-  <link rel="stylesheet" href="toolbox.css?v=49">
-  <link rel="stylesheet" href="learning-depth.css?v=49">
-  <link rel="stylesheet" href="learning-look.css?v=49">
-  <link rel="stylesheet" href="learning-plus.css?v=49">
-  <link rel="stylesheet" href="site-focus.css?v=49">
-  <link rel="stylesheet" href="quiet-ui.css?v=49">
-  <link rel="stylesheet" href="simple-search.css?v=49">
-  <link rel="stylesheet" href="blue-square.css?v=49">
-  <link rel="stylesheet" href="public-profile.css?v=49">
-  <link rel="stylesheet" href="curriculum-extra.css?v=49">
-  <link rel="stylesheet" href="content.css?v=49">
-  <link rel="stylesheet" href="developer-tools.css?v=49">
-  <link rel="stylesheet" href="settings-ui.css?v=49">
-  <link rel="stylesheet" href="section-system.css?v=49">
-  <link rel="stylesheet" href="home-screen.css?v=49">
-  <link rel="stylesheet" href="site-finish.css?v=49">
-  <link rel="stylesheet" href="beginner.css?v=49">
+  <link rel="stylesheet" href="style.css?v=50">
+  <link rel="stylesheet" href="design.css?v=50">
+  <link rel="stylesheet" href="polish.css?v=50">
+  <link rel="stylesheet" href="typography.css?v=50">
+  <link rel="stylesheet" href="composition.css?v=50">
+  <link rel="stylesheet" href="workspace-ui.css?v=50">
+  <link rel="stylesheet" href="convenience.css?v=50">
+  <link rel="stylesheet" href="notebook-hub.css?v=50">
+  <link rel="stylesheet" href="workflow-refinement.css?v=50">
+  <link rel="stylesheet" href="guidance.css?v=50">
+  <link rel="stylesheet" href="visual-system.css?v=50">
+  <link rel="stylesheet" href="minimal.css?v=50">
+  <link rel="stylesheet" href="everyday-ui.css?v=50">
+  <link rel="stylesheet" href="toolbox.css?v=50">
+  <link rel="stylesheet" href="learning-depth.css?v=50">
+  <link rel="stylesheet" href="learning-look.css?v=50">
+  <link rel="stylesheet" href="learning-plus.css?v=50">
+  <link rel="stylesheet" href="site-focus.css?v=50">
+  <link rel="stylesheet" href="quiet-ui.css?v=50">
+  <link rel="stylesheet" href="simple-search.css?v=50">
+  <link rel="stylesheet" href="blue-square.css?v=50">
+  <link rel="stylesheet" href="public-profile.css?v=50">
+  <link rel="stylesheet" href="curriculum-extra.css?v=50">
+  <link rel="stylesheet" href="content.css?v=50">
+  <link rel="stylesheet" href="developer-tools.css?v=50">
+  <link rel="stylesheet" href="settings-ui.css?v=50">
+  <link rel="stylesheet" href="section-system.css?v=50">
+  <link rel="stylesheet" href="home-screen.css?v=50">
+  <link rel="stylesheet" href="site-finish.css?v=50">
+  <link rel="stylesheet" href="beginner.css?v=50">
+  <link rel="stylesheet" href="app-footer.css?v=50">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#79caff">
-  <script src="storage.js?v=49" defer></script>
-  <script src="boot.js?v=49" defer></script>
+  <script src="storage.js?v=50" defer></script>
+  <script src="boot.js?v=50" defer></script>
 </head>
 <body class="booting">
   <p id="boot-status" role="status">Kachan · Завантаження / Loading…</p>
@@ -101,8 +102,9 @@
 <section id="notes-view" hidden><div class="page-heading"><p class="eyebrow">KACHAN</p><h1 data-i18n="notes"></h1><p data-i18n="notesIntro"></p></div><div class="notes-toolbar"><button id="note-new" class="primary-button" type="button" data-i18n="newNote"></button><div class="form-field"><label for="note-template" data-i18n="noteTemplate"></label><select id="note-template"><option value="blank" data-i18n="blankNote"></option><option value="lesson" data-i18n="lessonNote"></option><option value="idea" data-i18n="ideaNote"></option><option value="daily" data-i18n="dailyNote"></option><option value="bug" data-i18n="bugNote"></option></select></div></div><div class="notes-layout"><aside class="dashboard-panel notes-browser"><div class="form-field"><label for="notes-search" data-i18n="searchNotes"></label><input type="search" id="notes-search" maxlength="200"></div><div class="form-field"><label for="notes-folder" data-i18n="category"></label><select id="notes-folder"></select></div><div class="form-field"><label for="notes-sort" data-i18n="sortTasks"></label><select id="notes-sort"><option value="updated" data-i18n="recentNotes"></option><option value="title" data-i18n="titleOrder"></option></select></div><div class="task-filters"><button id="notes-trash" class="secondary-button" type="button" aria-pressed="false" data-i18n="trash"></button></div><p id="notes-count" class="panel-note" aria-live="polite"></p><div id="notes-list"></div></aside><section class="dashboard-panel note-editor"><p id="note-empty" class="empty-state" data-i18n="chooseNote"></p><div id="note-fields" hidden><div class="form-field"><label for="note-title" data-i18n="noteTitle"></label><input id="note-title" maxlength="120"></div><div class="note-metadata"><div class="form-field"><label for="note-category" data-i18n="category"></label><select id="note-category"></select></div><div class="form-field"><label for="note-project" data-i18n="taskProject"></label><select id="note-project"></select></div><div class="form-field"><label for="note-tags" data-i18n="noteTags"></label><input id="note-tags" maxlength="300"></div></div><div class="form-field"><label for="note-body" data-i18n="noteBody"></label><textarea id="note-body" maxlength="100000" rows="18"></textarea></div><details class="course-example"><summary data-i18n="notePreview"></summary><p class="panel-note" data-i18n="markdownHelp"></p><div id="note-preview" class="markdown-preview"></div></details><p id="note-saved" class="panel-note" role="status"></p><div class="editor-actions"><button id="note-pin" class="secondary-button" type="button"></button><button id="note-export" class="secondary-button" type="button" data-i18n="exportNote"></button><button id="note-export-md" class="secondary-button" type="button" data-i18n="exportMarkdown"></button><button id="note-delete" class="secondary-button danger-button" type="button"></button><button id="note-restore" class="secondary-button" type="button" data-i18n="restoreNote" hidden></button></div></div></section></div></section>
 <section id="settings-view" hidden><div class="page-heading"><p class="eyebrow">KACHAN</p><h1 data-i18n="settings"></h1></div><form id="settings-form" class="dashboard-panel project-form-grid"><div class="form-field"><label for="user-name" data-i18n="userName"></label><input id="user-name" name="userName" maxlength="50" required value="Rubin"></div><div class="form-field"><label for="accent-color" data-i18n="accentColor"></label><select id="accent-color" name="accent"><option value="red" data-i18n="red"></option><option value="violet" data-i18n="violet"></option><option value="blue" data-i18n="blue"></option><option value="green" data-i18n="green"></option></select></div><div class="form-field"><label for="theme-select" data-i18n="theme"></label><select id="theme-select" name="theme"><option value="dark" data-i18n="dark"></option><option value="light" data-i18n="light"></option></select></div><div class="editor-actions"><button class="primary-button" data-i18n="save" type="submit"></button></div></form><section class="dashboard-panel backup-panel"><h2 data-i18n="backupTitle"></h2><p class="panel-note" data-i18n="backupInfo"></p><button id="export-data" class="secondary-button" type="button" data-i18n="exportData"></button><div class="form-field"><label for="import-file" data-i18n="importData"></label><input id="import-file" type="file" accept=".json,application/json"></div><p id="import-preview" role="status"></p><button id="confirm-import" type="button" class="primary-button" hidden data-i18n="replaceData"></button></section><div class="dashboard-panel reset-panel"><h2 data-i18n="resetTitle"></h2><p class="panel-note" data-i18n="resetDescription"></p><button id="reset-data" class="secondary-button danger-button" data-i18n="reset"></button></div></section>
 <p id="app-notice" role="status" aria-live="polite"></p>
-      <footer><span data-i18n="footer">Створюємо крок за кроком.</span><span>Kachan · v1.1</span></footer>
+
     </div>
+      <footer class="site-footer"><span data-i18n="footer">Створюємо крок за кроком.</span><span>Kachan · v1.1</span></footer>
   </main>
 </body>
 </html>
