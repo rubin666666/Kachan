@@ -21,3 +21,5 @@ dialog.editor-window,dialog.command-dialog,dialog.learning-map-dialog{width:min(
 .tool-empty-state:not([hidden]){display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:20px;border:1px dashed var(--border);border-radius:4px}.tool-empty-state button{margin:0}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 @media(max-width:600px){.page-top-button{right:16px;bottom:16px}}
+
+.resource-favorite-mark{align-self:flex-start;display:inline-block;padding:4px 8px;margin:10px 0 0;border:1px solid var(--accent-border);border-radius:4px;font-size:12px;line-height:1.5;color:var(--accent);background:var(--accent-soft)}
