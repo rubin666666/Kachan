@@ -26,7 +26,7 @@ returns bigint language plpgsql security definer set search_path='' as $$
 declare owner_id uuid:=auth.uid(); current_revision bigint; next_revision bigint;
 begin
  if owner_id is null then raise exception 'Authentication required'; end if;
- if p_payload->>'app' is distinct from 'Kachan' or p_payload->>'version' is distinct from '6' or p_payload->'data' is null or octet_length(p_payload::text)>5242880 then raise exception 'Invalid payload'; end if;
+ if p_payload->>'app' is distinct from 'Kachan' or p_payload->>'version' is distinct from '7' or jsonb_typeof(p_payload->'data') is distinct from 'object' or octet_length(p_payload::text)>5242880 then raise exception 'Invalid payload'; end if;
  perform pg_advisory_xact_lock(hashtextextended(owner_id::text,0));
  select revision into current_revision from public.kachan_snapshots where user_id=owner_id;
  if coalesce(current_revision,0)<>p_expected or p_expected is null then raise exception 'KACHAN_CONFLICT'; end if;
@@ -39,3 +39,5 @@ begin
 end;$$;
 revoke all on function public.kachan_save(bigint,jsonb) from public,anon;
 grant execute on function public.kachan_save(bigint,jsonb) to authenticated;
+
+notify pgrst, 'reload schema';
