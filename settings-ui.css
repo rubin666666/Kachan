@@ -28,3 +28,9 @@
 #settings-view #settings-reset{margin-top:28px}
 body:has(#settings-view:not([hidden])) .section-jump-bar{display:none}
 @media(max-width:600px){#settings-view .dashboard-panel{padding:20px}#settings-view #settings-form{grid-template-columns:1fr}#settings-view #settings-tabs button{padding:10px 12px;font-size:14px}#settings-view .editor-actions>button{flex:1 1 180px}#settings-view #cloud-auth-form{grid-template-columns:1fr}}
+
+/* A single consistent column for every settings tab. */
+#settings-view{width:100%;max-width:1120px;display:block;min-height:560px}
+#settings-view>.dashboard-panel,#settings-view>#settings-form,#settings-view>.settings-disclosure{width:100%;min-width:0;box-sizing:border-box}
+#settings-view>#settings-form,#settings-view>#settings-account,#settings-view>#notification-settings,#settings-view>.backup-panel{min-height:340px}
+@media(max-width:600px){#settings-view{min-height:480px}}
