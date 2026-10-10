@@ -1,0 +1,17 @@
+/* Shared type, card rhythm and clear selected states. */
+:root{--muted:#a2adba}[data-theme=light]{--muted:#586879}
+.content .page-heading h1{font-size:30px;line-height:1.25;letter-spacing:-.025em}
+.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card){padding:24px!important;border-radius:4px!important}
+.content :is(.resource-card,.project-card,.learning-course-card) :is(h2,h3){font-size:20px;line-height:1.4;letter-spacing:-.015em}
+.content :is(.panel-note,.view-intro,.tool-guide-description){font-size:15px;line-height:1.75}
+.content :is(.badge,.project-status,.section-count){font-size:13px;line-height:1.5}
+:is(.composition-tabs,.focused-tabs,.lesson-step-tabs,.task-filters,.display-mode) button[aria-pressed=true]{background:var(--accent-soft)!important;color:var(--accent)!important;box-shadow:inset 0 -2px var(--accent)!important}
+:is(.composition-tabs,.focused-tabs,.lesson-step-tabs,.task-filters,.display-mode) button:not([aria-pressed=true]){background:transparent;box-shadow:none}
+.resource-card{display:flex;flex-direction:column;align-items:stretch}.resource-card>.text-link{align-self:flex-start;font-weight:600;margin-top:20px}.resource-card>.card-more{margin-top:auto;padding-top:18px}
+.card-more>summary{cursor:pointer;font-size:14px;line-height:1.6;color:var(--muted);padding:6px 0}.card-more-body{display:flex;flex-wrap:wrap;gap:10px;padding-top:12px}.card-more-body>.resource-comment{width:100%;margin:0}.card-more-body button{max-width:100%;white-space:normal}
+.learning-reader .lesson-theory,.chapter-reader>p,.beginner-lesson{max-width:70ch}
+.beginner-lesson p,.chapter-reader>p{line-height:1.9;margin-block:16px}
+.lesson-reading-block{margin:28px 0;padding:24px;background:var(--surface-raised);border:1px solid var(--border);border-left:2px solid var(--accent);border-radius:4px}.lesson-reading-block>h3:first-child{margin-top:0!important}.lesson-reading-block>p:last-child{margin-bottom:0}
+.beginner-lesson>.chapter-fold{padding:20px;background:var(--accent-soft);border:1px solid var(--accent-border)}
+.empty-state-refined{display:flex;align-items:flex-start;flex-direction:column;gap:16px;padding:28px!important;border:1px dashed var(--accent-border)!important;background:var(--accent-soft)!important;line-height:1.8}.empty-state-title{display:block;font-size:18px;color:var(--text);font-weight:600}.empty-state-refined>button{margin:0;align-self:flex-start}
+@media(max-width:700px){.content .page-heading h1{font-size:27px}.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card){padding:20px!important}.lesson-reading-block{padding:18px}.empty-state-refined{padding:20px!important}}
