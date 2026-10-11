@@ -1,0 +1,17 @@
+/* Blue light and depth, shared across the dashboard without extra decoration. */
+.home-blueprint.home-orbit{position:relative;aspect-ratio:6/5;max-width:520px;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--accent) 5%,transparent),transparent 68%);isolation:isolate}
+.workspace-orbit{display:block;width:100%;height:100%;pointer-events:none}
+.home-title-accent{color:var(--accent);background:linear-gradient(110deg,var(--text),var(--accent) 70%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.orbit-label{position:absolute;display:flex;align-items:center;gap:8px;padding:10px 12px;background:color-mix(in srgb,var(--panel) 94%,transparent);border:1px solid var(--accent-border);border-radius:4px;font-size:12px;color:var(--text);box-shadow:0 8px 24px #00000012;white-space:nowrap;pointer-events:none}
+.orbit-resources{top:20%;left:0}.orbit-learning{bottom:16%;left:8%}.orbit-tools{top:56%;right:0}
+.orbit-dot{width:5px;height:5px;background:var(--accent);box-shadow:0 0 10px color-mix(in srgb,var(--accent) 55%,transparent)}
+.content :is(.focus-portal,.home-quick-action,.tool-catalog-card,.learning-course-card,.resource-card,.project-card){position:relative;isolation:isolate}
+.content :is(.focus-portal,.home-quick-action,.tool-catalog-card,.learning-course-card,.resource-card,.project-card)::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:radial-gradient(220px circle at var(--pointer-x,50%) var(--pointer-y,50%),color-mix(in srgb,var(--accent) 11%,transparent),transparent 80%);opacity:0;transition:opacity 260ms ease}
+.content .pointer-lit::before{opacity:1}
+.focus-portal-arrow{transition:translate 220ms var(--motion-ease)}
+.focus-portal:hover .focus-portal-arrow{translate:2px -2px}
+.sidebar .nav-item.active{box-shadow:inset 2px 0 var(--accent),0 0 20px color-mix(in srgb,var(--accent) 4%,transparent)!important}
+.primary-button:focus-visible,.secondary-button:focus-visible,.focus-portal:focus-visible,.home-quick-action:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+@media(min-width:1600px){.home-blueprint.home-orbit{max-width:570px}}
+@media(max-width:700px){.home-blueprint.home-orbit{width:min(100%,300px)}.orbit-label{padding:7px 9px;font-size:11px;gap:6px}}
+@media(prefers-reduced-motion:reduce){body .content :is(.focus-portal,.home-quick-action,.tool-catalog-card,.learning-course-card,.resource-card,.project-card),body :is(.primary-button,.secondary-button,.window-close,.tool-catalog-back),body .sidebar .nav-item{transition:none!important;animation:none!important}.content .pointer-lit::before{opacity:0}.focus-portal:hover .focus-portal-arrow{translate:none}}
