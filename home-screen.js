@@ -8,8 +8,9 @@ function renderHomeQuickStart(){
  const section=E('section','home-quick-start');
  const heading=E('div','home-quick-heading');heading.append(E('h2','',uk?'Швидкий старт':'Quick start'),E('p','',uk?'Один маленький крок сьогодні.':'One small step today.'));section.append(heading);
  const actions=E('div','home-quick-actions');
+ const next=nextResumeEntry();
  const items=[
- [uk?'Продовжити навчання':'Continue learning',uk?'Повернись до уроку та зроби наступний крок.':'Return to your lesson and take the next step.',()=>Q('continue-html').click()],
+ [uk?'Продовжити навчання':'Continue learning',next.course+' · '+next.title[document.documentElement.lang],()=>openLesson(next.id)],
  [uk?'Спробувати код':'Try some code',uk?'HTML, CSS і результат поруч — експериментуй.':'HTML, CSS and a live result — experiment.',()=>{location.hash='tools';showView();toolCatalogOpen=false;selectedTool='playground';renderTools();}],
  [uk?'Почати з нуля':'Start from zero',uk?'Розберися з основами перед першим уроком.':'Learn the basics before your first lesson.',()=>openFoundation()]
  ];

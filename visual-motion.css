@@ -135,3 +135,25 @@ dialog .editor-window-header{background:linear-gradient(110deg,color-mix(in srgb
 #learning-view .code-lines-wrapped>.reader-code-block,#learning-view .code-lines-wrapped>.reader-code-block code{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
 @media(max-width:700px){.reader-code-toolbar{padding:8px;gap:4px}.reader-code-toolbar :is(.example-copy,.example-wrap){min-height:40px;padding:7px 8px}#learning-view .reader-code-shell>.reader-code-block{padding:14px!important;max-height:420px}}
 @media(prefers-reduced-motion:reduce){.reader-code-toolbar :is(.example-copy,.example-wrap){transition:none!important}}
+
+/* Small diagrams give the three main destinations an individual identity. */
+body[data-focus-route=dashboard] .focus-portal{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:24px;min-height:230px;border-top:1px solid var(--accent-border);background:linear-gradient(150deg,color-mix(in srgb,var(--accent) 6%,var(--panel)),var(--panel) 75%)}
+body[data-focus-route=dashboard] .focus-portal-icon{display:block;width:70px;height:44px;margin:0 0 4px;color:var(--accent)}
+.portal-diagram{width:70px;height:44px;display:block;opacity:.7;transition:opacity 220ms,translate 280ms var(--motion-ease)}
+.focus-portal:hover .portal-diagram{opacity:1;translate:0 -2px}
+body[data-focus-route=dashboard] .focus-portal h2{font-size:25px;margin:0;line-height:1.3}
+body[data-focus-route=dashboard] .focus-portal p{font-size:15px;line-height:1.65;margin:0;max-width:38ch}
+.portal-metric{display:block;margin-top:auto;padding-top:10px;font-size:12px;color:var(--muted);line-height:1.5}
+.portal-metric strong{font:500 13px/1.5 ui-monospace,Consolas,monospace;color:var(--text);font-variant-numeric:tabular-nums}
+body[data-focus-route=dashboard] .focus-portal-arrow{top:24px;right:24px;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--surface-raised);font-size:16px;line-height:1}
+.home-quick-action{background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 4%,var(--panel)),var(--panel) 85%)}
+.home-quick-description{font-size:13px;line-height:1.6}.home-quick-title{font-size:16px}.home-quick-heading h2{font-size:18px}
+.empty-state-emblem{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--accent-border);border-radius:4px;background:var(--panel);color:var(--muted);flex-shrink:0}.empty-state-emblem svg{width:23px;height:23px}
+.content .empty-state-refined{border-style:solid!important;background:linear-gradient(140deg,color-mix(in srgb,var(--accent) 3%,var(--panel)),var(--panel))!important}
+.content :is(input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),textarea,select):focus-visible{outline:2px solid var(--accent-border);outline-offset:2px;border-color:var(--accent)!important;box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 5%,transparent)}
+.content .form-field{line-height:1.6}.content select{cursor:pointer}
+.content :is(.chapter-fold,.card-more,.tool-generated-code)>summary{transition:color 160ms,background-color 160ms}.content :is(.chapter-fold,.card-more,.tool-generated-code)>summary:hover{color:var(--accent)}
+.content progress{accent-color:var(--accent)}
+@media(max-width:900px){body[data-focus-route=dashboard] .focus-portal{padding:20px;gap:9px}body[data-focus-route=dashboard] .focus-portal h2{font-size:23px}body[data-focus-route=dashboard] .focus-portal-arrow{right:20px;top:20px}}
+@media(max-width:700px){body[data-focus-route=dashboard] .focus-portal{min-height:180px;display:grid;grid-template-columns:52px minmax(0,1fr);column-gap:14px;row-gap:6px;align-content:start}body[data-focus-route=dashboard] .focus-portal-icon{grid-row:1/4;width:52px;height:42px;margin:0;align-self:start}.portal-diagram{width:52px;height:42px}body[data-focus-route=dashboard] .focus-portal h2{padding-right:28px;font-size:22px}.focus-portal p,.focus-portal .portal-metric{grid-column:2}.portal-metric{padding-top:4px;margin:0}.home-quick-action{min-height:100px}.home-quick-heading p{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.portal-diagram,.content :is(.chapter-fold,.card-more,.tool-generated-code)>summary{transition:none!important}.focus-portal:hover .portal-diagram{translate:none}}

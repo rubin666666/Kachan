@@ -40,7 +40,7 @@
   return {sync,destroy(){disposed=true;cancelAnimationFrame(frame);resizeObserver.disconnect();intersection.disconnect();themeObserver.disconnect();host.removeEventListener('pointermove',pointer);host.removeEventListener('pointerleave',leave);}};
  }
  const before=renderHome;
- renderHome=function(){scene?.destroy();scene=null;before();const heading=homeSurface.querySelector('.home-hero-text h1');if(heading){const text=heading.textContent,index=text.lastIndexOf(' ');if(index>0)heading.replaceChildren(document.createTextNode(text.slice(0,index+1)),E('span','home-title-accent',text.slice(index+1)));}const host=homeSurface.querySelector('.home-blueprint');if(host)scene=createScene(host);};
+ renderHome=function(){scene?.destroy();scene=null;before();const heading=homeSurface.querySelector('.home-hero-text h1');if(heading){const text=heading.textContent,index=text.lastIndexOf(' ');if(index>0)heading.replaceChildren(document.createTextNode(text.slice(0,index+1)),E('span','home-title-accent',text.slice(index+1)));}const host=homeSurface.querySelector('.home-blueprint');if(host)scene=createScene(host);decorateHomePortals();};
  document.addEventListener('visibilitychange',()=>scene?.sync());window.addEventListener('hashchange',()=>requestAnimationFrame(()=>scene?.sync()));window.addEventListener('languagechange',()=>renderHome());reduce.addEventListener('change',()=>scene?.sync());
  renderHome();
 
@@ -73,6 +73,13 @@
  }
  document.addEventListener('input',event=>{if(event.target.matches('input[type=range]'))updateRange(event.target);},{passive:true});
  function smallIcon(path){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('fill','none');svg.setAttribute('stroke','currentColor');svg.setAttribute('stroke-width','1.5');svg.setAttribute('stroke-linecap','round');svg.setAttribute('stroke-linejoin','round');const line=document.createElementNS(svg.namespaceURI,'path');line.setAttribute('d',path);svg.append(line);return svg;}
+ function decorateHomePortals(){
+  const uk=document.documentElement.lang==='uk',items={resources:{value:resourceRows().length,label:uk?'матеріалів':'resources',path:'M10 19h35v30H10z M20 12h35v30 M30 5h35v30 M16 27h21 M16 34h15 M16 41h18'},learning:{value:learningModules().reduce((n,m)=>n+m.lessons.length,0),label:uk?'уроків':'lessons',path:'M7 40h13v-9h13V20h14V9h20 M7 46h13 M33 37h14 M53 27h14 M58 9l9 0 0 9'},tools:{value:toolTabs.length,label:uk?'інструментів':'tools',path:'M9 9h24v16H9z M43 9h24v16H43z M9 35h24v16H9z M43 35h24v16H43z M17 17h8 M51 17h8 M17 43h8 M51 43h8'}};
+  for(const card of homeSurface.querySelectorAll('.focus-portal')){const item=items[card.hash.slice(1)];if(!item)continue;
+   const icon=card.querySelector('.focus-portal-icon');if(icon){icon.textContent='';icon.setAttribute('aria-hidden','true');const drawing=smallIcon(item.path);drawing.setAttribute('viewBox','0 0 78 58');drawing.classList.add('portal-diagram');icon.append(drawing);}
+   const metric=E('span','portal-metric');metric.append(E('strong','',String(item.value)),document.createTextNode(' '+item.label));card.append(metric);
+  }
+ }
  function refineSurfaces(){
   for(const route of ['resources','learning','tools','projects','profile','settings']){
    const heading=Q(route+'-view')?.querySelector(':scope>.page-heading'),title=heading?.querySelector('h1');if(!title||heading.querySelector('.section-emblem'))continue;
@@ -81,6 +88,7 @@
    heading.classList.add('section-heading-surface');
   }
   const uk=document.documentElement.lang==='uk';
+  for(const state of document.querySelectorAll('.content .empty-state-refined,.content .profile-skills-empty')){if(state.querySelector('.empty-state-emblem'))continue;const mark=E('span','empty-state-emblem');mark.setAttribute('aria-hidden','true');mark.append(smallIcon('M4 5h16v14H4z M4 12h5l2 3h2l2-3h5 M9 8h6'));state.prepend(mark);}
   for(const card of Q('resources-view').querySelectorAll('.resource-card')){
    if(card.querySelector('.resource-save-button'))continue;
    const control=[...card.querySelectorAll('button')].find(b=>b.textContent===t().favorite||b.textContent===t().unfavorite),title=card.querySelector('.title-with-help')||card.querySelector('h2,h3,h4');if(!control||!title)continue;
