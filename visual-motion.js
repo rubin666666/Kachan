@@ -90,6 +90,18 @@
   function update(){const value=input.value,selection=value.slice(0,input.selectionStart),lines=value.split('\n').length,row=selection.split('\n').length,column=selection.length-selection.lastIndexOf('\n'),summary=lines+(uk?' рядків · ':' lines · ')+Array.from(value).length+(uk?' символів':' characters'),caret=(uk?'Рядок ':'Ln ')+row+' · '+(uk?'Позиція ':'Col ')+column;if(size.textContent!==summary)size.textContent=summary;if(position.textContent!==caret)position.textContent=caret;}
   input.wrap='off';input.before(shell);shell.append(bar,input,status);for(const event of ['input','keyup','click','select'])input.addEventListener(event,update);update();
  }
+ function refineInlineCode(paragraph){
+  if(paragraph.children.length)return;const source=paragraph.textContent,tokens=/<\/?[a-z][\w-]*(?:\s[^<>]{0,100})?>|\b(?:console\.(?:log|error)|document\.(?:querySelector|getElementById)|addEventListener|return|const|let|undefined|NaN)\b/gi;
+  const matches=[...source.matchAll(tokens)];if(!matches.length)return;const fragment=document.createDocumentFragment();let last=0;for(const match of matches){fragment.append(document.createTextNode(source.slice(last,match.index)),E('code','reader-inline-code',match[0]));last=match.index+match[0].length;}fragment.append(document.createTextNode(source.slice(last)));paragraph.replaceChildren(fragment);
+ }
+ function refineChapterNavigation(){
+  const reader=document.querySelector('#chapter-window .chapter-reader');if(!reader||!reader.children.length)return;
+  let nav=reader.querySelector('.chapter-section-nav');if(!nav){const sections=[reader.querySelector(':scope>section'),reader.querySelector(':scope>details.chapter-fold'),[...reader.querySelectorAll(':scope>section')][1],reader.querySelector('.chapter-quiz')];if(sections.some(section=>!section))return;
+   const uk=document.documentElement.lang==='uk',labels=uk?['Пояснення','Приклад','Практика','Перевір себе']:['Explanation','Example','Practice','Self-check'];nav=E('nav','chapter-section-nav');nav.setAttribute('aria-label',uk?'Розділи уроку':'Lesson sections');
+   sections.forEach((section,index)=>{section.id='chapter-section-'+index;const control=button(labels[index],()=>{if(section.matches('details'))section.open=true;const dialog=reader.closest('dialog'),offset=dialog.querySelector('.editor-window-header').getBoundingClientRect().height+nav.getBoundingClientRect().height+20;dialog.scrollTo({top:dialog.scrollTop+section.getBoundingClientRect().top-dialog.getBoundingClientRect().top-offset,behavior:reduce.matches?'instant':'smooth'});},'chapter-section-link');control.setAttribute('aria-controls',section.id);if(!index)control.setAttribute('aria-current','location');nav.append(control);});reader.querySelector('h2').after(nav);
+  }
+ }
+ let chapterScrollFrame=0;const chapterDialog=document.getElementById('chapter-window');new ResizeObserver(entries=>{chapterDialog.style.setProperty('--chapter-header-height',entries[0].target.getBoundingClientRect().height+'px');}).observe(chapterDialog.querySelector('.editor-window-header'));chapterDialog.addEventListener('scroll',()=>{if(chapterScrollFrame)return;chapterScrollFrame=requestAnimationFrame(()=>{chapterScrollFrame=0;const nav=chapterDialog.querySelector('.chapter-section-nav');if(!nav)return;const line=nav.getBoundingClientRect().bottom+30,controls=[...nav.children];let active=0;controls.forEach((control,index)=>{const target=document.getElementById(control.getAttribute('aria-controls'));if(target?.getBoundingClientRect().top<=line)active=index;});controls.forEach((control,index)=>{if(index===active)control.setAttribute('aria-current','location');else control.removeAttribute('aria-current');});});},{passive:true});
  document.addEventListener('keydown',event=>{if(event.key!=='Enter'||!(event.ctrlKey||event.metaKey)||event.altKey||event.shiftKey||event.repeat||!event.target.matches('.tool-body textarea.tool-code-editor'))return;const run=event.target.closest('.tool-body')?.querySelector('button.primary-button');if(!run)return;event.preventDefault();if(!run.disabled)run.click();});
  function refineSurfaces(){
   for(const route of ['resources','learning','tools','projects','profile','settings']){
@@ -120,7 +132,9 @@
    const index=['Docs','Tools','Design','Practice'].indexOf(group.id.replace('resource-type-','')),summary=group.querySelector(':scope>summary');if(index<0||!summary||summary.querySelector('.resource-category-icon'))continue;const mark=E('span','resource-category-icon');mark.setAttribute('aria-hidden','true');mark.append(smallIcon(categoryPaths[index]));summary.prepend(mark);
   }
   for(const tabs of Q('learning-view').querySelectorAll('.lesson-step-tabs'))for(const [index,control] of [...tabs.querySelectorAll('button')].entries()){if(control.querySelector('.lesson-tab-number,.learning-step-dot'))continue;const number=E('span','lesson-tab-number',String(index+1).padStart(2,'0'));number.setAttribute('aria-hidden','true');control.prepend(number);}
-  for(const pre of Q('learning-view').querySelectorAll('.learning-reader pre,.chapter-reader pre')){highlightExample(pre);if(pre.classList.contains('reader-code-block'))exampleActions(pre);}
+  for(const pre of document.querySelectorAll('#learning-view .learning-reader pre,.chapter-reader pre')){highlightExample(pre);if(pre.classList.contains('reader-code-block'))exampleActions(pre);}
+  for(const paragraph of document.querySelectorAll('.beginner-lesson p,.chapter-reader p,.foundation-reader p'))refineInlineCode(paragraph);
+  refineChapterNavigation();
   for(const input of document.querySelectorAll('.content input[type=range],dialog input[type=range]'))updateRange(input);
   for(const input of Q('tools-view').querySelectorAll('.tool-body textarea.tool-code-editor:not([readonly])'))enhanceToolEditor(input);
   const exercise=Q('developer-exercise');if(exercise){const label=exercise.closest('label');if(label?.firstChild?.nodeType===3)label.firstChild.textContent=uk?'Вправа':'Exercise';label?.classList.add('practice-exercise-field');
@@ -146,4 +160,5 @@
  function newRoute(){const route=(location.hash.slice(1)||'dashboard').split('?')[0];if(route===lastRoute)return;lastRoute=route;entering=true;const epoch=++routeEpoch;requestAnimationFrame(()=>{if(epoch===routeEpoch){register(Q('main-content'));entering=false;}});}
  const tree=new MutationObserver(records=>{scheduleSurfaces();for(const record of records){for(const node of record.removedNodes)if(node.nodeType===1){observer.unobserve(node);node.querySelectorAll(cards).forEach(el=>observer.unobserve(el));}for(const node of record.addedNodes)if(node.nodeType===1){const els=[...(node.matches(cards)?[node]:[]),...node.querySelectorAll(cards)];for(const el of els){const rect=el.getBoundingClientRect();if(!entering&&rect.top<innerHeight&&rect.bottom>0){seen.add(el);}else if(!seen.has(el))observer.observe(el);}}}});
  tree.observe(Q('main-content'),{childList:true,subtree:true});window.addEventListener('hashchange',newRoute);window.addEventListener('kachan-ready',newRoute);newRoute();
+ tree.observe(chapterBody,{childList:true,subtree:true});tree.observe(foundationBody,{childList:true,subtree:true});
 })();
