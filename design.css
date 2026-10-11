@@ -42,7 +42,7 @@ button:disabled{opacity:.45;cursor:default}
 .form-field:has(>input[type=checkbox]){display:flex;flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:10px}
 .form-field:has(>input[type=checkbox]) label{margin:0}
 .form-field label,.task-form>label,.search-box>label{font-size:12px;font-weight:500;color:var(--muted)}
-input:not([type=checkbox]):not([type=radio]):not([type=color]),select,textarea,.workspace-controls select{min-height:40px;max-width:100%;border:1px solid var(--border);border-radius:var(--control-radius);background:var(--bg);color:var(--text);padding:10px 12px;font:inherit;font-size:13px}
+input:not([type=checkbox]):not([type=radio]):not([type=color]):not([type=range]),select,textarea,.workspace-controls select{min-height:40px;max-width:100%;border:1px solid var(--border);border-radius:var(--control-radius);background:var(--bg);color:var(--text);padding:10px 12px;font:inherit;font-size:13px}
 textarea{line-height:1.65;resize:vertical}
 input:focus,select:focus,textarea:focus{border-color:var(--accent)}
 .search-row{gap:8px}

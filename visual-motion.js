@@ -50,6 +50,19 @@
  };
  const sectionPaths={resources:'M14 4h6v6 M20 4 10 14 M20 14v6H4V4h6',learning:'M12 5v15 M12 5C9 3 5 3 3 4v15c3-1 6-1 9 1 3-2 6-2 9-1V4c-2-1-6-1-9 1',tools:'M9 9h6v6H9z M9 9H6a3 3 0 1 1 3-3v3 M15 9V6a3 3 0 1 1 3 3h-3 M15 15h3a3 3 0 1 1-3 3v-3 M9 15v3a3 3 0 1 1-3-3h3',projects:'M3 7V4h6l2 3h10v13H3z',profile:'M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0 M4 21v-3a8 8 0 0 1 16 0v3',settings:'M4 7h16 M4 17h16 M8 4v6 M16 14v6'};
  const categoryPaths=['M5 3h10l4 4v14H5z M14 3v5h5 M8 12h8 M8 16h6','M4 5h6v4h4V5h6v6h-4v4h4v5h-6v-4h-4v4H4v-5h4v-4H4z','M4 20 20 4 M4 4h6v6H4z M14 14h6v6h-6z','M5 18v3h3L20 9l-3-3z M14 9l3 3'];
+ const highlightedCode=new WeakMap();
+ function highlightExample(pre){
+  const target=pre.querySelector(':scope>code')||pre,source=target.textContent;
+  if(source.length>30000||pre.querySelector('button,input,textarea,a')||highlightedCode.get(target)===source)return;
+  const language=/<\/?[a-z][\w-]*(?:\s|>)/i.test(source)?'HTML':/\b(?:const|let|function|return|console)\b|=>/.test(source)?'JavaScript':/[\w-]+\s*:[^\n]+[;}]|[.#][\w-]+\s*\{/.test(source)?'CSS':null;
+  if(!language)return;highlightedCode.set(target,source);
+  const tokens=/(<!--[^]*?-->|\/\*[^]*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`|\/\/[^\n]*|<\/?[\w-]+|\b(?:const|let|var|function|return|if|else|for|while|class|new|true|false|null|undefined|async|await|import|export|from|interface|type)\b|\b[\w-]+(?=\s*:)|\b\d+(?:\.\d+)?\b)/g;
+  const fragment=document.createDocumentFragment();let last=0;
+  for(const match of source.matchAll(tokens)){if(match.index>last)fragment.append(document.createTextNode(source.slice(last,match.index)));const value=match[0],kind=/^(<!--|\/\*|\/\/)/.test(value)?'comment':/^["'`]/.test(value)?'string':/^\d/.test(value)?'number':'keyword';fragment.append(E('span','code-token code-token-'+kind,value));last=match.index+value.length;}
+  fragment.append(document.createTextNode(source.slice(last)));target.replaceChildren(fragment);pre.classList.add('reader-code-block');pre.dataset.codeLanguage=language;
+ }
+ function updateRange(input){const min=Number(input.min||0),max=Number(input.max||100),value=Number(input.value),fill=max>min?Math.min(100,Math.max(0,(value-min)/(max-min)*100)):0;input.style.setProperty('--range-fill',fill+'%');}
+ document.addEventListener('input',event=>{if(event.target.matches('input[type=range]'))updateRange(event.target);},{passive:true});
  function smallIcon(path){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('fill','none');svg.setAttribute('stroke','currentColor');svg.setAttribute('stroke-width','1.5');svg.setAttribute('stroke-linecap','round');svg.setAttribute('stroke-linejoin','round');const line=document.createElementNS(svg.namespaceURI,'path');line.setAttribute('d',path);svg.append(line);return svg;}
  function refineSurfaces(){
   for(const route of ['resources','learning','tools','projects','profile','settings']){
@@ -67,6 +80,8 @@
    const index=['Docs','Tools','Design','Practice'].indexOf(group.id.replace('resource-type-','')),summary=group.querySelector(':scope>summary');if(index<0||!summary||summary.querySelector('.resource-category-icon'))continue;const mark=E('span','resource-category-icon');mark.setAttribute('aria-hidden','true');mark.append(smallIcon(categoryPaths[index]));summary.prepend(mark);
   }
   for(const tabs of Q('learning-view').querySelectorAll('.lesson-step-tabs'))for(const [index,control] of [...tabs.querySelectorAll('button')].entries()){if(control.querySelector('.lesson-tab-number,.learning-step-dot'))continue;const number=E('span','lesson-tab-number',String(index+1).padStart(2,'0'));number.setAttribute('aria-hidden','true');control.prepend(number);}
+  for(const pre of Q('learning-view').querySelectorAll('.learning-reader pre,.chapter-reader pre'))highlightExample(pre);
+  for(const input of document.querySelectorAll('.content input[type=range],dialog input[type=range]'))updateRange(input);
  }
  let surfaceFrame=0;
  function scheduleSurfaces(){if(surfaceFrame)return;surfaceFrame=requestAnimationFrame(()=>{surfaceFrame=0;refineSurfaces();});}

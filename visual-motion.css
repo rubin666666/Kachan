@@ -58,3 +58,44 @@ dialog .editor-window-header{background:linear-gradient(110deg,color-mix(in srgb
 @media(max-width:700px){.content .page-heading.section-heading-surface{padding:16px!important;gap:14px;min-height:78px!important}.section-heading-surface h1{font-size:25px!important}.section-emblem{width:32px;height:32px}.section-identity,.section-heading-surface .title-with-help{gap:9px}.section-heading-surface .profile-controls{width:100%;justify-content:flex-start!important}#learning-view #learning-library{grid-template-columns:1fr;gap:16px}#learning-library :is(.beginner-start,.learning-resume-banner){grid-column:1;min-height:0;padding:18px!important}.content .tool-catalog-card{padding:16px!important;gap:12px!important;min-height:96px!important}.tool-card-caption{font-size:12px}.lesson-tab-number{margin-right:5px}}
 @media(max-width:600px){.resource-category-icon{display:none}.section-heading-surface>.primary-button{margin-left:0}.section-heading-surface .title-with-help{max-width:100%}.section-heading-surface .purpose-button{width:28px;height:28px;flex-shrink:0}}
 @media(prefers-reduced-motion:reduce){.tool-open-arrow,.learning-course-start>span,.tool-card-mark,.learning-course-mark,.resource-type-group,.resource-card>.text-link{transition:none!important}.tool-catalog-card:hover .tool-open-arrow,.learning-course-start:hover>span{translate:none}}
+
+/* Reading surfaces: clear examples, restrained focus and a consistent course outline. */
+#learning-view .learning-reader>h2:focus{outline:none;box-shadow:none}
+#learning-view .learning-reader>.badge{display:inline-block;padding:5px 9px;background:var(--surface-raised);border:0;border-radius:4px;letter-spacing:.025em;font-size:12px;line-height:1.6;max-width:100%;white-space:normal}
+#learning-view .learning-syllabus>summary{background:linear-gradient(135deg,var(--accent-soft),var(--panel));border-color:var(--accent-border);color:var(--text)}
+#learning-view .lesson-button{transition:background-color 160ms,border-color 160ms,color 160ms}
+#learning-view .lesson-button:not([aria-current=step]):hover{background:var(--surface-raised);color:var(--text)}
+#learning-view .lesson-button[aria-current=step]{background:linear-gradient(110deg,var(--accent-soft),var(--panel));border:1px solid var(--accent-border);box-shadow:inset 2px 0 var(--accent)}
+.learning-lesson-number{font-variant-numeric:tabular-nums}
+#learning-view .reader-code-block{position:relative;padding:42px 18px 18px!important;border:1px solid var(--border);border-radius:4px;background:var(--bg);font-size:14px;line-height:1.85;tab-size:2;overflow:auto;max-width:100%}
+.reader-code-block::before{content:attr(data-code-language);position:absolute;top:12px;left:18px;color:var(--muted);font:11px/1.5 ui-monospace,Consolas,monospace;letter-spacing:.06em}
+.code-token-keyword{color:var(--accent-ink,var(--accent))}.code-token-string{color:var(--text)}.code-token-comment{color:var(--muted);font-style:italic}.code-token-number{color:var(--accent-ink,var(--accent))}
+#learning-view .lesson-reading-block{background:linear-gradient(140deg,color-mix(in srgb,var(--accent) 3%,var(--surface-raised)),var(--surface-raised));border-color:var(--border);border-left:2px solid var(--accent)}
+#learning-view .learning-step-footer{padding:14px 16px;background:linear-gradient(120deg,var(--accent-soft),var(--panel));border-color:var(--accent-border);border-radius:4px;gap:12px}
+#learning-view .learning-step-caption{font-size:13px;color:var(--muted)}
+.tool-body :is(.flex-preview,.form-preview,.tool-preview){border:1px solid var(--accent-border);border-radius:4px}
+.tool-body .flex-preview{background-color:var(--bg);background-image:linear-gradient(color-mix(in srgb,var(--accent) 4%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--accent) 4%,transparent) 1px,transparent 1px);background-size:24px 24px}
+.tool-body .flex-preview>div{border-radius:3px;box-shadow:0 3px 12px #00000012;font-variant-numeric:tabular-nums}
+.tool-body .tool-generated-code{border-color:var(--accent-border)}
+.tool-body .tool-generated-code .utility-output{background:var(--bg);border-radius:4px;font-size:14px;line-height:1.85;padding:16px}
+.content input[type=range],dialog input[type=range]{appearance:none;-webkit-appearance:none;height:6px;min-height:6px;padding:0;margin-block:14px;border:0;border-radius:3px;cursor:pointer;accent-color:var(--accent);background:linear-gradient(to right,var(--accent) 0 var(--range-fill,0%),var(--border) var(--range-fill,0%) 100%)}
+.content input[type=range]::-webkit-slider-thumb,dialog input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:3px solid var(--panel);border-radius:4px;background:var(--accent);box-shadow:0 0 0 1px var(--accent-border)}
+.content input[type=range]::-moz-range-thumb,dialog input[type=range]::-moz-range-thumb{width:12px;height:12px;border:3px solid var(--panel);border-radius:4px;background:var(--accent);box-shadow:0 0 0 1px var(--accent-border)}
+.content input[type=range]:focus-visible,dialog input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:8px}
+.content input[type=range]:disabled,dialog input[type=range]:disabled{opacity:.5;cursor:default}
+.learning-map-dialog{padding:0!important;width:min(680px,calc(100vw - 32px));border-radius:4px!important;scrollbar-width:thin}
+.learning-map-header{position:sticky;top:0;z-index:2;padding:18px 20px;background:linear-gradient(110deg,color-mix(in srgb,var(--accent) 5%,var(--panel)),var(--panel));gap:12px}
+.learning-map-dialog>.panel-note{margin:0;padding:12px 20px 16px;font-size:14px}
+.learning-map-list{margin:0;padding:0 20px 20px;gap:8px}
+.learning-map-item{min-height:54px;padding:13px 14px;border-radius:4px;font-size:15px;grid-template-columns:28px minmax(0,1fr) 16px;gap:12px;transition:background-color 160ms,border-color 160ms}
+.learning-map-number{display:grid;place-items:center;width:28px;height:28px;border-radius:4px;background:var(--surface-raised);color:var(--muted);font:12px/1 ui-monospace,Consolas,monospace}
+.learning-map-item:hover .learning-map-number{background:var(--accent-soft);color:var(--accent)}
+.command-dialog{border-radius:4px!important}
+.command-dialog #global-query{font-size:17px;min-height:52px;padding:12px 14px;background:var(--bg);border-color:var(--accent-border)}
+.command-results .command-result{border:1px solid var(--border);background:var(--panel);border-radius:4px!important;transition:border-color 160ms,background-color 160ms}
+.command-result:hover{border-color:var(--accent-border);background:var(--accent-soft)}
+.command-result small{border-radius:4px!important;font-size:12px;background:var(--surface-raised);color:var(--muted)}
+.window-close{border-radius:4px;background:var(--surface-raised);border:1px solid var(--border);color:var(--muted);font-size:24px}
+.window-close:hover{background:var(--accent-soft);border-color:var(--accent-border);color:var(--text)}
+@media(max-width:700px){#learning-view .reader-code-block{padding:40px 14px 14px!important}.reader-code-block::before{left:14px}.learning-map-header{padding:16px;gap:10px}.learning-map-dialog>.panel-note{padding:10px 16px 14px}.learning-map-list{padding:0 16px 16px}.learning-map-item{padding:12px;font-size:14px;gap:9px}.command-dialog #global-query{font-size:16px}.content input[type=range]::-webkit-slider-thumb,dialog input[type=range]::-webkit-slider-thumb{width:22px;height:22px}}
+@media(prefers-reduced-motion:reduce){#learning-view .lesson-button,.learning-map-item,.command-results .command-result{transition:none!important}}
