@@ -62,6 +62,15 @@
   fragment.append(document.createTextNode(source.slice(last)));target.replaceChildren(fragment);pre.classList.add('reader-code-block');pre.dataset.codeLanguage=language;
  }
  function updateRange(input){const min=Number(input.min||0),max=Number(input.max||100),value=Number(input.value),fill=max>min?Math.min(100,Math.max(0,(value-min)/(max-min)*100)):0;input.style.setProperty('--range-fill',fill+'%');}
+ function exampleActions(pre){
+  if(pre.parentElement.classList.contains('reader-code-shell'))return;
+  const uk=document.documentElement.lang==='uk',shell=E('div','reader-code-shell'),bar=E('div','reader-code-toolbar'),language=E('span','reader-code-language',pre.dataset.codeLanguage||'Code');
+  const previous=pre.previousElementSibling,next=pre.nextElementSibling;previous?.matches('.learning-copy')&&previous.remove();if(next?.matches('button')&&next.textContent===t().copy)next.remove();
+  const copy=button(uk?'Копіювати':'Copy',async()=>{const target=pre.querySelector(':scope>code')||pre;try{await navigator.clipboard.writeText(target.textContent);notice(t().copied);}catch{const range=document.createRange();range.selectNodeContents(target);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);notice(t().copyError);}},'example-copy');
+  copy.classList.add('example-copy');copy.textContent=uk?'Копіювати':'Copy';copy.prepend(smallIcon('M9 9h11v11H9z M15 9V4H4v11h5'));
+  const wrap=button(uk?'Перенос рядків':'Wrap lines',()=>{const active=shell.classList.toggle('code-lines-wrapped');wrap.setAttribute('aria-pressed',String(active));},'example-wrap');wrap.setAttribute('aria-pressed','false');
+  bar.append(language,wrap,copy);pre.before(shell);shell.append(bar,pre);
+ }
  document.addEventListener('input',event=>{if(event.target.matches('input[type=range]'))updateRange(event.target);},{passive:true});
  function smallIcon(path){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('fill','none');svg.setAttribute('stroke','currentColor');svg.setAttribute('stroke-width','1.5');svg.setAttribute('stroke-linecap','round');svg.setAttribute('stroke-linejoin','round');const line=document.createElementNS(svg.namespaceURI,'path');line.setAttribute('d',path);svg.append(line);return svg;}
  function refineSurfaces(){
@@ -92,7 +101,7 @@
    const index=['Docs','Tools','Design','Practice'].indexOf(group.id.replace('resource-type-','')),summary=group.querySelector(':scope>summary');if(index<0||!summary||summary.querySelector('.resource-category-icon'))continue;const mark=E('span','resource-category-icon');mark.setAttribute('aria-hidden','true');mark.append(smallIcon(categoryPaths[index]));summary.prepend(mark);
   }
   for(const tabs of Q('learning-view').querySelectorAll('.lesson-step-tabs'))for(const [index,control] of [...tabs.querySelectorAll('button')].entries()){if(control.querySelector('.lesson-tab-number,.learning-step-dot'))continue;const number=E('span','lesson-tab-number',String(index+1).padStart(2,'0'));number.setAttribute('aria-hidden','true');control.prepend(number);}
-  for(const pre of Q('learning-view').querySelectorAll('.learning-reader pre,.chapter-reader pre'))highlightExample(pre);
+  for(const pre of Q('learning-view').querySelectorAll('.learning-reader pre,.chapter-reader pre')){highlightExample(pre);if(pre.classList.contains('reader-code-block'))exampleActions(pre);}
   for(const input of document.querySelectorAll('.content input[type=range],dialog input[type=range]'))updateRange(input);
  }
  let surfaceFrame=0;
