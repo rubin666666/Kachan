@@ -47,7 +47,7 @@ const noteCreateFocus=()=>{const n=notes.find(n=>n.id===selectedNote);if(n&&proj
 Q('quick-task').addEventListener('click',()=>{if(projectScope!=='all')Q('task-project').value=projectScope==='__none'?'':projectScope;});
 Q('open-task-window').addEventListener('click',()=>{if(projectScope!=='all')Q('task-project').value=projectScope==='__none'?'':projectScope;});
 openProjectTasks=function(id){projectScope=id;location.hash=workspaceRoute('tasks',id);showView();taskFilter='all';trashMode=false;Q('tasks-search').value='';Q('filter-priority').value='all';renderTasks();};
-const focusLaunchBefore=launchCreate;launchCreate=function(kind){focusLaunchBefore(kind);showView();if(kind==='tasks'&&projectScope!=='all')Q('task-project').value=projectScope==='__none'?'':projectScope;};
+const focusLaunchBefore=launchCreate;launchCreate=async function(kind){await focusLaunchBefore(kind);showView();if(kind==='tasks'&&projectScope!=='all')Q('task-project').value=projectScope==='__none'?'':projectScope;};
 const focusEntityBefore=openEntity;openEntity=function(kind,id){if(kind==='notes'||kind==='tasks'){const record=(kind==='notes'?notes:tasks).find(x=>x.id===id);if(record)projectScope=record.projectId||'__none';}focusEntityBefore(kind,id);showView();};
 const focusLinkedNoteBefore=makeLinkedNote;makeLinkedNote=function(options={}){const task=tasks.find(x=>x.id===options.taskId);projectScope=task?.projectId||'__none';focusLinkedNoteBefore(options);};
 const focusOpenLessonBefore=openLesson;openLesson=function(id){if(focusedRoute().params.get('tab')==='code')history.replaceState(null,'','#learning');focusOpenLessonBefore(id);showView();};
