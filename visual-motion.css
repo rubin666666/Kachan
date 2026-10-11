@@ -178,3 +178,21 @@ body[data-focus-route=dashboard] .focus-portal-arrow{top:24px;right:24px;padding
 @media(prefers-reduced-motion:reduce){.code-editor-shell,.code-editor-toolbar button{transition:none!important}}
 .tool-body .practice-exercise-field{display:flex;flex-direction:column;align-items:flex-start;gap:8px;font-size:14px;color:var(--muted);max-width:640px}.practice-exercise-field select{width:100%;max-width:none;color:var(--text)}
 .tool-runtime-note{margin-top:20px;padding:14px 16px;background:var(--panel);border:1px solid var(--border);border-radius:4px;color:var(--muted);font-size:13px;line-height:1.75}.tool-runtime-note summary{cursor:pointer;font-weight:500}.tool-runtime-note summary:hover{color:var(--accent)}.tool-runtime-note>.panel-note{margin:12px 0 0;font-size:13px}
+
+/* Topic drawers shorten long catalogs without hiding search results. */
+#resources-view details.resource-topic{margin-top:10px;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden}
+#resources-view .resource-topic>summary{display:flex;align-items:center;gap:12px;padding:14px 16px;min-height:54px;cursor:pointer;list-style:none;background:var(--panel);transition:background-color 180ms,color 180ms}
+.resource-topic>summary::-webkit-details-marker{display:none}
+#resources-view .resource-topic-title{margin:0;padding:0;border:0;font-size:15px!important;line-height:1.5;color:var(--text);overflow-wrap:anywhere}
+.resource-topic-count{font:12px/1.5 ui-monospace,Consolas,monospace;color:var(--muted);padding:2px 6px;background:var(--surface-raised);border-radius:3px;flex-shrink:0}
+.resource-topic>summary::after{content:'+';margin-left:auto;color:var(--muted);font:18px/1 ui-monospace,Consolas,monospace;flex-shrink:0}.resource-topic[open]>summary::after{content:'−';color:var(--accent)}
+#resources-view .resource-topic>summary:hover{background:var(--surface-raised)}
+#resources-view .resource-topic[open]>summary{background:linear-gradient(110deg,var(--accent-soft),var(--panel));color:var(--accent)}
+#resources-view .resource-topic>summary:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+#resources-view .resource-topic-grid{padding:14px;gap:12px}
+.resource-topic-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:8px;padding:4px 0;color:var(--muted);font-size:12px}
+.resource-topic-toggle{min-height:36px;padding:7px 10px;background:transparent;border:1px solid var(--border);border-radius:4px;color:var(--muted);font:inherit;font-size:12px;cursor:pointer}.resource-topic-toggle:hover{color:var(--accent);border-color:var(--accent-border);background:var(--accent-soft)}.resource-topic-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:700px){#resources-view .resource-topic>summary{padding:12px;gap:8px}#resources-view .resource-topic-grid{padding:10px;gap:10px}.resource-topic-toggle{min-height:40px}}
+@media(prefers-reduced-motion:reduce){#resources-view .resource-topic>summary{transition:none!important}}
+#resources-view .simple-resource-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start;padding:0!important;margin:0 0 18px;border:0;background:transparent;box-shadow:none}.simple-resource-toolbar>.form-field{margin:0;min-width:0}.simple-resource-toolbar .simple-search-filters{margin:0;min-width:130px}.simple-resource-toolbar .simple-search-filters>summary{min-height:46px;display:flex;align-items:center;padding:10px 14px}.simple-resource-toolbar .simple-search-filters[open]{max-width:300px}.simple-resource-toolbar .simple-search-filters>.form-field{padding:12px}
+@media(max-width:600px){#resources-view .simple-resource-toolbar{gap:8px;grid-template-columns:minmax(0,1fr) minmax(88px,auto)}.simple-resource-toolbar .simple-search-filters{min-width:0;max-width:150px}.simple-resource-toolbar .simple-search-filters>summary{padding:10px;font-size:13px;overflow-wrap:anywhere}.simple-resource-toolbar .simple-search-filters[open]{grid-column:1/-1;max-width:none}.simple-resource-toolbar .simple-search-filters>.form-field{padding:10px}}

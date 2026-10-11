@@ -2,6 +2,7 @@ const simpleSearchCopy={uk:{search:'Пошук…',resources:'Знайти ре�
 const ss=()=>simpleSearchCopy[document.documentElement.lang];
 const resourceTopicFold=E('details','simple-search-filters'),resourceTopicSummary=E('summary');resourceTopicFold.append(resourceTopicSummary,Q('resource-collection').closest('.form-field'));Q('resource-query').closest('.dashboard-panel').append(resourceTopicFold);
 function simplifySearchFields(){
+ const collection=Q('resource-collection'),field=collection?.closest('.form-field'),panel=Q('resource-query')?.closest('.dashboard-panel');if(field&&panel){if(field.parentElement!==resourceTopicFold){resourceTopicFold.replaceChildren(resourceTopicSummary,field);panel.append(resourceTopicFold);}panel.classList.add('simple-resource-toolbar');if(!collection.dataset.simpleTopicBound){collection.dataset.simpleTopicBound='true';collection.addEventListener('change',simplifySearchFields);}}
  resourceTopicSummary.textContent=ss().filters+(Q('resource-collection').value!=='all'?' · '+Q('resource-collection').selectedOptions[0]?.textContent:'');
  for(const [id,key] of [['resource-query','resources'],['projects-search','projects'],['tasks-search','tasks'],['notes-search','notes'],['snippets-search','snippets'],['tool-catalog-search','tools']]){
   const input=Q(id);if(!input)continue;input.placeholder=ss()[key];const label=document.querySelector(`label[for="${id}"]`);label?.classList.add('simple-search-label');
@@ -31,5 +32,5 @@ openSearch=function(){
  function navigateSearchResults(event){if(event.key==='Escape'){event.preventDefault();searchDialog.close();return;}if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();const controls=[input,...results.querySelectorAll('button')],index=controls.indexOf(document.activeElement);controls[(index+(event.key==='ArrowDown'?1:-1)+controls.length)%controls.length]?.focus();}}
  searchDialog.append(title,close,input,hint,resultCount,results);render();searchDialog.showModal();input.focus();
 };
-for(const name of ['renderTools','renderResources','renderProjects','renderTasks','renderNotes','renderSnippets']){const original=window[name];window[name]=function(...args){const result=original.apply(this,args);simplifySearchFields();return result;};}
+for(const name of ['renderResourceTools','renderTools','renderResources','renderProjects','renderTasks','renderNotes','renderSnippets']){const original=window[name];window[name]=function(...args){const result=original.apply(this,args);simplifySearchFields();return result;};}
 window.addEventListener('languagechange',simplifySearchFields);simplifySearchFields();
