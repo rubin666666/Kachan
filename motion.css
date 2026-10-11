@@ -1,0 +1,28 @@
+/* Motion never hides page content or changes its layout. */
+:root{--motion-ease:cubic-bezier(.2,.8,.2,1)}
+.primary-button,.secondary-button,.window-close,.tool-catalog-back{transition:transform 160ms var(--motion-ease),background-color 180ms,border-color 180ms,box-shadow 180ms!important}
+.primary-button:active,.secondary-button:active,.window-close:active{transform:scale(.97)}
+.sidebar .nav-item{transition:background-color 180ms,color 180ms,box-shadow 180ms!important}
+.sidebar .nav-item svg,.home-quick-arrow{transition:transform 220ms var(--motion-ease)}
+.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card,.focus-portal,.home-quick-action){transition:transform 220ms var(--motion-ease),border-color 220ms,box-shadow 220ms!important}
+@media(hover:hover) and (pointer:fine){
+ .content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card,.focus-portal,.home-quick-action):hover{transform:translateY(-2px)!important;border-color:var(--accent-border);box-shadow:0 8px 24px #00000018!important}
+ .primary-button:hover{box-shadow:0 3px 16px color-mix(in srgb,var(--accent) 18%,transparent)}
+ .sidebar .nav-item:hover svg,.home-quick-action:hover .home-quick-arrow{transform:translateX(2px)}
+}
+dialog[open]{animation:motion-window 220ms var(--motion-ease)!important}
+dialog::backdrop{animation:motion-backdrop 180ms ease-out}
+.toast{animation:motion-window 220ms var(--motion-ease)}
+.home-blueprint svg{animation:blueprint-drift 8s ease-in-out infinite}
+.home-blueprint svg path[stroke-dasharray]{animation:blueprint-flow 8s linear infinite}
+progress::-webkit-progress-value{transition:width 400ms var(--motion-ease)}
+[aria-busy=true]{cursor:progress}
+[aria-busy=true]{animation:motion-working 1.4s ease-in-out infinite}
+@keyframes motion-window{from{transform:translateY(10px) scale(.995)}to{transform:none}}
+@keyframes motion-backdrop{from{background-color:#00000000}}
+@keyframes blueprint-drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes blueprint-flow{to{stroke-dashoffset:-72}}
+@keyframes motion-working{50%{box-shadow:inset 0 0 0 2px var(--accent-border)}}
+@media(max-width:600px){.sidebar.menu-open{animation:motion-window 200ms var(--motion-ease)}.mobile-menu-backdrop:not([hidden]){animation:motion-backdrop 180ms ease-out}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card,.focus-portal,.home-quick-action):hover{transform:none!important}}
+
