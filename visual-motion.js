@@ -72,6 +72,18 @@
    heading.classList.add('section-heading-surface');
   }
   const uk=document.documentElement.lang==='uk';
+  for(const card of Q('resources-view').querySelectorAll('.resource-card')){
+   if(card.querySelector('.resource-save-button'))continue;
+   const control=[...card.querySelectorAll('button')].find(b=>b.textContent===t().favorite||b.textContent===t().unfavorite),title=card.querySelector('.title-with-help')||card.querySelector('h2,h3,h4');if(!control||!title)continue;
+   const saved=favorites.includes(card.dataset.resourceId),name=title.querySelector('h2,h3,h4')?.textContent||title.textContent;
+   control.className='resource-save-button';control.setAttribute('aria-label',(saved?t().unfavorite:t().favorite)+' · '+name);control.setAttribute('aria-pressed',String(saved));control.title=saved?t().unfavorite:t().favorite;
+   control.replaceChildren(smallIcon('m12 3 2.8 5.7 6.3.9-4.55 4.43 1.07 6.27L12 17.34l-5.62 2.96 1.07-6.27L2.9 9.6l6.3-.9L12 3Z'));
+   title.after(control);card.querySelector('.resource-favorite-mark')?.remove();
+  }
+  for(const card of Q('learning-view').querySelectorAll('.learning-course-card')){
+   if(card.querySelector('.course-card-actions'))continue;const start=card.querySelector('.learning-course-start'),outline=card.querySelector('.learning-outline');if(!start||!outline)continue;
+   const actions=E('div','course-card-actions');start.before(actions);actions.append(start,outline);
+  }
   for(const [index,card] of [...Q('tools-view').querySelectorAll('.tool-catalog-card')].entries()){
    const id=toolTabs[index]?.[0],copy=toolCaptions[id],label=card.querySelector('.tool-guide-label');if(copy&&label&&!card.querySelector('.tool-card-caption'))label.append(E('span','tool-card-caption',copy[uk?0:1]));
    if(!card.querySelector('.tool-open-arrow')){const arrow=E('span','tool-open-arrow','↗');arrow.setAttribute('aria-hidden','true');card.append(arrow);}
@@ -86,6 +98,7 @@
  let surfaceFrame=0;
  function scheduleSurfaces(){if(surfaceFrame)return;surfaceFrame=requestAnimationFrame(()=>{surfaceFrame=0;refineSurfaces();});}
  refineSurfaces();window.addEventListener('languagechange',scheduleSurfaces);window.addEventListener('hashchange',scheduleSurfaces);
+ document.addEventListener('click',event=>{const control=event.target.closest('.resource-save-button');if(!control)return;const id=control.closest('.resource-card').dataset.resourceId,openGroups=[...Q('resource-list').querySelectorAll('.resource-type-group[open]')].map(group=>group.id);requestAnimationFrame(()=>{for(const id of openGroups){const group=document.getElementById(id);if(group)group.open=true;}refineSurfaces();const replacement=[...Q('resource-list').querySelectorAll('.resource-card')].find(card=>card.dataset.resourceId===id)?.querySelector('.resource-save-button');if(replacement)replacement.focus({preventScroll:true});else Q('resource-query')?.focus({preventScroll:true});});},true);
 
  // Pointer light follows only interactive cards, without moving their text or hit areas.
  const cards='.focus-portal,.home-quick-action,.tool-catalog-card,.learning-course-card,.resource-card,.project-card';

@@ -99,3 +99,24 @@ dialog .editor-window-header{background:linear-gradient(110deg,color-mix(in srgb
 .window-close:hover{background:var(--accent-soft);border-color:var(--accent-border);color:var(--text)}
 @media(max-width:700px){#learning-view .reader-code-block{padding:40px 14px 14px!important}.reader-code-block::before{left:14px}.learning-map-header{padding:16px;gap:10px}.learning-map-dialog>.panel-note{padding:10px 16px 14px}.learning-map-list{padding:0 16px 16px}.learning-map-item{padding:12px;font-size:14px;gap:9px}.command-dialog #global-query{font-size:16px}.content input[type=range]::-webkit-slider-thumb,dialog input[type=range]::-webkit-slider-thumb{width:22px;height:22px}}
 @media(prefers-reduced-motion:reduce){#learning-view .lesson-button,.learning-map-item,.command-results .command-result{transition:none!important}}
+
+/* Keep everyday actions visible and secondary information quiet. */
+#resources-view .resource-card{padding-right:64px}
+.resource-save-button{position:absolute;right:16px;top:16px;display:grid;place-items:center;width:36px;height:36px;min-height:36px;padding:8px;border:1px solid transparent;border-radius:4px;background:transparent;color:var(--muted);cursor:pointer;transition:background-color 180ms,border-color 180ms,color 180ms}
+.resource-save-button svg{width:19px;height:19px;pointer-events:none}
+.resource-save-button:hover{background:var(--surface-raised);border-color:var(--border);color:var(--text)}
+.resource-save-button[aria-pressed=true]{color:var(--accent);background:var(--accent-soft);border-color:var(--accent-border)}
+.resource-save-button[aria-pressed=true] svg{fill:color-mix(in srgb,var(--accent) 15%,transparent)}
+.resource-save-button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+#learning-view .course-card-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:stretch;gap:8px;margin-top:4px}
+#learning-view .course-card-actions .learning-course-start{margin:0;min-height:44px;gap:10px;font-size:14px}
+#learning-view .course-card-actions .learning-outline{padding:10px 12px;margin:0;min-height:44px;border:1px solid var(--border);border-radius:4px;background:transparent;font-size:13px;line-height:1.5;text-align:center;transition:background-color 180ms,border-color 180ms}
+#learning-view .course-card-actions .learning-outline:hover{border-color:var(--accent-border);background:var(--accent-soft);color:var(--text)}
+#learning-library>.extra-chapter-list{padding:0!important;margin-block:0!important;background:var(--panel);border:1px solid var(--border);border-radius:4px}
+#learning-library>.extra-chapter-list>summary{padding:18px 20px!important;font-size:17px;line-height:1.5;background:transparent}
+#learning-library>.extra-chapter-list[open]>summary{color:var(--accent);background:linear-gradient(100deg,var(--accent-soft),transparent)}
+#learning-library>.extra-chapter-list>:not(summary){margin-inline:20px}
+#learning-library>.extra-chapter-list>:last-child{margin-bottom:20px}
+.resource-guide-meta{gap:6px;flex-wrap:wrap}.resource-guide-meta>span{padding:3px 6px;font-size:11px;border-radius:3px;background:var(--surface-raised);color:var(--muted);border:0}
+@media(max-width:700px){#resources-view .resource-card{padding-right:60px}.resource-save-button{right:12px;top:12px;width:40px;height:40px}.course-card-actions{gap:6px}#learning-view .course-card-actions .learning-outline{padding-inline:10px}#learning-library>.extra-chapter-list>summary{padding:16px!important}#learning-library>.extra-chapter-list>:not(summary){margin-inline:16px}}
+@media(prefers-reduced-motion:reduce){.resource-save-button,#learning-view .course-card-actions .learning-outline{transition:none!important}}
