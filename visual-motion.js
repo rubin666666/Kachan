@@ -80,6 +80,17 @@
    const metric=E('span','portal-metric');metric.append(E('strong','',String(item.value)),document.createTextNode(' '+item.label));card.append(metric);
   }
  }
+ function enhanceToolEditor(input){
+  if(input.parentElement.classList.contains('code-editor-shell'))return;
+  const uk=document.documentElement.lang==='uk',shell=E('div','code-editor-shell'),bar=E('div','code-editor-toolbar'),status=E('div','code-editor-status'),size=E('span'),position=E('span');
+  const language=input.id==='developer-js'?'JavaScript':input.id==='markup-code'?'HTML':input.id==='playground-code'?({html:'HTML',css:'CSS',js:'JavaScript'})[playgroundFile]:(input.getAttribute('aria-label')||'Code');
+  const wrap=button(uk?'Перенос рядків':'Wrap lines',()=>{const active=shell.classList.toggle('editor-lines-wrapped');input.wrap=active?'soft':'off';wrap.setAttribute('aria-pressed',String(active));},'editor-wrap');wrap.setAttribute('aria-pressed','false');wrap.setAttribute('aria-controls',input.id);
+  const expand=button(uk?'Більше місця':'Expand',()=>{const active=shell.classList.toggle('editor-expanded');expand.textContent=active?(uk?'Компактно':'Compact'):(uk?'Більше місця':'Expand');expand.setAttribute('aria-pressed',String(active));},'editor-expand');expand.setAttribute('aria-pressed','false');expand.setAttribute('aria-controls',input.id);
+  bar.append(E('span','code-editor-language',language),wrap,expand);status.append(size,position);const hint=E('span','code-editor-shortcut',(navigator.platform.includes('Mac')?'⌘':'Ctrl')+' + Enter');hint.title=uk?'Запустити або перевірити код':'Run or check code';status.append(hint);
+  function update(){const value=input.value,selection=value.slice(0,input.selectionStart),lines=value.split('\n').length,row=selection.split('\n').length,column=selection.length-selection.lastIndexOf('\n'),summary=lines+(uk?' рядків · ':' lines · ')+Array.from(value).length+(uk?' символів':' characters'),caret=(uk?'Рядок ':'Ln ')+row+' · '+(uk?'Позиція ':'Col ')+column;if(size.textContent!==summary)size.textContent=summary;if(position.textContent!==caret)position.textContent=caret;}
+  input.wrap='off';input.before(shell);shell.append(bar,input,status);for(const event of ['input','keyup','click','select'])input.addEventListener(event,update);update();
+ }
+ document.addEventListener('keydown',event=>{if(event.key!=='Enter'||!(event.ctrlKey||event.metaKey)||event.altKey||event.shiftKey||event.repeat||!event.target.matches('.tool-body textarea.tool-code-editor'))return;const run=event.target.closest('.tool-body')?.querySelector('button.primary-button');if(!run)return;event.preventDefault();if(!run.disabled)run.click();});
  function refineSurfaces(){
   for(const route of ['resources','learning','tools','projects','profile','settings']){
    const heading=Q(route+'-view')?.querySelector(':scope>.page-heading'),title=heading?.querySelector('h1');if(!title||heading.querySelector('.section-emblem'))continue;
@@ -111,6 +122,10 @@
   for(const tabs of Q('learning-view').querySelectorAll('.lesson-step-tabs'))for(const [index,control] of [...tabs.querySelectorAll('button')].entries()){if(control.querySelector('.lesson-tab-number,.learning-step-dot'))continue;const number=E('span','lesson-tab-number',String(index+1).padStart(2,'0'));number.setAttribute('aria-hidden','true');control.prepend(number);}
   for(const pre of Q('learning-view').querySelectorAll('.learning-reader pre,.chapter-reader pre')){highlightExample(pre);if(pre.classList.contains('reader-code-block'))exampleActions(pre);}
   for(const input of document.querySelectorAll('.content input[type=range],dialog input[type=range]'))updateRange(input);
+  for(const input of Q('tools-view').querySelectorAll('.tool-body textarea.tool-code-editor:not([readonly])'))enhanceToolEditor(input);
+  const exercise=Q('developer-exercise');if(exercise){const label=exercise.closest('label');if(label?.firstChild?.nodeType===3)label.firstChild.textContent=uk?'Вправа':'Exercise';label?.classList.add('practice-exercise-field');
+   const body=exercise.closest('.tool-body'),note=[...body.querySelectorAll(':scope>p.panel-note')].find(p=>p.textContent===dc().sandbox);if(note){const fold=E('details','tool-runtime-note');fold.append(E('summary','',uk?'Про середовище запуску':'About the runtime'));note.before(fold);fold.append(note);}
+  }
  }
  let surfaceFrame=0;
  function scheduleSurfaces(){if(surfaceFrame)return;surfaceFrame=requestAnimationFrame(()=>{surfaceFrame=0;refineSurfaces();});}
