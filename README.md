@@ -2,11 +2,22 @@
 
 Основні розділи Kachan — Ресурси, Навчання та Інструменти. Головна містить три прості переходи. Задачі й нотатки доступні у вкладках Проєктів із вибором проєкту або записів без прив’язки; старі дані збережені. Бібліотека фрагментів коду знаходиться у Навчанні. Старі посилання автоматично відкривають нові розділи.
 
-Каталог Resources містить 61 вбудований ресурс у 13 тематичних добірках, двомовні описи, пошук, обране та особисті коментарі. Ресурси згруповані за типами й темами; групи відкриваються за потреби. Каталог зберігається офлайн; зовнішні матеріали потребують інтернету. Власні посилання додаються окремо й входять у резервну копію.
+Каталог Resources містить 81 вбудований ресурс у 13 тематичних добірках, двомовні описи, пошук, обране та особисті коментарі. Ресурси згруповані за типами й темами; групи відкриваються за потреби. Каталог зберігається офлайн; зовнішні матеріали потребують інтернету. Власні посилання додаються окремо й входять у резервну копію.
 
-Головна тепер показує лише три основні напрямки. Навчання має вкладки «Теорія / Практика / Тест» та налаштування «Вигляд / Dashboard / Дані / Сповіщення». Для HTML вкладка «Тест» запускає структурні перевірки вправи. Дії задач доступні через меню «⋯»; панель масових дій з’являється після вибору задач. Закріплена панель переходів показує лише видимі блоки поточної вкладки.
+Головна показує три основні напрямки й швидкий старт. Навчання має вкладки «Теорія / Практика / Тест»; налаштування — «Вигляд / Акаунт / Резервні копії / Сповіщення». Для HTML вкладка «Тест» запускає структурні перевірки вправи. Дії задач доступні через меню «⋯»; панель масових дій з’являється після вибору задач. Закріплена панель переходів показує лише видимі блоки поточної вкладки.
 
 Personal developer workspace built with HTML, CSS, and vanilla JavaScript.
+
+
+## Поточні покращення
+
+- Основні курси: 46 уроків HTML, CSS, JavaScript, Git, TypeScript і Figma; додаткові докладні розділи доступні окремо.
+- Практика: код і результат поруч на широкому екрані, вертикально на телефоні; перенос рядків, розширення редактора, Ctrl/Cmd + Enter для перевірки та пояснення невдалих умов. У Figma працюємо у власному файлі й перевіряємо навчальний звіт; Git виконується в симуляторі.
+- Ресурси: 81 вбудоване посилання, теми, обране й фільтр «Для новачка / Для практики / Для роботи». Це добірки за метою, а не обов’язкові рівні курсу.
+- Інструменти: 13 інструментів; редаговані стартові приклади картки, адаптивної сітки, лічильника, доступної форми, навігації та Flexbox. Завантаження прикладу потребує підтвердження заміни поточної чернетки.
+- Акаунт: відновлення пароля, перевірене повернення з листа, ручні копії та перевірка підключення без запису даних.
+
+Налаштування повернення з листів описані у [SUPABASE.md](SUPABASE.md). Перевірки перед публікацією — у [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md). Частина браузерних тестів використовує тестовий API; це не замінює перевірку листів і двох пристроїв у власному акаунті.
 
 ## Features
 
@@ -19,7 +30,7 @@ Personal developer workspace built with HTML, CSS, and vanilla JavaScript.
 - Settings: name, accent color, dark/light theme, confirmed reset.
 - Ukrainian and English interface; responsive layouts.
 
-Data stays in LocalStorage in the current browser and site origin. It does not sync between devices or between localhost and the published website. Reset clears only this application's keys.
+Data stays in browser storage for the current site origin, with IndexedDB and a LocalStorage fallback. Supabase supports manual cloud backups and transfer between devices; local data is never uploaded automatically. Reset clears only this application's keys.
 
 ## Run locally
 
@@ -40,7 +51,7 @@ Open http://localhost:5173. No package installation or build step is required. C
 
 ## Publish
 
-GitHub Pages serves the `main` branch from the repository root. The site is expected at https://rubin666666.github.io/Kachan/ once Pages is enabled.
+GitHub Pages serves the `main` branch from the repository root. The site is expected at https://rubin666666.github.io/Kachan/ (GitHub Pages is enabled).
 
 ## Validation
 

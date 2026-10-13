@@ -83,7 +83,7 @@
  function enhanceToolEditor(input){
   if(input.parentElement.classList.contains('code-editor-shell'))return;
   const uk=document.documentElement.lang==='uk',shell=E('div','code-editor-shell'),bar=E('div','code-editor-toolbar'),status=E('div','code-editor-status'),size=E('span'),position=E('span');
-  const language=input.id==='developer-js'?'JavaScript':input.id==='markup-code'?'HTML':input.id==='playground-code'?({html:'HTML',css:'CSS',js:'JavaScript'})[playgroundFile]:(input.getAttribute('aria-label')||'Code');
+  const language=input.id==='developer-js'?'JavaScript':input.id==='markup-code'?'HTML':input.id==='playground-code'?({html:'HTML',css:'CSS',js:'JavaScript'})[playgroundFile]:(input.id==='course-code'?'HTML':input.id==='academy-code-js'?({Git:'Git',Figma:'JSON',TypeScript:'TypeScript',JavaScript:'JavaScript'}[academy.course]||'JavaScript'):input.id.startsWith('academy-code-')?input.id.replace('academy-code-','').toUpperCase():(input.getAttribute('aria-label')||'Code'));
   const wrap=button(uk?'Перенос рядків':'Wrap lines',()=>{const active=shell.classList.toggle('editor-lines-wrapped');input.wrap=active?'soft':'off';wrap.setAttribute('aria-pressed',String(active));},'editor-wrap');wrap.setAttribute('aria-pressed','false');wrap.setAttribute('aria-controls',input.id);
   const expand=button(uk?'Більше місця':'Expand',()=>{const active=shell.classList.toggle('editor-expanded');expand.textContent=active?(uk?'Компактно':'Compact'):(uk?'Більше місця':'Expand');expand.setAttribute('aria-pressed',String(active));},'editor-expand');expand.setAttribute('aria-pressed','false');expand.setAttribute('aria-controls',input.id);
   bar.append(E('span','code-editor-language',language),wrap,expand);status.append(size,position);const hint=E('span','code-editor-shortcut',(navigator.platform.includes('Mac')?'⌘':'Ctrl')+' + Enter');hint.title=uk?'Запустити або перевірити код':'Run or check code';status.append(hint);
@@ -136,7 +136,7 @@
   for(const paragraph of document.querySelectorAll('.beginner-lesson p,.chapter-reader p,.foundation-reader p'))refineInlineCode(paragraph);
   refineChapterNavigation();
   for(const input of document.querySelectorAll('.content input[type=range],dialog input[type=range]'))updateRange(input);
-  for(const input of Q('tools-view').querySelectorAll('.tool-body textarea.tool-code-editor:not([readonly])'))enhanceToolEditor(input);
+  for(const input of document.querySelectorAll('#tools-view .tool-body textarea.tool-code-editor:not([readonly]),#learning-view textarea.course-code'))enhanceToolEditor(input);
   const exercise=Q('developer-exercise');if(exercise){const label=exercise.closest('label');if(label?.firstChild?.nodeType===3)label.firstChild.textContent=uk?'Вправа':'Exercise';label?.classList.add('practice-exercise-field');
    const body=exercise.closest('.tool-body'),note=[...body.querySelectorAll(':scope>p.panel-note')].find(p=>p.textContent===dc().sandbox);if(note){const fold=E('details','tool-runtime-note');fold.append(E('summary','',uk?'Про середовище запуску':'About the runtime'));note.before(fold);fold.append(note);}
   }
