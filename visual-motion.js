@@ -40,7 +40,7 @@
   return {sync,destroy(){disposed=true;cancelAnimationFrame(frame);resizeObserver.disconnect();intersection.disconnect();themeObserver.disconnect();host.removeEventListener('pointermove',pointer);host.removeEventListener('pointerleave',leave);}};
  }
  const before=renderHome;
- renderHome=function(){scene?.destroy();scene=null;before();const heading=homeSurface.querySelector('.home-hero-text h1');if(heading){const text=heading.textContent,index=text.lastIndexOf(' ');if(index>0)heading.replaceChildren(document.createTextNode(text.slice(0,index+1)),E('span','home-title-accent',text.slice(index+1)));}const host=homeSurface.querySelector('.home-blueprint');if(host)scene=createScene(host);decorateHomePortals();};
+ renderHome=function(){if(scene&&homeSurface.dataset.homeSignature===homeRenderSignature()&&homeSurface.querySelector('.workspace-orbit'))return;scene?.destroy();scene=null;before();const heading=homeSurface.querySelector('.home-hero-text h1');if(heading){const text=heading.textContent,index=text.lastIndexOf(' ');if(index>0)heading.replaceChildren(document.createTextNode(text.slice(0,index+1)),E('span','home-title-accent',text.slice(index+1)));}const host=homeSurface.querySelector('.home-blueprint');if(host)scene=createScene(host);decorateHomePortals();};
  document.addEventListener('visibilitychange',()=>scene?.sync());window.addEventListener('hashchange',()=>requestAnimationFrame(()=>scene?.sync()));window.addEventListener('languagechange',()=>renderHome());reduce.addEventListener('change',()=>scene?.sync());
  renderHome();
 

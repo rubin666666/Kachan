@@ -20,4 +20,4 @@ const learningOverview=Q('learning-title').closest('.dashboard-panel'),learningW
 const projectDetailsWindow=utilityWindow('project-details-window','projects',Q('project-detail'));projectDetailsWindow.dialog.classList.add('project-details-window');
 const detailBeforeWindow=renderProjectDetail;renderProjectDetail=function(){detailBeforeWindow();if(!Q('project-detail').hidden){Q('all-projects').hidden=false;Q('projects-view').classList.remove('project-open');projectDetailsWindow.open();}else projectDetailsWindow.shut();};
 projectDetailsWindow.dialog.addEventListener('close',()=>{if(location.hash.startsWith('#projects?project='))location.hash='projects';});
-window.addEventListener('hashchange',()=>{for(const w of [snippetWindow,resourceWindow,noteWindow,filterWindow,learningWindow])w?.shut();});window.addEventListener('languagechange',renderHome);arrangeWorkday();renderProjectDetail();
+window.addEventListener('hashchange',()=>{for(const w of [snippetWindow,resourceWindow,noteWindow,filterWindow,learningWindow])w?.shut();});window.addEventListener('languagechange',()=>renderHome());arrangeWorkday();renderProjectDetail();
