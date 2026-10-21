@@ -20,7 +20,7 @@ function renderLearningJourney(){
   item.append(E('span','journey-number',completed===module.lessons.length?'✓':String(position+1).padStart(2,'0')));copy.append(E('h3','',title[index]),E('p','',description[index]),E('small','',c.before+': '+prerequisite[index]));
   const action=button(completed===module.lessons.length?c.done:completed?c.continue:c.start,()=>openLesson(next.id),'secondary-button');action.setAttribute('aria-label',action.textContent+' · '+course);item.append(copy,action);list.append(item);
  }
- fold.append(list,E('p','panel-note',index===0?'TypeScript вивчай після основ JavaScript. Figma можна проходити окремо для роботи з макетами.':'Learn TypeScript after JavaScript fundamentals. Figma is a separate track for interface design.'));learningLibrary.querySelector('.learning-course-grid')?.before(fold);
+ fold.append(list,E('p','panel-note',index===0?'TypeScript вивчай після основ JavaScript. Figma можна проходити окремо для роботи з макетами.':'Learn TypeScript after JavaScript fundamentals. Figma is a separate track for interface design.'));learningLibrary.querySelector('.learning-course-grid')?.before(fold);if(typeof renderPortfolioEntry==='function')renderPortfolioEntry();
 }
 
 function lessonTool(id,course){if(course==='HTML')return /forms/.test(id)?'form':/semantics|accessibility/.test(id)?'markup':'playground';if(course==='CSS')return /flex/.test(id)?'flex':/grid/.test(id)?'grid':'lab';if(course==='JavaScript')return /dom/.test(id)?'playground':'js-practice';return course==='Figma'?'reviews':'cheats';}
