@@ -36,13 +36,13 @@ function studioMascot() { const svg = document.createElementNS('http://www.w3.or
     path.setAttribute('opacity', opacity);
     svg.append(path);
 } return svg; }
-Object.assign(translations.uk, { studioTitle: 'Студія Kachan' });
-Object.assign(translations.en, { studioTitle: 'Kachan Studio' });
+Object.assign(translations.uk, { studioTitle: 'Інструменти Kachan' });
+Object.assign(translations.en, { studioTitle: 'Kachan tools' });
 const studioBody = E('div', 'studio-body'), studioWindow = utilityWindow('studio-window', 'studioTitle', studioBody);
 studioWindow.dialog.addEventListener('close', () => { studioGeneration++; studioCleanup(); for (const frame of studioBody.querySelectorAll('iframe'))
     frame.srcdoc = ''; if (typeof renderStudioHome === 'function')
     renderStudioHome(); });
-function openStudio(id = '') { studioGeneration++; studioActive = studioActivities.some(row => row[0] === id) ? id : ''; if (studioActive)
+function openStudio(id = '') { if(!id&&typeof openUnifiedTools==='function'){openUnifiedTools();return;} studioGeneration++; studioActive = studioActivities.some(row => row[0] === id) ? id : ''; if (studioActive)
     studioRecord('activity', studioActive); renderStudio(); studioWindow.open(); studioWindow.dialog.scrollTop = 0; }
 function renderStudio() { studioCleanup(); studioBody.replaceChildren(); const lang = document.documentElement.lang; if (!studioActive) {
     const hero = E('header', 'studio-intro');
@@ -65,7 +65,7 @@ function renderStudio() { studioCleanup(); studioBody.replaceChildren(); const l
     studioBody.append(nav, grid);
     draw();
     return;
-} const row = studioActivities.find(row => row[0] === studioActive), bar = E('div', 'studio-activity-heading'); bar.append(button(studioText('← Уся студія', '← Studio'), () => openStudio(), 'learning-back'), E('h2', '', studioLabel(row))); studioBody.append(bar); studioNote(studioBody, row[4], row[5]); const content = E('div', 'studio-activity-body'); studioBody.append(content); const renderer = studioRenderers[studioActive]; if (renderer)
+} const row = studioActivities.find(row => row[0] === studioActive), bar = E('div', 'studio-activity-heading'); bar.append(button(studioText('← Усі інструменти', '← All tools'), () => openStudio(), 'learning-back'), E('h2', '', studioLabel(row))); studioBody.append(bar); studioNote(studioBody, row[4], row[5]); const content = E('div', 'studio-activity-body'); studioBody.append(content); const renderer = studioRenderers[studioActive]; if (renderer)
     renderer(content);
 else
     studioEmpty(content, 'Цей інструмент не завантажився. Онови сторінку.', 'This tool did not load. Reload the page.'); }

@@ -42,12 +42,12 @@ function studioLearningLaunch() { if (!learningLibrary)
     return; for (const [index, card] of [...learningLibrary.querySelectorAll('.learning-course-card')].entries())
     if (!card.querySelector('.studio-course-art'))
         card.querySelector('.learning-card-top')?.append(studioCourseArt(learningModules()[index]?.id)); if (learningLibrary.querySelector('.studio-learning-entry'))
-    return; const entry = E('div', 'studio-learning-entry'); for (const [id, uk, en] of [['', 'Навчальна студія', 'Learning studio'], ['map', 'Маршрут і карта знань', 'Route and knowledge map'], ['review', 'Повторення', 'Review'], ['comic', 'Вебкомікси', 'Web comics']])
+    return; const entry = E('div', 'studio-learning-entry'); for (const [id, uk, en] of [['', 'Інструменти для навчання', 'Learning tools'], ['map', 'Маршрут і карта знань', 'Route and knowledge map'], ['review', 'Повторення', 'Review'], ['comic', 'Вебкомікси', 'Web comics']])
     entry.append(button(studioText(uk, en), () => openStudio(id), 'secondary-button')); learningLibrary.prepend(entry); }
 const studioLibraryBefore = renderLearningLibrary;
 renderLearningLibrary = function () { const result = studioLibraryBefore(); studioLearningLaunch(); return result; };
 const studioToolsBefore = renderTools;
-renderTools = function () { const result = studioToolsBefore(); const body = toolsView.querySelector('.tool-body'); if (body && !body.querySelector('.studio-tools-entry')) {
+renderTools = function () { const result = studioToolsBefore(); const body = toolsView.querySelector('.tool-body');if(typeof renderUnifiedCatalog==='function'){if(toolCatalogOpen)renderUnifiedCatalog();else body?.querySelector('.studio-tools-entry')?.remove();return result;} if (body && !body.querySelector('.studio-tools-entry')) {
     const entry = E('div', 'studio-tools-entry');
     entry.append(E('span', '', studioText('Більше можливостей', 'More to explore')));
     for (const [id, uk, en] of [['', 'Студія', 'Studio'], ['palette', 'Палітри', 'Palettes'], ['type', 'Типографіка', 'Typography'], ['motion', 'Анімації', 'Animations'], ['builder', 'Полотно', 'Canvas']])
