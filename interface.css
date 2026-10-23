@@ -53,6 +53,36 @@ body[data-focus-route=dashboard] .home-quick-start{padding-top:20px}
 @media(max-width:700px){:root{--ui-control-height:44px}.journey-stages>li{grid-template-columns:24px minmax(0,1fr);gap:8px}.journey-stages>li>button{grid-column:2;justify-self:start}.lesson-return-strip{gap:10px;padding:14px}.lesson-return-strip>.learning-back{order:3;width:100%}.data-overview{grid-template-columns:1fr}.data-status{margin-left:0}.data-status-panel{left:0;right:auto}.home-primary-action{align-items:flex-start;flex-direction:column}.home-primary-action>.home-next-label{max-width:100%}}
 @media(max-width:700px){#main-content>.site-footer{position:relative}.data-status{position:static}.data-status-panel{left:20px;right:auto}}
 .lesson-orientation{padding:0 18px 18px;max-width:var(--ui-reading-width)}.lesson-orientation>h3{font-size:15px;margin:16px 0 10px}.lesson-orientation>p{font-size:15px;line-height:1.9;margin:12px 0;color:var(--muted)}
+
+/* Graphite studio: cool depth, one bright action and a restrained mineral tint. */
+:root:not([data-theme=light]){--bg:#090f16;--panel:#101923;--surface-raised:#172330;--border:#263340;--text:#edf4f8;--muted:#a2b3c1;--studio-mineral:#8bd8c5;--ui-shadow:0 18px 54px #00000028}
+:root[data-theme=light]{--bg:#edf2f4;--panel:#fcfefe;--surface-raised:#e3ecef;--border:#cbd8df;--text:#142936;--muted:#526a78;--studio-mineral:#257c70;--ui-shadow:0 18px 54px #183e5010}
+body{font-family:'Segoe UI Variable','Segoe UI',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.sidebar{background:linear-gradient(180deg,var(--panel),var(--bg));border-right-color:color-mix(in srgb,var(--border) 65%,transparent)}
+.brand-wordmark{letter-spacing:-.06em}.brand-dot{color:var(--studio-mineral)}
+.topbar{background:color-mix(in srgb,var(--bg) 94%,transparent)}
+body[data-focus-route=dashboard] .content{background:radial-gradient(ellipse at 94% 12%,color-mix(in srgb,var(--studio-mineral) 6%,transparent),transparent 52%),var(--bg)}
+body[data-focus-route=dashboard] .focus-hero{padding-block:40px;gap:44px}
+body[data-focus-route=dashboard] .focus-hero h1{font-size:clamp(42px,4.8vw,78px);font-weight:680;letter-spacing:-.065em;line-height:1.04}
+.home-title-accent{background-image:linear-gradient(105deg,var(--accent),var(--studio-mineral));color:var(--accent)}
+.home-hero-text>p.home-hero-description{font-size:18px;line-height:1.8;max-width:46ch}
+body[data-focus-route=dashboard] .home-hero-text>p.eyebrow{color:var(--studio-mineral);letter-spacing:.13em}
+.home-primary-action>.primary-button{box-shadow:0 6px 24px color-mix(in srgb,var(--accent) 13%,transparent);border-radius:6px}
+body[data-focus-route=dashboard] .focus-portal{border-radius:6px;background:linear-gradient(150deg,var(--surface-raised),var(--panel) 74%);min-height:242px;padding:28px}
+body[data-focus-route=dashboard] .focus-portal[href='#learning']{background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 17%,var(--panel)),var(--panel) 85%);border-color:color-mix(in srgb,var(--accent) 45%,var(--border))}
+body[data-focus-route=dashboard] .focus-portal h2{font-size:28px;font-weight:650}.focus-portal-icon svg{color:var(--studio-mineral)}
+.content .home-quick-action{border-color:transparent;background:color-mix(in srgb,var(--panel) 65%,transparent);border-radius:6px}.content .home-quick-action:hover{border-color:var(--accent-border)}
+.content .home-quick-heading{margin-bottom:14px}.content .home-quick-heading p{font-size:12px}
+.orbit-label{background:color-mix(in srgb,var(--panel) 88%,transparent);border-color:color-mix(in srgb,var(--studio-mineral) 25%,var(--border));box-shadow:var(--ui-shadow)}
+.content .page-heading.section-heading-surface{padding-top:10px!important;margin-bottom:26px!important}.content .section-heading-surface h1{font-weight:650;font-size:clamp(30px,3.2vw,42px)!important}
+:is(#resources-view,#learning-view,#tools-view,#projects-view,#profile-view) :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card){border-color:color-mix(in srgb,var(--border) 85%,transparent);border-radius:6px!important}
+#learning-view .learning-course-card{background:linear-gradient(150deg,var(--surface-raised),var(--panel) 68%)}
+#tools-view .tool-catalog-card{background:linear-gradient(160deg,color-mix(in srgb,var(--studio-mineral) 3%,var(--panel)),var(--panel))}.tool-demo{border-color:color-mix(in srgb,var(--border) 65%,transparent);background:var(--bg)}
+.lesson-direction{background:linear-gradient(110deg,var(--accent-soft),color-mix(in srgb,var(--studio-mineral) 5%,var(--panel)));border-radius:6px}.content .lesson-step-tabs{gap:8px;background:transparent}.content .lesson-step-tabs button{border-radius:4px}
+.content .resource-type-group>summary{background:linear-gradient(110deg,color-mix(in srgb,var(--studio-mineral) 3%,var(--panel)),var(--panel))}
+.content :is(input,textarea,select):focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){body[data-focus-route=dashboard] .focus-portal{transition:border-color 220ms ease,box-shadow 220ms ease,background 220ms ease}body[data-focus-route=dashboard] .focus-portal:hover{box-shadow:0 10px 30px #00000016;border-color:var(--accent)}.tool-demo-swatch{transition:filter 250ms ease}.tool-catalog-card:hover .tool-demo-swatch{filter:brightness(1.15)}}
+@media(max-width:700px){body[data-focus-route=dashboard] .focus-hero{padding-block:26px;gap:24px}body[data-focus-route=dashboard] .focus-hero h1{font-size:clamp(39px,10.5vw,52px)}.home-hero-text>p.home-hero-description{font-size:16px}body[data-focus-route=dashboard] .focus-portal{min-height:190px;padding:22px}body[data-focus-route=dashboard] .focus-portal h2{font-size:24px}.content .page-heading.section-heading-surface{margin-bottom:20px!important}}
 /* Working controls stay still; motion is confined to decorative art and feedback. */
 .content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card):hover{transform:none!important}.content :is(.primary-button,.secondary-button):active{transform:none}.lesson-return-strip,.data-status-panel{animation:ui-surface-in var(--ui-duration) var(--ui-ease)}
 @keyframes ui-surface-in{from{transform:translateY(4px)}to{transform:none}}
