@@ -6,7 +6,7 @@ function readData(key,fallback,validate){try{const value=JSON.parse(kachanStorag
 function writeData(key,value){try{kachanStorage.setItem(key,JSON.stringify(value));return true;}catch{notice(t().storageFailed);return false;}}
 function t(){return translations[document.documentElement.lang];}
 let noticeTimer;
-function notice(message){clearTimeout(noticeTimer);document.querySelector('#app-notice').textContent=message;noticeTimer=setTimeout(()=>{document.querySelector('#app-notice').textContent='';},5000);}
+function notice(message){clearTimeout(noticeTimer);const feedback=document.querySelector('#app-notice');feedback.textContent=message;if(message&&!matchMedia('(prefers-reduced-motion:reduce)').matches){feedback.getAnimations().forEach(a=>a.cancel());feedback.animate([{opacity:.35,transform:'translateY(5px)'},{opacity:1,transform:'translateY(0)'}],{duration:220,easing:'ease-out'});}noticeTimer=setTimeout(()=>{document.querySelector('#app-notice').textContent='';},5000);}
 let snippets=readData('devspace-snippets',[
 {id:'css-center',name:'Flexbox center',category:'CSS',description:'',code:'.container {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}'},
 {id:'js-array',name:'Array filter',category:'JavaScript',description:'',code:'const activeTasks = tasks.filter(task => !task.completed);'}
