@@ -1,4 +1,37 @@
 /* Shared control, spacing and reading tokens. One owner for new shared surfaces. */
+/* Editorial composition: strong titles, quiet surfaces and deliberate blue accents. */
+body[data-focus-route=dashboard] .focus-hero{gap:32px;padding-block:28px 36px;min-height:360px}
+body[data-focus-route=dashboard] .focus-hero h1{font-size:clamp(38px,4.3vw,70px);line-height:1.06;letter-spacing:-.055em;font-weight:750;text-wrap:balance}
+body[data-focus-route=dashboard] .home-hero-text>p.eyebrow{display:block;margin:0 0 20px;font:11px/1.6 ui-monospace,Consolas,monospace;letter-spacing:.16em;color:var(--accent)}
+body[data-focus-route=dashboard] .focus-portals{counter-reset:home-directions;gap:16px}
+body[data-focus-route=dashboard] .focus-portal{counter-increment:home-directions;min-height:220px;padding:24px;border-top:1px solid var(--border);background:linear-gradient(155deg,color-mix(in srgb,var(--accent) 3%,var(--panel)),var(--panel));overflow:hidden}
+body[data-focus-route=dashboard] .focus-portal-icon{position:static;margin-bottom:20px}
+body[data-focus-route=dashboard] .focus-portal-icon::after{content:'0' counter(home-directions);position:absolute;right:24px;top:22px;font:12px/1.6 ui-monospace,Consolas,monospace;color:var(--muted);letter-spacing:.08em}
+body[data-focus-route=dashboard] .focus-portal-arrow{top:auto;bottom:24px;right:24px;font-size:21px}
+body[data-focus-route=dashboard] .focus-portal h2{font-size:25px;letter-spacing:-.035em;margin-bottom:10px}
+body[data-focus-route=dashboard] .focus-portal p{font-size:14px;line-height:1.8;max-width:34ch}
+body[data-focus-route=dashboard] .focus-portal[href='#learning']{background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 10%,var(--panel)),var(--panel));border-color:var(--accent-border)}
+body[data-focus-route=dashboard] .home-quick-start{padding-top:20px}
+.content .home-quick-heading h2{font-size:17px;letter-spacing:-.02em}
+.content .home-quick-actions{gap:16px}
+.content .home-quick-action{background:transparent;padding:20px 44px 20px 20px;min-height:110px}
+.content .home-quick-title{font-size:15px}.content .home-quick-description{font-size:13px}
+.content .page-heading.section-heading-surface{background:transparent;border:0!important;padding:4px 0 20px!important;min-height:84px!important}
+.content .section-heading-surface h1{font-size:clamp(28px,3vw,38px)!important;letter-spacing:-.045em;line-height:1.2}
+.content :is(.resource-type-group,.learning-journey){background:color-mix(in srgb,var(--panel) 70%,var(--bg));border-color:color-mix(in srgb,var(--border) 75%,transparent)}
+#resources-view .resource-type-group>summary{padding:20px 24px;min-height:74px}
+#resources-view .resource-type-group>summary h2{font-size:19px;letter-spacing:-.025em}
+#resources-view .resource-card{background:var(--panel)}
+#learning-view .learning-course-card{min-height:250px;background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 3%,var(--panel)),var(--panel))}
+#learning-view .learning-course-card h3{font-size:24px;letter-spacing:-.035em}
+#tools-view .tool-catalog-card{min-height:100px;font-size:16px;background:var(--panel)}
+.content :is(.resource-card,.learning-course-card,.tool-catalog-card,.project-card){transition:border-color 180ms ease,background-color 180ms ease}
+.sidebar .nav-item:not(.active){color:var(--muted)}.sidebar .nav-item:hover{color:var(--text)}
+.sidebar .nav-label{letter-spacing:.12em;font-size:10px}
+@media(min-width:1100px){body[data-focus-route=dashboard] .focus-hero{grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr)}.home-blueprint.home-orbit{max-width:440px}.content .learning-course-grid{gap:16px}.content .tool-catalog{gap:14px}}
+@media(max-width:700px){body[data-focus-route=dashboard] .focus-hero{min-height:0;padding-block:20px 24px;gap:20px}body[data-focus-route=dashboard] .focus-hero h1{font-size:clamp(36px,9vw,48px)}body[data-focus-route=dashboard] .focus-portal{min-height:190px;padding:20px}body[data-focus-route=dashboard] .focus-portal-icon::after{top:20px;right:20px}.content .home-quick-action{min-height:0}.content .page-heading.section-heading-surface{padding-bottom:12px!important}}
+@media(max-width:700px){.home-blueprint.home-orbit{width:230px;aspect-ratio:6/4}.home-blueprint .orbit-label{padding:6px 8px;font-size:10px}.home-blueprint .orbit-resources{left:-8px}.home-blueprint .orbit-tools{right:-8px}}
+@media(prefers-reduced-motion:reduce){.content :is(.resource-card,.learning-course-card,.tool-catalog-card,.project-card){transition:none}}
 :root{--ui-radius:4px;--ui-space:8px;--ui-control-height:42px;--ui-reading-width:72ch;--ui-shadow:0 12px 32px #00000018;--ui-duration:180ms;--ui-ease:cubic-bezier(.2,.8,.2,1)}
 .content :is(.primary-button,.secondary-button,.learning-back,.tool-catalog-back),dialog :is(.primary-button,.secondary-button){min-height:var(--ui-control-height);border-radius:var(--ui-radius);padding:10px 15px;font-size:14px;line-height:1.5;font-weight:600}
 .content :is(.primary-button,.secondary-button,.learning-back,.tool-catalog-back):focus-visible,dialog :is(button,a,input,textarea,select,summary):focus-visible{outline:2px solid var(--accent);outline-offset:3px}
