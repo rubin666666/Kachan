@@ -45,7 +45,7 @@ function studioLearningLaunch() { if (!learningLibrary)
     return; const entry = E('div', 'studio-learning-entry'); for (const [id, uk, en] of [['', 'Інструменти для навчання', 'Learning tools'], ['map', 'Маршрут і карта знань', 'Route and knowledge map'], ['review', 'Повторення', 'Review'], ['comic', 'Вебкомікси', 'Web comics']])
     entry.append(button(studioText(uk, en), () => openStudio(id), 'secondary-button')); learningLibrary.prepend(entry); }
 const studioLibraryBefore = renderLearningLibrary;
-renderLearningLibrary = function () { const result = studioLibraryBefore(); studioLearningLaunch(); return result; };
+renderLearningLibrary = function () { const result = studioLibraryBefore(); studioLearningLaunch();if(typeof renderLearningProjectEntry==='function')renderLearningProjectEntry(); return result; };
 const studioToolsBefore = renderTools;
 renderTools = function () { const result = studioToolsBefore(); const body = toolsView.querySelector('.tool-body');if(typeof renderUnifiedCatalog==='function'){if(toolCatalogOpen)renderUnifiedCatalog();else body?.querySelector('.studio-tools-entry')?.remove();return result;} if (body && !body.querySelector('.studio-tools-entry')) {
     const entry = E('div', 'studio-tools-entry');
