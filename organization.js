@@ -39,7 +39,7 @@ function organizeLearning(){
  let shell=learningLibrary.querySelector('.organized-learning');
  if(!shell){shell=E('div','organized-learning');for(const id of ['courses','practice','reference']){const panel=E('section','organized-learning-panel');panel.dataset.learningPanel=id;panel.id='learning-panel-'+id;shell.append(panel);}learningLibrary.append(shell);}
  const panel=id=>shell.querySelector('[data-learning-panel='+id+']');
- const move=(selector,target)=>{const node=learningLibrary.querySelector(selector);if(node&&node.parentElement!==target)target.append(node);};
+ const move=(selector,target)=>{const node=learningLibrary.querySelector(selector);if(node&&!target.contains(node))target.append(node);};
  for(const selector of ['.learning-library-intro','.learning-resume-banner','.learning-course-grid'])move(selector,panel('courses'));
  for(const selector of ['#beginner-start','#learning-journey','.studio-learning-entry']){move(selector,panel('courses'));const node=learningLibrary.querySelector(selector);if(node)node.hidden=true;}
  move('.learning-project-entry',panel('practice'));
@@ -56,6 +56,11 @@ function organizeLearning(){
  const tab=focusedRoute().params.get('tab')||'courses';for(const section of shell.children)section.hidden=section.dataset.learningPanel!==(['practice','reference'].includes(tab)?tab:'courses');
  learningLibrary.dataset.organized='true';
  for(const description of learningLibrary.querySelectorAll('.learning-course-description')){const fold=description.closest('.compact-description');if(fold)fold.replaceWith(description);}
+ let desk=panel('courses').querySelector('.course-desk');
+ if(!desk){desk=E('div','course-desk');desk.append(E('aside','course-desk-aside'),E('div','course-desk-list'));panel('courses').append(desk);}
+ const aside=desk.querySelector('.course-desk-aside'),list=desk.querySelector('.course-desk-list');
+ for(const selector of ['.learning-resume-banner','.organization-course-actions']){const node=panel('courses').querySelector(selector);if(node&&node.parentElement!==aside)aside.append(node);}
+ const courseGrid=panel('courses').querySelector('.learning-course-grid');if(courseGrid&&courseGrid.parentElement!==list)list.append(courseGrid);
 }
 window.addEventListener('kachan-ready',organizeLearning);
 window.addEventListener('languagechange',()=>{organizeLearning();if(organizationWindow?.dialog.open)organizationWindow.shut();});
@@ -109,6 +114,31 @@ function simplifyResources(){
   card.querySelector('.card-more')?.setAttribute('hidden','');
   if(!card.querySelector('.resource-details-open'))card.append(button(studioText('Деталі','Details'),()=>openResourceDetails(card),'resource-details-open secondary-button'));
  }
+ renderResourceDesk();
+}
+let resourceDeskLimit=8,resourceDeskSignature='',resourceStartWindow;
+function openResourceStart(){
+ if(!resourceStartWindow){const body=E('div','resource-detail-content');resourceStartWindow={body,...utilityWindow('resource-start-window','resources',body)};}
+ const c=resourceGuideText(),body=resourceStartWindow.body;body.replaceChildren(E('h2','',c.start),E('p','panel-note',c.intro));
+ const links=Q('resource-beginner-start')?.querySelector('.resource-start-links');if(links)body.append(links.cloneNode(true));resourceStartWindow.open();
+}
+function renderResourceDesk(){
+ const root=Q('resource-list'),cards=[...root.querySelectorAll('.resource-card')],empty=root.querySelector('.empty-state'),uk=document.documentElement.lang==='uk';
+ const signature=[document.documentElement.lang,resourceFilter,Q('resource-query').value,Q('resource-collection').value,resourcePurpose,cards.map(card=>card.dataset.resourceId).join(',')].join('|');
+ if(signature!==resourceDeskSignature){resourceDeskLimit=8;resourceDeskSignature=signature;}
+ const nav=E('nav','resource-desk-nav');nav.setAttribute('aria-label',uk?'Тип ресурсу':'Resource type');const rows=resourceRows();
+ for(const [id,title]of [['all',uk?'Усі ресурси':'All resources'],['favorites',uk?'Обране':'Saved'],...['Docs','Tools','Design','Practice'].map(id=>[id,t()[id]])]){
+  const amount=id==='all'?rows.length:id==='favorites'?rows.filter(row=>favorites.includes(row.id)).length:rows.filter(row=>row.category===id).length;
+  const control=button('',()=>{resourceFilter=id;resourcePurpose='all';Q('resource-collection').value='all';renderResources();},'resource-desk-nav-item');control.append(E('span','',title),E('small','',String(amount)));control.setAttribute('aria-pressed',String(resourceFilter===id));nav.append(control);
+ }
+ nav.append(button(uk?'З чого почати? ↗':'Where to start? ↗',openResourceStart,'resource-desk-start'));
+ const main=E('section','resource-desk-main'),header=E('div','resource-desk-header'),heading=E('h2','',resourceFilter==='all'?(uk?'Каталог ресурсів':'Resource catalog'):resourceFilter==='favorites'?(uk?'Збережені матеріали':'Saved resources'):t()[resourceFilter]),count=E('p','resource-desk-count');count.setAttribute('role','status');header.append(heading,count);
+ const list=E('div','resource-desk-list');list.append(...cards);if(!cards.length&&empty)list.append(empty);
+ const more=button(uk?'Показати ще 8':'Show 8 more',()=>{resourceDeskLimit+=8;apply();},'secondary-button resource-desk-more');
+ function apply(){cards.forEach((card,index)=>card.hidden=index>=resourceDeskLimit);more.hidden=resourceDeskLimit>=cards.length;count.textContent=(uk?'Показано ':'Showing ')+Math.min(resourceDeskLimit,cards.length)+(uk?' з ':' of ')+cards.length;}
+ main.append(header,list,more);root.classList.add('resource-desk');root.replaceChildren(nav,main);apply();
+ const panel=Q('resource-query').closest('.dashboard-panel');panel.classList.add('resource-desk-search');
+ const field=Q('resource-collection').closest('.form-field');if(field.parentElement!==panel)panel.append(field);field.classList.add('resource-desk-topic');
 }
 simplifyResources();
 if(learningScreen==='lesson')simplifyLesson(academy.course==='HTML'?Q('html-lesson'):academyPanel.querySelector('.course-layout>section'));
