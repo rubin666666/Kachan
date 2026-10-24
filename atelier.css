@@ -68,10 +68,10 @@ body[data-focus-route=dashboard] .focus-portal[href="#learning"]{background:#bcd
 body[data-focus-route=dashboard] .focus-portal[href="#learning"] :is(p,.focus-portal-icon svg,.focus-portal-arrow){color:#435c3f!important}
 body[data-focus-route=dashboard] .focus-portal[href="#resources"]{background:color-mix(in srgb,var(--panel) 90%,var(--atelier-warm))!important}
 body[data-focus-route=dashboard] .focus-portal[href="#tools"]{background:color-mix(in srgb,var(--panel) 93%,#75b7b2)!important}
-body[data-focus-route=dashboard] .focus-portal h2{font-size:22px;font-weight:600;letter-spacing:-.03em}
+body[data-focus-route=dashboard] .focus-portal h2{grid-column:2;grid-row:1;min-width:0;overflow-wrap:normal;word-break:normal;font-size:22px;font-weight:600;letter-spacing:-.03em}
 body[data-focus-route=dashboard] .focus-portal p{display:block!important;grid-column:1/-1;grid-row:2;font-size:14px;line-height:1.75;overflow-wrap:anywhere}
-body[data-focus-route=dashboard] .focus-portal-icon{display:flex;width:34px;height:34px;align-items:center;justify-content:center}
-body[data-focus-route=dashboard] .focus-portal-arrow{font-size:21px}
+body[data-focus-route=dashboard] .focus-portal-icon{grid-column:1;grid-row:1;display:flex;width:34px;height:34px;align-items:center;justify-content:center}
+body[data-focus-route=dashboard] .focus-portal-arrow{grid-column:3;grid-row:1;font-family:"Segoe UI Symbol","Apple Symbols",sans-serif;font-size:21px}
 body[data-focus-route=dashboard] .focus-portal:hover{box-shadow:0 9px 26px #020a0718;border-color:var(--accent-border)!important}
 body[data-focus-route=dashboard] .home-daily{gap:16px;margin-bottom:12px}
 body[data-focus-route=dashboard] .home-daily>section{padding:24px;background:var(--panel);border:1px solid var(--border);border-radius:16px}
@@ -84,3 +84,5 @@ body[data-focus-route=dashboard] .home-explore{background:linear-gradient(135deg
 @media(max-width:700px){body[data-focus-route=dashboard] .focus-hero{grid-template-columns:minmax(0,1fr);padding:28px 24px;min-height:0;border-radius:18px}body[data-focus-route=dashboard] .focus-hero h1{font-size:46px}body[data-focus-route=dashboard] .home-blueprint.home-orbit{max-width:190px;justify-self:center;max-height:160px}body[data-focus-route=dashboard] .home-primary-action{gap:14px;margin-top:20px;flex-direction:column;align-items:stretch}body[data-focus-route=dashboard] .home-next-label{max-width:none}body[data-focus-route=dashboard] .focus-portal{min-height:130px;padding:21px!important}body[data-focus-route=dashboard] .home-daily>section{padding:22px}.kachan-redesign :is(.utility-window,.editor-window){border-radius:12px!important}}
 @media(max-width:380px){body[data-focus-route=dashboard] .focus-hero{padding:24px 20px}body[data-focus-route=dashboard] .focus-hero h1{font-size:39px}}
 @media(prefers-reduced-motion:reduce){body[data-focus-route=dashboard] .focus-hero{animation:none}.kachan-redesign *{scroll-behavior:auto!important}}
+
+@media(max-width:700px){body[data-focus-route=dashboard] .focus-portal{grid-template-columns:minmax(0,1fr) 32px;min-height:0;gap:14px;padding:22px!important;align-content:start}body[data-focus-route=dashboard] .focus-portal-icon{display:none!important}body[data-focus-route=dashboard] .focus-portal h2{grid-column:1;grid-row:1;padding:0!important;margin:0!important;overflow-wrap:normal;word-break:normal}body[data-focus-route=dashboard] .focus-portal-arrow{grid-column:2;grid-row:1;justify-self:end;align-self:center;margin:0;padding:0;border:0;background:none}body[data-focus-route=dashboard] .focus-portal p{grid-column:1/-1;grid-row:2;max-width:none;margin:0}}
