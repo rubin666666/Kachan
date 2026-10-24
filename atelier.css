@@ -1,0 +1,86 @@
+/* Atelier edition: warm surfaces, sage controls and an editorial home. */
+:root.kachan-redesign:not([data-theme=light]):not([data-studio-theme=terminal]){
+ --bg:#171d19;--panel:#222a24;--surface-raised:#2a342c;--border:#3a453b;
+ --text:#eeeede;--muted:#b0baab;--atelier-paper:#ede8da;--atelier-ink:#25372c;
+ --atelier-warm:#c5ab87;--atelier-shadow:0 12px 36px #050b071c;--ui-radius:12px;
+}
+:root.kachan-redesign[data-theme=light]{
+ --bg:#f2f0e7;--panel:#fcfbf5;--surface-raised:#e9ede2;--border:#d0d8ca;
+ --text:#25382c;--muted:#5e6e5e;--atelier-paper:#e5e6d6;--atelier-ink:#25372c;
+ --atelier-warm:#8d6b40;--atelier-shadow:0 10px 28px #293a2b0b;--ui-radius:12px;
+}
+:root.kachan-redesign[data-studio-theme=terminal]{--atelier-paper:#dbe6d3;--atelier-ink:#183221;--atelier-warm:#a2bc93}
+.kachan-redesign body{background:var(--bg)}
+.kachan-redesign:not([data-studio-theme=terminal]) body{font-family:"Segoe UI",Arial,sans-serif}
+.kachan-redesign .sidebar{background:color-mix(in srgb,var(--bg) 92%,#061009);border-right:1px solid color-mix(in srgb,var(--border) 60%,transparent);padding-top:28px}
+.kachan-redesign .brand{font-size:25px;letter-spacing:-1px;padding-bottom:24px}
+.kachan-redesign .brand-icon{color:var(--accent)!important}
+.kachan-redesign .nav-item{border-radius:9px!important;min-height:46px;padding:12px 14px;transition:background 180ms,color 180ms}
+.kachan-redesign .nav-item.active{box-shadow:none!important;background:var(--accent-soft)!important;color:var(--accent)!important}
+.kachan-redesign .nav-item:not(.active):hover{background:var(--panel);color:var(--text)}
+.kachan-redesign .topbar{background:var(--bg);border:0}
+.kachan-redesign .page-heading.section-heading-surface{padding-bottom:18px!important}
+.kachan-redesign .section-heading-surface h1{font-size:32px!important;letter-spacing:-.04em}
+.kachan-redesign .section-identity>svg,.kachan-redesign .section-icon{border:0;background:var(--accent-soft);border-radius:10px;color:var(--accent);opacity:1}
+.kachan-redesign :is(.primary-button,.secondary-button,.window-close){border-radius:8px!important;letter-spacing:0}
+.kachan-redesign .primary-button{color:var(--accent-ink,#101810);font-weight:600;box-shadow:0 2px 3px #07100815;transition:filter 180ms,box-shadow 180ms}
+.kachan-redesign .primary-button:hover{filter:brightness(1.06);box-shadow:0 4px 12px #07100825}
+.kachan-redesign .secondary-button{background:var(--surface-raised);border-color:var(--border)}
+.kachan-redesign :is(input:not([type=range]):not([type=checkbox]):not([type=radio]),select,textarea){border-radius:8px}
+.kachan-redesign :is(input,select,textarea):focus-visible{outline:2px solid var(--accent);outline-offset:2px;box-shadow:0 0 0 4px var(--accent-soft)}
+.kachan-redesign .composition-tabs{gap:6px}
+.kachan-redesign .composition-tabs button{border-radius:8px;box-shadow:none}
+.kachan-redesign .composition-tabs button[aria-pressed=true]{background:var(--accent-soft);color:var(--accent);box-shadow:none;border-color:transparent}
+.kachan-redesign :is(.course-desk .learning-course-card,.resource-desk-list>.resource-card,.organization-card,.project-card,.dashboard-panel,.home-pin-link){border-radius:12px!important}
+.kachan-redesign .course-desk .learning-course-card,.kachan-redesign .resource-desk-list>.resource-card{box-shadow:var(--atelier-shadow);transition:background 160ms}
+.kachan-redesign :is(.course-desk .learning-course-card,.resource-desk-list>.resource-card):hover{background:var(--surface-raised)}
+.kachan-redesign #learning-library[data-organized] .course-desk .learning-resume-banner,
+.kachan-redesign .practice-aside>.practice-portfolio-card{border-radius:14px!important;background:linear-gradient(145deg,var(--accent-soft),var(--panel));border:1px solid var(--accent-border)}
+.kachan-redesign #learning-library[data-organized] .course-desk .learning-course-start{border-radius:8px}
+.kachan-redesign :is(.resource-desk-nav-item,.reference-topic-button){border-radius:8px}
+.kachan-redesign :is(.utility-window,.editor-window,.learning-map-dialog){border-radius:16px!important;border-color:var(--border);box-shadow:0 28px 100px #020a0866}
+.kachan-redesign dialog::backdrop{background:#07100bc4;backdrop-filter:blur(7px)}
+.kachan-redesign .editor-window-header{border-color:color-mix(in srgb,var(--border) 55%,transparent)}
+.kachan-redesign :is(.reference-detail,.reader-code-shell,.study-result iframe,.studio-source){border-radius:10px}
+.kachan-redesign .reference-topic-button[aria-selected=true]{box-shadow:none;border-radius:8px}
+.kachan-redesign .site-footer{font-size:12px;color:var(--muted);opacity:.8}
+
+body[data-focus-route=dashboard] .content{background:radial-gradient(ellipse at 90% 0%,color-mix(in srgb,var(--accent) 6%,transparent),transparent 55%),var(--bg);padding-top:20px}
+body[data-focus-route=dashboard] .focus-hero{
+ --accent:#315d46;--accent-soft:#315d4610;--accent-border:#315d463b;
+ display:grid;grid-template-columns:minmax(0,1.5fr) minmax(210px,.8fr);gap:30px;align-items:center;
+ background:var(--atelier-paper);color:var(--atelier-ink);border-radius:22px;
+ padding:38px 42px;min-height:350px;margin:6px 0 22px;position:relative;overflow:hidden;
+ animation:atelier-enter 450ms ease-out both;
+}
+body[data-focus-route=dashboard] .home-hero-text>.eyebrow{display:block;color:#51674f!important;font:11px/1.6 ui-monospace,Consolas,monospace;letter-spacing:.12em;margin:0 0 20px}
+body[data-focus-route=dashboard] .focus-hero h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;white-space:pre-line;font-size:clamp(42px,4.8vw,76px);line-height:1.03;letter-spacing:-.055em;margin:0 0 20px;max-width:none}
+body[data-focus-route=dashboard] .home-title-accent{background:none;color:#315d46;-webkit-text-fill-color:currentColor}
+body[data-focus-route=dashboard] .home-hero-description{font-size:15px;line-height:1.8;color:#586554;max-width:45ch}
+body[data-focus-route=dashboard] .home-primary-action{background:none;border:0;padding:0;margin-top:26px;gap:20px;justify-content:flex-start;max-width:none;flex-wrap:wrap}
+body[data-focus-route=dashboard] .home-next-label{color:#53614e;font-size:13px!important;max-width:240px}
+body[data-focus-route=dashboard] .home-primary-action .primary-button{background:#315d46;color:#f4f0e5;padding:13px 20px;border:0;border-radius:9px!important;order:-1}
+body[data-focus-route=dashboard] .home-blueprint.home-orbit{max-width:330px;color:#497254;--panel:#ede8da;--accent:#497254;background:none;opacity:.9}
+body[data-focus-route=dashboard] .home-blueprint .orbit-label{background:#f1ecdf;color:#3a5a43;border-color:#74816c40;box-shadow:0 8px 20px #253c2510;border-radius:20px;font-size:11px}
+body[data-focus-route=dashboard] .focus-portals{gap:16px;margin-bottom:18px}
+body[data-focus-route=dashboard] .focus-portal{border-radius:16px!important;min-height:158px;padding:24px!important;border:1px solid var(--border)!important;box-shadow:none;grid-template-columns:34px minmax(0,1fr) auto;gap:12px 16px}
+body[data-focus-route=dashboard] .focus-portal[href="#learning"]{background:#bcd0a7!important;color:#25382b;border-color:#bcd0a7!important}
+body[data-focus-route=dashboard] .focus-portal[href="#learning"] :is(p,.focus-portal-icon svg,.focus-portal-arrow){color:#435c3f!important}
+body[data-focus-route=dashboard] .focus-portal[href="#resources"]{background:color-mix(in srgb,var(--panel) 90%,var(--atelier-warm))!important}
+body[data-focus-route=dashboard] .focus-portal[href="#tools"]{background:color-mix(in srgb,var(--panel) 93%,#75b7b2)!important}
+body[data-focus-route=dashboard] .focus-portal h2{font-size:22px;font-weight:600;letter-spacing:-.03em}
+body[data-focus-route=dashboard] .focus-portal p{display:block!important;grid-column:1/-1;grid-row:2;font-size:14px;line-height:1.75;overflow-wrap:anywhere}
+body[data-focus-route=dashboard] .focus-portal-icon{display:flex;width:34px;height:34px;align-items:center;justify-content:center}
+body[data-focus-route=dashboard] .focus-portal-arrow{font-size:21px}
+body[data-focus-route=dashboard] .focus-portal:hover{box-shadow:0 9px 26px #020a0718;border-color:var(--accent-border)!important}
+body[data-focus-route=dashboard] .home-daily{gap:16px;margin-bottom:12px}
+body[data-focus-route=dashboard] .home-daily>section{padding:24px;background:var(--panel);border:1px solid var(--border);border-radius:16px}
+body[data-focus-route=dashboard] .home-daily .eyebrow{margin-bottom:12px;font-size:10px;color:var(--muted)}
+body[data-focus-route=dashboard] .home-daily h2{font-size:22px;letter-spacing:-.03em}
+body[data-focus-route=dashboard] .home-explore{background:linear-gradient(135deg,color-mix(in srgb,var(--panel) 90%,var(--atelier-warm)),var(--panel))!important}
+@keyframes atelier-enter{from{opacity:.5;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1100px){body[data-focus-route=dashboard] .focus-hero{padding:30px;grid-template-columns:minmax(0,1.5fr) minmax(180px,.7fr);gap:18px}body[data-focus-route=dashboard] .focus-hero h1{font-size:52px}body[data-focus-route=dashboard] .home-blueprint.home-orbit{max-width:250px}}
+@media(min-width:701px) and (max-width:1200px){body[data-focus-route=dashboard] .focus-portal{min-height:195px}body[data-focus-route=dashboard] .focus-portal-icon{grid-column:1;grid-row:1}body[data-focus-route=dashboard] .focus-portal h2{grid-column:1/-1;grid-row:2}body[data-focus-route=dashboard] .focus-portal p{grid-row:3}}
+@media(max-width:700px){body[data-focus-route=dashboard] .focus-hero{grid-template-columns:minmax(0,1fr);padding:28px 24px;min-height:0;border-radius:18px}body[data-focus-route=dashboard] .focus-hero h1{font-size:46px}body[data-focus-route=dashboard] .home-blueprint.home-orbit{max-width:190px;justify-self:center;max-height:160px}body[data-focus-route=dashboard] .home-primary-action{gap:14px;margin-top:20px;flex-direction:column;align-items:stretch}body[data-focus-route=dashboard] .home-next-label{max-width:none}body[data-focus-route=dashboard] .focus-portal{min-height:130px;padding:21px!important}body[data-focus-route=dashboard] .home-daily>section{padding:22px}.kachan-redesign :is(.utility-window,.editor-window){border-radius:12px!important}}
+@media(max-width:380px){body[data-focus-route=dashboard] .focus-hero{padding:24px 20px}body[data-focus-route=dashboard] .focus-hero h1{font-size:39px}}
+@media(prefers-reduced-motion:reduce){body[data-focus-route=dashboard] .focus-hero{animation:none}.kachan-redesign *{scroll-behavior:auto!important}}
