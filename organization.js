@@ -1,0 +1,85 @@
+// Presentation groups reuse the existing courses, editors and saved records.
+const organizedCopy=()=>document.documentElement.lang==='uk'?{
+ courses:'Курси',practice:'Практика',reference:'Довідники',code:'Мій код',
+ start:'Я зовсім новачок',route:'Порядок навчання',practiceIntro:'Закріплюй знання після уроків. Обери один проєкт або коротку вправу.',
+ referenceIntro:'Матеріали для конкретного питання. Це не обов’язкова частина кожного уроку.',
+ chapters:'Поглиблені теми',chaptersText:'Додаткові пояснення за технологіями.',
+ referenceTitle:'Шпаргалки та приклади',referenceText:'Знайди синтаксис або готовий приклад.',
+ debug:'Знайти помилку',debugText:'Короткі завдання з поступовими підказками.',
+ review:'Повторити вивчене',reviewText:'Перевір себе й повернися до складних тем.',
+ trace:'Розібрати виконання',traceText:'Подивись, як код працює крок за кроком.',
+ portfolio:'Зібрати перший сайт',portfolioText:'Один проєкт від HTML до публікації.',
+ map:'Карта знань',mapText:'Побач зв’язки між темами.',comic:'Вебкомікси',comicText:'Короткі пояснення в ілюстраціях.',
+ choose:'Обери напрямок',all:'← Усі категорії',toolsIntro:'Відкрий потрібну категорію або знайди інструмент за назвою.',
+ projects:'Практичні проєкти',exercises:'Короткі тренування',more:'Додаткові матеріали'
+}:{courses:'Courses',practice:'Practice',reference:'Reference',code:'My code',start:'I am a complete beginner',route:'Learning order',practiceIntro:'Put lessons into practice. Choose one project or a short exercise.',referenceIntro:'Look up a specific question. These materials are optional companions to your lessons.',chapters:'Deeper topics',chaptersText:'Additional explanations by technology.',referenceTitle:'Cheatsheets and examples',referenceText:'Look up syntax or a working example.',debug:'Find a bug',debugText:'Short exercises with progressive hints.',review:'Review what you learned',reviewText:'Test yourself and revisit difficult topics.',trace:'Follow the execution',traceText:'See how code runs step by step.',portfolio:'Build your first site',portfolioText:'One project from HTML to publication.',map:'Knowledge map',mapText:'See how topics connect.',comic:'Web comics',comicText:'Short illustrated explanations.',choose:'Choose a category',all:'← All categories',toolsIntro:'Open a category or find a tool by name.',projects:'Practice projects',exercises:'Short exercises',more:'Additional materials'};
+
+function organizationCard(title,description,action,mark='↗'){
+ const card=button('',action,'organization-card');card.append(E('span','organization-mark',mark),E('strong','',title),E('span','organization-description',description));return card;
+}
+let organizationWindow;
+function openLearningDirectory(kind){
+ if(!organizationWindow){const body=E('div','organization-directory');organizationWindow={body,...utilityWindow('learning-directory-window','learning',body)};}
+ const {body}=organizationWindow,c=organizedCopy(),lang=document.documentElement.lang;body.replaceChildren();
+ body.append(E('h2','',kind==='route'?c.route:c.chapters));
+ if(kind==='route'){
+  body.append(E('p','panel-note',lang==='uk'?'Починай із HTML і рухайся послідовно. TypeScript — після JavaScript; Figma можна вивчати окремо.':'Start with HTML and follow the sequence. Learn TypeScript after JavaScript; Figma is an independent track.'));
+  const list=E('ol','organization-route');
+  for(const [course,title,description]of journeyStages){const li=E('li'),next=learningModules().find(m=>m.id===course).lessons.find(l=>!learningDone(l))||learningModules().find(m=>m.id===course).lessons[0];li.append(organizationCard(course+' · '+title[lang==='uk'?0:1],description[lang==='uk'?0:1],()=>{organizationWindow.shut();openLesson(next.id);},'→'));list.append(li);}body.append(list);
+ }else{
+  for(const course of ['HTML','CSS','JavaScript','Git','TypeScript','Figma']){const fold=E('details','organization-topic');fold.append(E('summary','',course+' · '+extraChapters.filter(l=>l.course===course).length));for(const chapter of extraChapters.filter(l=>l.course===course))fold.append(button((chapterRead(chapter.id)?'✓ ':'')+chapter.title[lang],()=>{organizationWindow.shut();openChapter(chapter.id);},'chapter-link'));body.append(fold);}
+ }
+ organizationWindow.open();
+}
+
+function organizeLearning(){
+ if(typeof learningProjects==='undefined'||!learningLibrary)return;
+ const c=organizedCopy(),lang=document.documentElement.lang;
+ let shell=learningLibrary.querySelector('.organized-learning');
+ if(!shell){shell=E('div','organized-learning');for(const id of ['courses','practice','reference']){const panel=E('section','organized-learning-panel');panel.dataset.learningPanel=id;panel.id='learning-panel-'+id;shell.append(panel);}learningLibrary.append(shell);}
+ const panel=id=>shell.querySelector('[data-learning-panel='+id+']');
+ const move=(selector,target)=>{const node=learningLibrary.querySelector(selector);if(node&&node.parentElement!==target)target.append(node);};
+ for(const selector of ['.learning-library-intro','.learning-resume-banner','.learning-course-grid'])move(selector,panel('courses'));
+ for(const selector of ['#beginner-start','#learning-journey','.studio-learning-entry']){move(selector,panel('courses'));const node=learningLibrary.querySelector(selector);if(node)node.hidden=true;}
+ move('.learning-project-entry',panel('practice'));
+ for(const selector of ['#extra-chapter-list','#content-library-entry']){move(selector,panel('reference'));const node=learningLibrary.querySelector(selector);if(node)node.hidden=true;}
+ if(shell.dataset.lang!==lang){
+  shell.dataset.lang=lang;for(const node of shell.querySelectorAll('.organization-generated'))node.remove();
+  const welcome=E('div','organization-generated organization-course-actions');welcome.append(button(c.start,openFoundation,'secondary-button'),button(c.route,()=>openLearningDirectory('route'),'secondary-button'));panel('courses').prepend(welcome);
+  const intro=E('p','organization-generated organization-intro',c.practiceIntro);panel('practice').prepend(intro);
+  const exercises=E('section','organization-generated');exercises.append(E('h2','organization-heading',c.exercises));const rows=E('div','organization-grid');for(const [id,title,description]of [['debug',c.debug,c.debugText],['review',c.review,c.reviewText],['trace',c.trace,c.traceText]])rows.append(organizationCard(title,description,()=>openStudio(id)));exercises.append(rows);panel('practice').append(exercises);
+  const reference=E('section','organization-generated');reference.append(E('p','organization-intro',c.referenceIntro));const grid=E('div','organization-grid');grid.append(organizationCard(c.chapters,c.chaptersText,()=>openLearningDirectory('chapters')),organizationCard(c.referenceTitle,c.referenceText,()=>openContent('reference')));reference.append(grid,E('h2','organization-heading',c.more));const more=E('div','organization-grid');more.append(organizationCard(c.map,c.mapText,()=>openStudio('map')),organizationCard(c.comic,c.comicText,()=>openStudio('comic')));reference.append(more);panel('reference').append(reference);
+ }
+ // Stable order even when an existing renderer refreshes just one entry.
+ const practiceEntry=panel('practice').querySelector('.learning-project-entry');if(practiceEntry)panel('practice').querySelector('.organization-intro')?.after(practiceEntry);
+ const tab=focusedRoute().params.get('tab')||'courses';for(const section of shell.children)section.hidden=section.dataset.learningPanel!==(['practice','reference'].includes(tab)?tab:'courses');
+ learningLibrary.dataset.organized='true';
+ for(const description of learningLibrary.querySelectorAll('.learning-course-description')){const fold=description.closest('.compact-description');if(fold)fold.replaceWith(description);}
+}
+window.addEventListener('kachan-ready',organizeLearning);
+window.addEventListener('languagechange',()=>{organizeLearning();if(organizationWindow?.dialog.open)organizationWindow.shut();});
+organizeLearning();
+
+function organizeToolCatalog(body,input,filters,count,grid,cards){
+ let categories=body.querySelector('.organization-tool-categories');
+ const c=organizedCopy();
+ if(!categories){
+  categories=E('section','organization-tool-categories');categories.append(E('h2','organization-heading',c.choose));
+  const list=E('div','organization-grid');
+  for(const control of filters.children){const id=control.dataset.group;if(id==='all')continue;const amount=cards.filter(card=>card.dataset.unifiedGroup===id).length;if(!amount)continue;
+   list.append(organizationCard(control.textContent,(document.documentElement.lang==='uk'?'Інструментів: ':'Tools: ')+amount,()=>{control.click();body.querySelector('.unified-filters [aria-pressed=true]')?.focus({preventScroll:true});},({HTML:'</>',CSS:'{ }',JavaScript:'JS',design:'▦',learning:'≡',inspiration:'↗',utilities:'⌘'})[id]||'↗'));
+  }categories.append(list);grid.before(categories);
+  const back=button(c.all,()=>{input.value='';filters.querySelector('[data-group=all]').click();input.focus({preventScroll:true});},'secondary-button organization-tool-back');filters.before(back);
+  body.querySelector('.unified-intro p:last-child').textContent=c.toolsIntro;
+ }
+ const browsing=unifiedGroup==='all'&&!input.value.trim();categories.hidden=!browsing;grid.hidden=browsing;count.hidden=browsing;filters.hidden=browsing;body.querySelector('.organization-tool-back').hidden=browsing;
+}
+if(toolCatalogOpen)renderUnifiedCatalog();
+
+function organizeProjectControls(){
+ const root=Q('projects-view');let toolbar=Q('project-collection-toolbar');
+ if(!toolbar){toolbar=E('div','organization-collection-toolbar');toolbar.id='project-collection-toolbar';const search=root.querySelector(':scope>.search-box');if(search)search.before(toolbar);else Q('all-projects').before(toolbar);}
+ for(const control of [root.querySelector(':scope>.search-box'),Q('project-archive-toggle'),Q('projects-display-mode')])if(control&&control.parentElement!==toolbar)toolbar.append(control);
+ toolbar.hidden=(focusedRoute().params.get('tab')||'overview')!=='overview';
+}
+organizeProjectControls();

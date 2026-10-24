@@ -1,0 +1,48 @@
+/* Catalog composition: one purpose per screen; full editors remain in dialogs. */
+.kachan-redesign #learning-focus-tabs{gap:6px;flex-wrap:wrap;margin:0 0 24px}
+.kachan-redesign #learning-focus-tabs button{padding:11px 18px;font-size:14px}
+.organized-learning-panel{min-width:0}
+.organization-course-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.organization-intro{font-size:15px;line-height:1.8;color:var(--muted);margin:0 0 24px;max-width:760px}
+.organization-heading{font-size:19px!important;line-height:1.5;margin:0 0 18px!important;font-weight:600}
+.organization-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:30px}
+.organization-card{display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-width:0;gap:12px;padding:24px;background:var(--panel);border:1px solid var(--border);border-radius:5px;color:var(--text);cursor:pointer;font:inherit;transition:border-color .18s,background .18s}
+.organization-card:hover{border-color:var(--accent);background:var(--accent-soft,var(--panel))}
+.organization-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.organization-mark{font-size:14px;line-height:1.5;color:var(--accent);font-family:monospace}
+.organization-card strong{font-size:17px;line-height:1.5;font-weight:600;overflow-wrap:anywhere}
+.organization-description{font-size:14px;line-height:1.8;color:var(--muted);overflow-wrap:anywhere}
+.organization-directory{padding:26px;min-width:0}
+.organization-directory>h2{font-size:24px;margin:0 0 20px}
+#learning-directory-window{width:min(760px,calc(100vw - 32px));max-height:calc(100dvh - 32px)}
+.organization-route{padding-left:24px;margin:24px 0 0;display:grid;gap:14px}
+.organization-route .organization-card{width:100%}
+.organization-topic{border:1px solid var(--border);border-radius:4px;margin:12px 0;padding:0 18px}
+.organization-topic>summary{padding:18px 0;font-size:16px;cursor:pointer;font-weight:600}
+.organization-topic .chapter-link{display:block;width:100%;text-align:left;padding:12px 0;font-size:14px;white-space:normal}
+.kachan-redesign .organized-project-entry{border:0;background:none;padding:0;margin:0 0 28px}
+.kachan-redesign .organized-project-entry button{font-size:14px}
+.kachan-redesign #learning-library[data-organized] .learning-library-intro{display:none}
+.kachan-redesign #learning-library[data-organized] .learning-course-grid{margin-top:24px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.kachan-redesign #learning-library[data-organized] .learning-course-card{padding:22px;min-height:0;gap:14px}
+.kachan-redesign #learning-library[data-organized] .learning-course-description{display:block;font-size:14px;line-height:1.7;margin:0;min-height:48px}
+.kachan-redesign #learning-library[data-organized] .learning-course-card{transform:none;animation:none}
+.kachan-redesign #learning-library[data-organized] .learning-course-card progress{margin:0;height:3px}
+.kachan-redesign #learning-library[data-organized] .studio-course-art{display:none}
+.kachan-redesign #learning-library[data-organized] .learning-course-count{display:none}
+.kachan-redesign #learning-library[data-organized] .learning-resume-banner{margin:0 0 24px;padding:22px;gap:20px}
+.kachan-redesign #learning-library[data-organized] .learning-resume-banner h3{font-size:22px}
+.organization-tool-back{margin:0 0 18px}
+.organization-tool-categories{margin-top:24px}
+.organization-tool-categories .organization-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.kachan-redesign .unified-intro .eyebrow{display:none}
+.kachan-redesign .unified-intro{margin-bottom:20px}
+.organization-collection-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:20px 0}
+.organization-collection-toolbar>.search-box{flex:1 1 260px;min-width:0;margin:0!important}
+.organization-collection-toolbar>.display-mode{margin:0!important}
+.organization-collection-toolbar>button{margin:0!important;align-self:center}
+.kachan-redesign #project-save-status{display:none}
+.kachan-redesign .resource-type-group>summary{padding:22px 24px}
+.kachan-redesign .resource-type-group>summary h2{font-size:19px}
+@media(max-width:1050px){.organization-grid,.organization-tool-categories .organization-grid,.kachan-redesign #learning-library[data-organized] .learning-course-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.organization-grid,.organization-tool-categories .organization-grid,.kachan-redesign #learning-library[data-organized] .learning-course-grid{grid-template-columns:minmax(0,1fr)}.organization-card{padding:20px;gap:9px}.organization-directory{padding:20px}.organization-course-actions>*{flex:1 1 180px}.kachan-redesign #learning-focus-tabs button{flex:1 1 auto;padding:11px 12px}.kachan-redesign #learning-library[data-organized] .learning-resume-banner{align-items:flex-start}.organization-route{padding-left:20px}}

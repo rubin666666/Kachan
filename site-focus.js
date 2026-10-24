@@ -24,7 +24,7 @@ function refreshFocusControls(){
  Q('project-focus-tabs')?.remove();const tabs=focusedTabs('project-focus-tabs',[['overview',fc().overview],['tasks',t().tasks],['notes',t().notes]],tab,id=>{location.hash=id==='overview'?'projects':workspaceRoute(id);});Q('projects-view').querySelector('.page-heading').after(tabs);
  Q('project-scope-bar')?.remove();const scope=E('div','project-scope-bar');scope.id='project-scope-bar';scope.hidden=route!=='projects'||tab==='overview';const label=E('label','',fc().scope),select=E('select');select.id='project-context';label.htmlFor=select.id;
  for(const [id,name] of [['all',fc().all],['__none',fc().unassigned],...projects.map(p=>[p.id,p.name])]){const o=E('option','',name);o.value=id;select.append(o);}select.value=projectScope;select.addEventListener('change',()=>{location.hash=workspaceRoute(tab,select.value);});scope.append(label,select,E('p','panel-note',fc().projectHint));tabs.after(scope);
- Q('learning-focus-tabs')?.remove();const lt=focusedTabs('learning-focus-tabs',[['courses',fc().courses],['code',fc().library]],params.get('tab')==='code'?'code':'courses',id=>{location.hash=id==='code'?'learning?tab=code':'learning';});Q('learning-view').querySelector('.page-heading').after(lt);
+ Q('learning-focus-tabs')?.remove();const lt=focusedTabs('learning-focus-tabs',[['courses',document.documentElement.lang==='uk'?'Курси':'Courses'],['practice',document.documentElement.lang==='uk'?'Практика':'Practice'],['reference',document.documentElement.lang==='uk'?'Довідники':'Reference'],['code',document.documentElement.lang==='uk'?'Мій код':'My code']],['code','practice','reference'].includes(params.get('tab'))?params.get('tab'):'courses',id=>{learningScreen='library';location.hash=id==='courses'?'learning':'learning?tab='+id;});Q('learning-view').querySelector('.page-heading').after(lt);
 }
 const focusViewBefore=showView;const projectOriginalHidden=new Map([...Q('projects-view').children].map(child=>[child,child.hidden]));
 showView=function(){
@@ -34,13 +34,14 @@ showView=function(){
  focusViewBefore();refreshFocusControls();
  const tab=params.get('tab');
  if(route==='projects'){
+  if(typeof organizeProjectControls==='function')organizeProjectControls();
   Q('projects-view').dataset.projectTab=tab||'overview';
   for(const child of [...Q('projects-view').children])if(!['project-focus-tabs','project-scope-bar','project-workspace','project-detail','all-projects'].includes(child.id)&&!child.classList.contains('page-heading'))child.hidden=tab==='tasks'||tab==='notes'||!!projectOriginalHidden.get(child);
   if(tab==='tasks'||tab==='notes')Q('all-projects').hidden=true;
   projectWorkspace.hidden=!['tasks','notes'].includes(tab);Q('tasks-view').hidden=tab!=='tasks';Q('notes-view').hidden=tab!=='notes';
   if(tab==='tasks'){Q('filter-project').value=projectScope;renderTasks();}if(tab==='notes'){const n=notes.find(n=>n.id===selectedNote);if(n&&!focusNoteMatches(n))selectedNote=null;renderNotes();}
  }
- if(route==='learning'){const code=tab==='code';Q('snippets-view').hidden=!code;for(const child of [...Q('learning-view').children])if(child.id!=='snippets-view'&&child.id!=='learning-focus-tabs'&&!child.classList.contains('page-heading')){if(code)child.hidden=true;}if(!code)applyLearningLook();}
+ if(route==='learning'){const code=tab==='code';Q('snippets-view').hidden=!code;for(const child of [...Q('learning-view').children])if(child.id!=='snippets-view'&&child.id!=='learning-focus-tabs'&&!child.classList.contains('page-heading')){if(code)child.hidden=true;}if(!code)applyLearningLook();if(typeof organizeLearning==='function')organizeLearning();}
  document.body.dataset.focusRoute=route;document.querySelectorAll('a[href="#tasks"],a[href="#notes"],a[href="#snippets"]').forEach(a=>{const kind=a.hash.slice(1);a.href='#'+(kind==='snippets'?'learning?tab=code':workspaceRoute(kind));});
 };
 const noteCreateFocus=()=>{const n=notes.find(n=>n.id===selectedNote);if(n&&projectScope!=='all'){n.projectId=projectScope==='__none'?'':projectScope;persistNotes();renderNotes();}};Q('note-new').addEventListener('click',noteCreateFocus);

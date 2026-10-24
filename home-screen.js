@@ -10,7 +10,7 @@ renderHome=function(){
 function renderHomeQuickStart(){
  const uk=document.documentElement.lang==='uk',section=E('section','home-quick-start'),heading=E('div','home-quick-heading');heading.append(E('h2','',uk?'Швидкий старт':'Quick start'),E('p','',uk?'Обери зручний спосіб почати.':'Choose how to get started.'));section.append(heading);const actions=E('div','home-quick-actions');
  const items=[
-  [uk?'Маршрут до першого сайту':'Your first website roadmap',uk?'Чотири зрозумілі кроки: від структури до публікації.':'Four clear steps, from page structure to publication.',()=>{location.hash='learning';showView();learningScreen='library';applyLearningLook();renderLearningJourney();const fold=Q('learning-journey');fold.open=true;fold.scrollIntoView({block:'start',behavior:motionPreference.matches?'instant':'smooth'});fold.querySelector('summary').focus({preventScroll:true});}],
+  [uk?'Маршрут до першого сайту':'Your first website roadmap',uk?'Чотири зрозумілі кроки: від структури до публікації.':'Four clear steps, from page structure to publication.',()=>{location.hash='learning';showView();learningScreen='library';applyLearningLook();if(typeof openLearningDirectory==='function'){openLearningDirectory('route');}else{renderLearningJourney();const fold=Q('learning-journey');fold.open=true;fold.scrollIntoView({block:'start'});}}],
   [uk?'Спробувати код':'Try some code',uk?'HTML, CSS і результат поруч — експериментуй.':'HTML, CSS and a live result — experiment.',()=>openTool('playground')],
   [uk?'Почати з нуля':'Start from zero',uk?'Що таке сайт, браузер і редактор — без складних слів.':'Websites, browsers and editors, explained simply.',()=>openFoundation()]
  ];
