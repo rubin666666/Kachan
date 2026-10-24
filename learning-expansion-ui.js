@@ -19,7 +19,9 @@ function renderLearningProjectEntry(){
  for(const [index,[id,project]]of Object.entries(learningProjects).entries()){
   const passed=learningProjectsState(false)?.projects[id]?.passed;
   const card=button('',()=>openLearningProject(id),'organization-card');
-  card.append(E('span','organization-mark',passed?'✓':String(index+1).padStart(2,'0')),E('strong','',project.title[lang]),E('span','organization-description',project.intro[lang]));list.append(card);
+  const saved=learningProjectsState(false)?.projects[id],started=!!saved&&(saved.attempts>0||saved.files.js!=='// Write your JavaScript here.'||saved.files.html!==project.html||saved.files.css!==learningProjectBaseCSS+'\n/* Write your project CSS here. */');
+  card.dataset.project=id;card.dataset.projectState=passed?'passed':started?'started':'new';
+  card.append(E('span','organization-mark',passed?'✓':String(index+1).padStart(2,'0')),E('strong','',project.title[lang]),E('span','organization-description',project.intro[lang]),E('span','practice-status',passed?studioText('Завершено','Completed'):started?studioText('Продовжити →','Continue →'):studioText('Почати →','Start →')));list.append(card);
  }
  const portfolio=button('',()=>openPortfolioCourse(),'organization-card organization-portfolio');
  portfolio.append(E('span','organization-mark','↗'),E('strong','',studioText('Перший сайт: від HTML до публікації','Your first site: from HTML to publication')),E('span','organization-description',studioText('Один послідовний проєкт із чотирьох етапів.','One guided project in four stages.')));list.append(portfolio);section.append(list);

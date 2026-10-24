@@ -48,7 +48,7 @@ function organizeLearning(){
   shell.dataset.lang=lang;for(const node of shell.querySelectorAll('.organization-generated'))node.remove();
   const welcome=E('div','organization-generated organization-course-actions');welcome.append(button(c.start,openFoundation,'secondary-button'),button(c.route,()=>openLearningDirectory('route'),'secondary-button'));panel('courses').prepend(welcome);
   const intro=E('p','organization-generated organization-intro',c.practiceIntro);panel('practice').prepend(intro);
-  const exercises=E('section','organization-generated');exercises.append(E('h2','organization-heading',c.exercises));const rows=E('div','organization-grid');for(const [id,title,description]of [['debug',c.debug,c.debugText],['review',c.review,c.reviewText],['trace',c.trace,c.traceText]])rows.append(organizationCard(title,description,()=>openStudio(id)));exercises.append(rows);panel('practice').append(exercises);
+  const exercises=E('section','organization-generated practice-exercises');exercises.append(E('h2','organization-heading',c.exercises));const rows=E('div','organization-grid');for(const [id,title,description]of [['debug',c.debug,c.debugText],['review',c.review,c.reviewText],['trace',c.trace,c.traceText]])rows.append(organizationCard(title,description,()=>openStudio(id)));exercises.append(rows);panel('practice').append(exercises);
   const reference=E('section','organization-generated');reference.append(E('p','organization-intro',c.referenceIntro));const grid=E('div','organization-grid');grid.append(organizationCard(c.chapters,c.chaptersText,()=>openLearningDirectory('chapters')),organizationCard(c.referenceTitle,c.referenceText,()=>openContent('reference')));reference.append(grid,E('h2','organization-heading',c.more));const more=E('div','organization-grid');more.append(organizationCard(c.map,c.mapText,()=>openStudio('map')),organizationCard(c.comic,c.comicText,()=>openStudio('comic')));reference.append(more);panel('reference').append(reference);
  }
  // Stable order even when an existing renderer refreshes just one entry.
@@ -61,6 +61,7 @@ function organizeLearning(){
  const aside=desk.querySelector('.course-desk-aside'),list=desk.querySelector('.course-desk-list');
  for(const selector of ['.learning-resume-banner','.organization-course-actions']){const node=panel('courses').querySelector(selector);if(node&&node.parentElement!==aside)aside.append(node);}
  const courseGrid=panel('courses').querySelector('.learning-course-grid');if(courseGrid&&courseGrid.parentElement!==list)list.append(courseGrid);
+ organizePractice(panel('practice'));
 }
 window.addEventListener('kachan-ready',organizeLearning);
 window.addEventListener('languagechange',()=>{organizeLearning();if(organizationWindow?.dialog.open)organizationWindow.shut();});
@@ -78,7 +79,8 @@ function organizeToolCatalog(body,input,filters,count,grid,cards){
   const back=button(c.all,()=>{input.value='';filters.querySelector('[data-group=all]').click();input.focus({preventScroll:true});},'secondary-button organization-tool-back');filters.before(back);
   body.querySelector('.unified-intro p:last-child').textContent=c.toolsIntro;
  }
- const browsing=unifiedGroup==='all'&&!input.value.trim();categories.hidden=!browsing;grid.hidden=browsing;count.hidden=browsing;filters.hidden=browsing;body.querySelector('.organization-tool-back').hidden=browsing;
+ let desk=body.querySelector('.tool-results-workspace');if(!desk){desk=E('div','tool-results-workspace');const main=E('section','tool-results-main');desk.append(filters,main);main.append(count,grid,body.querySelector('.unified-empty'));body.append(desk);}
+ const browsing=unifiedGroup==='all'&&!input.value.trim();categories.hidden=!browsing;desk.hidden=browsing;grid.hidden=browsing;count.hidden=browsing;filters.hidden=browsing;body.querySelector('.organization-tool-back').hidden=browsing;
 }
 if(toolCatalogOpen)renderUnifiedCatalog();
 
@@ -142,3 +144,17 @@ function renderResourceDesk(){
 }
 simplifyResources();
 if(learningScreen==='lesson')simplifyLesson(academy.course==='HTML'?Q('html-lesson'):academyPanel.querySelector('.course-layout>section'));
+
+function organizePractice(panel){
+ const uk=document.documentElement.lang==='uk',mode=focusedRoute().params.get('mode')==='exercises'?'exercises':'projects';
+ let desk=panel.querySelector('.practice-workspace');
+ if(!desk){desk=E('div','practice-workspace');desk.append(E('aside','practice-aside'),E('div','practice-main'));panel.append(desk);}
+ let tabs=panel.querySelector('.practice-mode-tabs');
+ if(!tabs||tabs.dataset.lang!==document.documentElement.lang){tabs?.remove();tabs=E('div','practice-mode-tabs');tabs.dataset.lang=document.documentElement.lang;tabs.setAttribute('role','group');tabs.setAttribute('aria-label',uk?'Вид практики':'Practice type');for(const [id,title]of [['projects',uk?'Проєкти':'Projects'],['exercises',uk?'Тренування':'Exercises']]){const control=button(title,()=>{location.hash='learning?tab=practice'+(id==='exercises'?'&mode=exercises':'');},'secondary-button');control.dataset.mode=id;tabs.append(control);}panel.querySelector('.organization-intro')?.after(tabs);}
+ for(const control of tabs.children)control.setAttribute('aria-pressed',String(control.dataset.mode===mode));
+ const aside=desk.querySelector('.practice-aside'),main=desk.querySelector('.practice-main');
+ const entry=panel.querySelector('.learning-project-entry'),exercises=panel.querySelector('.practice-exercises');
+ const portfolio=entry?.querySelector('.organization-portfolio');if(portfolio){aside.replaceChildren(portfolio);portfolio.classList.add('practice-portfolio-card');}
+ if(entry&&entry.parentElement!==main)main.append(entry);if(exercises&&exercises.parentElement!==main)main.append(exercises);
+ if(entry)entry.hidden=mode!=='projects';if(exercises)exercises.hidden=mode!=='exercises';
+}
