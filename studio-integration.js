@@ -36,7 +36,7 @@ function studioLessonExtras(body) { if (!body)
     }
 } }
 const studioConnectionsBefore = renderLessonConnections;
-renderLessonConnections = function (body) { studioConnectionsBefore(body); studioLessonExtras(body); };
+renderLessonConnections = function (body) { studioConnectionsBefore(body); studioLessonExtras(body);if(typeof simplifyLesson==='function')simplifyLesson(body); };
 function studioCourseArt(course) { const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('viewBox', '0 0 120 52'); svg.setAttribute('class', 'studio-course-art'); svg.setAttribute('aria-hidden', 'true'); const paths = { HTML: 'M8 8H112V44H8ZM20 18H70M20 26H96M20 34H80', CSS: 'M8 8H38V23H8ZM45 8H75V23H45ZM82 8H112V23H82ZM8 30H38V45H8ZM45 30H75V45H45ZM82 30H112V45H82Z', JavaScript: 'M12 26H45L57 10H80M45 26L57 42H100M82 5L92 10L82 15M102 37L112 42L102 47', TypeScript: 'M20 8H100V44H20ZM37 18H65M51 18V35M76 30L82 36L94 21', Git: 'M25 8V44M25 15C25 30 75 8 75 30V44M18 8H32M18 44H32M68 44H82', Figma: 'M35 8H65V24H35ZM65 8H95V24H65ZM35 24H65V40H35ZM65 24H95V40H65ZM35 40H65V48H35Z' }; const path = document.createElementNS(svg.namespaceURI, 'path'); path.setAttribute('d', paths[course] || paths.HTML); path.setAttribute('fill', 'none'); path.setAttribute('stroke', 'currentColor'); path.setAttribute('stroke-width', '1.5'); svg.append(path); return svg; }
 function studioLearningLaunch() { if (!learningLibrary)
     return; for (const [index, card] of [...learningLibrary.querySelectorAll('.learning-course-card')].entries())

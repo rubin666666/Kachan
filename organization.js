@@ -34,6 +34,7 @@ function openLearningDirectory(kind){
 
 function organizeLearning(){
  if(typeof learningProjects==='undefined'||!learningLibrary)return;
+ Q('learning-view').dataset.reading=String(learningScreen==='lesson'&&focusedRoute().params.get('tab')!=='code');
  const c=organizedCopy(),lang=document.documentElement.lang;
  let shell=learningLibrary.querySelector('.organized-learning');
  if(!shell){shell=E('div','organized-learning');for(const id of ['courses','practice','reference']){const panel=E('section','organized-learning-panel');panel.dataset.learningPanel=id;panel.id='learning-panel-'+id;shell.append(panel);}learningLibrary.append(shell);}
@@ -83,3 +84,31 @@ function organizeProjectControls(){
  toolbar.hidden=(focusedRoute().params.get('tab')||'overview')!=='overview';
 }
 organizeProjectControls();
+
+function simplifyLesson(body){
+ if(!body)return;
+ let companions=body.querySelector('.lesson-companions');
+ if(!companions){companions=E('details','lesson-companions');companions.append(E('summary','',studioText('Приклади та додаткові матеріали','Examples and supporting material')));const anchor=body.querySelector('.lesson-connections,.learning-step-footer');if(anchor)anchor.before(companions);else body.append(companions);}
+ for(const selector of ['.lesson-compass','.lesson-live-demo','.learning-notes-fold']){const node=body.querySelector(selector);if(node&&node.parentElement!==companions)companions.append(node);}
+ companions.hidden=learningStep!=='theory';
+ for(const reader of body.querySelectorAll('.beginner-lesson'))if(reader.querySelector('.example-copy'))for(const control of reader.querySelectorAll('button:not(.example-copy)'))if(control.textContent.trim()===t().copy)control.hidden=true;
+}
+
+Object.assign(translations.uk,{resourceDetails:'Деталі ресурсу'});Object.assign(translations.en,{resourceDetails:'Resource details'});
+let resourceDetailsWindow,resourceDetailsRestore=()=>{};
+function openResourceDetails(card){
+ const more=card.querySelector('.card-more-body');if(!more)return;
+ if(!resourceDetailsWindow){const body=E('div','resource-detail-content');resourceDetailsWindow={body,...utilityWindow('resource-details-window','resourceDetails',body)};resourceDetailsWindow.dialog.addEventListener('close',()=>resourceDetailsRestore());resourceDetailsWindow.dialog.addEventListener('click',event=>{if(event.target.closest('.card-more-body button'))resourceDetailsWindow.shut();},true);}
+ resourceDetailsRestore();const marker=document.createComment('resource-details');more.before(marker);resourceDetailsRestore=()=>{if(marker.parentNode)marker.replaceWith(more);resourceDetailsRestore=()=>{};};
+ const {body}=resourceDetailsWindow;body.replaceChildren(E('h2','',card.querySelector('.resource-card-title')?.textContent||''));
+ const link=card.querySelector('a.text-link');if(link)body.append(link.cloneNode(true));body.append(more);resourceDetailsWindow.open();
+}
+function simplifyResources(){
+ if(resourceDetailsWindow?.dialog.open)resourceDetailsWindow.shut();
+ for(const card of Q('resource-list').querySelectorAll('.resource-card')){
+  card.querySelector('.card-more')?.setAttribute('hidden','');
+  if(!card.querySelector('.resource-details-open'))card.append(button(studioText('Деталі','Details'),()=>openResourceDetails(card),'resource-details-open secondary-button'));
+ }
+}
+simplifyResources();
+if(learningScreen==='lesson')simplifyLesson(academy.course==='HTML'?Q('html-lesson'):academyPanel.querySelector('.course-layout>section'));

@@ -69,7 +69,7 @@
   const copy=button(uk?'Копіювати':'Copy',async()=>{const target=pre.querySelector(':scope>code')||pre;try{await navigator.clipboard.writeText(target.textContent);notice(t().copied);}catch{const range=document.createRange();range.selectNodeContents(target);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);notice(t().copyError);}},'example-copy');
   copy.classList.add('example-copy');copy.textContent=uk?'Копіювати':'Copy';copy.prepend(smallIcon('M9 9h11v11H9z M15 9V4H4v11h5'));
   const wrap=button(uk?'Перенос рядків':'Wrap lines',()=>{const active=shell.classList.toggle('code-lines-wrapped');wrap.setAttribute('aria-pressed',String(active));},'example-wrap');wrap.setAttribute('aria-pressed','false');
-  bar.append(language,wrap,copy);pre.before(shell);shell.append(bar,pre);
+  bar.append(language,wrap,copy);pre.before(shell);shell.append(bar,pre);const reader=pre.closest('.beginner-lesson');if(reader)for(const control of reader.querySelectorAll('button:not(.example-copy)'))if(control.textContent.trim()===t().copy)control.remove();
  }
  document.addEventListener('input',event=>{if(event.target.matches('input[type=range]'))updateRange(event.target);},{passive:true});
  function smallIcon(path){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('fill','none');svg.setAttribute('stroke','currentColor');svg.setAttribute('stroke-width','1.5');svg.setAttribute('stroke-linecap','round');svg.setAttribute('stroke-linejoin','round');const line=document.createElementNS(svg.namespaceURI,'path');line.setAttribute('d',path);svg.append(line);return svg;}

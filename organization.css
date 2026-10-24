@@ -44,5 +44,46 @@
 .kachan-redesign #project-save-status{display:none}
 .kachan-redesign .resource-type-group>summary{padding:22px 24px}
 .kachan-redesign .resource-type-group>summary h2{font-size:19px}
+/* Quiet reading and compact catalogs. Keep lesson text at a readable size. */
+.kachan-redesign #learning-view[data-reading=true]>#learning-focus-tabs{display:none}
+.kachan-redesign #learning-view[data-reading=true]>.page-heading{margin-bottom:16px;min-height:0}
+.kachan-redesign #learning-view[data-reading=true]>.page-heading h1{font-size:26px}
+.kachan-redesign #learning-view[data-reading=true] .learning-course-toolbar{margin:12px 0 16px}
+.kachan-redesign #learning-library[data-organized] .learning-course-card{row-gap:8px;background:var(--panel)}
+.kachan-redesign #learning-library[data-organized] .learning-card-meta{margin:4px 0 6px;font-size:12px}
+.kachan-redesign #learning-library[data-organized] .learning-course-description{min-height:0;margin-bottom:8px}
+.kachan-redesign #learning-library[data-organized] .learning-card-top{margin:0}
+.kachan-redesign #learning-library[data-organized] .learning-course-card h3{font-size:20px;margin:0}
+.kachan-redesign #learning-library[data-organized] .learning-outline{background:transparent;border-color:transparent}
+.kachan-redesign #learning-library[data-organized] .learning-resume-banner{flex-direction:row;align-items:center;padding:18px 20px;min-height:0}
+.kachan-redesign #learning-library[data-organized] .learning-resume-banner h3{font-size:20px}
+.kachan-redesign #learning-view .learning-reader{background:transparent!important;padding:20px 24px!important}
+.kachan-redesign #learning-view .lesson-direction{display:block;border:0;background:none;padding:0;margin:12px 0 20px;font-size:13px;color:var(--muted)}
+.lesson-direction>summary{cursor:pointer;padding:8px 0;font-weight:400}
+.lesson-direction>p{font-size:14px;line-height:1.8}
+.kachan-redesign #learning-view .lesson-reading-block{background:none;border:0;padding:0;margin:26px 0}
+.kachan-redesign #learning-view .learning-walkthrough{background:none;padding:4px 0;margin:20px 0}
+.kachan-redesign #learning-view .beginner-lesson>.chapter-fold{background:none;border:0;padding:14px 0}
+.lesson-companions{margin:22px 0;padding:0;border:0;font-size:14px}
+.lesson-companions>summary{cursor:pointer;padding:12px 0;color:var(--muted);font-weight:500}
+.lesson-companions>details{margin:10px 0!important;background:var(--panel)!important;padding:16px!important;border:0!important}
+.kachan-redesign #learning-view .lesson-connections{border:0;padding:12px 0;background:none}
+.kachan-redesign #learning-view .learning-step-footer{position:static;background:transparent;border:0;box-shadow:none;padding-inline:0}
+.kachan-redesign #resources-view .resource-card{padding:18px!important;gap:10px;min-height:0}
+.kachan-redesign #resources-view .resource-domain{font-size:12px;margin:0;overflow-wrap:anywhere}
+.kachan-redesign #resources-view .resource-card-title{font-size:17px}
+.kachan-redesign #resources-view .resource-card>.title-with-help>.purpose-button{display:none}
+.kachan-redesign #resources-view .resource-card>a.text-link{padding:8px 0;border:0;background:none;box-shadow:none;font-size:14px}
+.kachan-redesign #resources-view .resource-details-open{padding:8px 0;min-height:40px;border:0;background:none;color:var(--muted);text-align:left;font-weight:400}
+.kachan-redesign #resources-view .resource-details-open:hover{color:var(--accent)}
+.resource-detail-content{padding:24px;min-width:0}
+.resource-detail-content>h2{font-size:24px;line-height:1.5;margin:0 0 16px;overflow-wrap:anywhere}
+.resource-detail-content>.text-link{display:inline-block;margin-bottom:18px}
+.resource-detail-content .card-more-body{display:block;min-width:0}
+.resource-detail-content details{margin:14px 0}
+.resource-detail-content summary{cursor:pointer;padding:8px 0;font-size:15px}
+.resource-detail-content textarea{width:100%;min-height:120px;box-sizing:border-box}
+#resource-details-window{width:min(640px,calc(100vw - 32px));max-height:calc(100dvh - 32px)}
+@media(max-width:600px){.kachan-redesign #learning-library[data-organized] .learning-resume-banner{flex-direction:column;align-items:stretch}.kachan-redesign #learning-view .learning-reader{padding:16px 0!important}.resource-detail-content{padding:20px}.kachan-redesign #learning-view .lesson-step-tabs{gap:3px;padding:4px}}
 @media(max-width:1050px){.organization-grid,.organization-tool-categories .organization-grid,.kachan-redesign #learning-library[data-organized] .learning-course-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.organization-grid,.organization-tool-categories .organization-grid,.kachan-redesign #learning-library[data-organized] .learning-course-grid{grid-template-columns:minmax(0,1fr)}.organization-card{padding:20px;gap:9px}.organization-directory{padding:20px}.organization-course-actions>*{flex:1 1 180px}.kachan-redesign #learning-focus-tabs button{flex:1 1 auto;padding:11px 12px}.kachan-redesign #learning-library[data-organized] .learning-resume-banner{align-items:flex-start}.organization-route{padding-left:20px}}
