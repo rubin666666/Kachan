@@ -138,7 +138,8 @@ function renderResourceDesk(){
  const list=E('div','resource-desk-list');list.append(...cards);if(!cards.length&&empty)list.append(empty);
  const more=button(uk?'Показати ще 8':'Show 8 more',()=>{resourceDeskLimit+=8;apply();},'secondary-button resource-desk-more');
  function apply(){cards.forEach((card,index)=>card.hidden=index>=resourceDeskLimit);more.hidden=resourceDeskLimit>=cards.length;count.textContent=(uk?'Показано ':'Showing ')+Math.min(resourceDeskLimit,cards.length)+(uk?' з ':' of ')+cards.length;}
- main.append(header,list,more);root.classList.add('resource-desk');root.replaceChildren(nav,main);apply();
+ const columns=E('div','resource-column-head');columns.setAttribute('aria-hidden','true');for(const title of (uk?['Матеріал','Для чого','Дії','']:['Resource','Purpose','Actions','']))columns.append(E('span','',title));
+ main.append(header,columns,list,more);root.classList.add('resource-desk');root.replaceChildren(nav,main);apply();
  const panel=Q('resource-query').closest('.dashboard-panel');panel.classList.add('resource-desk-search');
  const field=Q('resource-collection').closest('.form-field');if(field.parentElement!==panel)panel.append(field);field.classList.add('resource-desk-topic');
  if(resourcePendingFocus){const request=resourcePendingFocus;resourcePendingFocus=null;requestAnimationFrame(()=>requestAnimationFrame(()=>{
@@ -169,7 +170,7 @@ function arrangeDesktopStudy(body){
  if(!body)return;
  const toolbar=Q('learning-course-toolbar');
  if(toolbar&&!toolbar.querySelector('.desktop-outline-open')){const control=button(studioText('Зміст курсу','Course outline'),()=>{const module=learningModules().find(item=>item.id===academy.course);if(module)openLearningMap(module);},'secondary-button desktop-outline-open');toolbar.append(control);}
- const outline=toolbar?.querySelector('.desktop-outline-open');if(outline)outline.hidden=learningStep!=='practice';
+ const outline=toolbar?.querySelector('.desktop-outline-open');if(outline)outline.hidden=false;
  const bench=body.querySelector('.study-workbench');if(!bench)return;
  const editor=bench.querySelector('.study-editor'),result=bench.querySelector('.study-result'),actions=bench.querySelector(':scope>.study-actionbar,.study-editor>.editor-actions');
  if(actions){actions.classList.add('study-actionbar');if(bench.firstElementChild!==actions)bench.prepend(actions);const summary=actions.querySelector('.study-practice-more>summary');if(summary)summary.textContent=studioText('Підказки й дії','Hints & actions');}
