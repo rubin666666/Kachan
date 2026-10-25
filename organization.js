@@ -118,7 +118,7 @@ function simplifyResources(){
  }
  renderResourceDesk();
 }
-let resourceDeskLimit=8,resourceDeskSignature='',resourceStartWindow;
+let resourceDeskLimit=8,resourceDeskSignature='',resourceStartWindow,resourcePendingFocus=null;
 function openResourceStart(){
  if(!resourceStartWindow){const body=E('div','resource-detail-content');resourceStartWindow={body,...utilityWindow('resource-start-window','resources',body)};}
  const c=resourceGuideText(),body=resourceStartWindow.body;body.replaceChildren(E('h2','',c.start),E('p','panel-note',c.intro));
@@ -131,7 +131,7 @@ function renderResourceDesk(){
  const nav=E('nav','resource-desk-nav');nav.setAttribute('aria-label',uk?'Тип ресурсу':'Resource type');const rows=resourceRows();
  for(const [id,title]of [['all',uk?'Усі ресурси':'All resources'],['favorites',uk?'Обране':'Saved'],...['Docs','Tools','Design','Practice'].map(id=>[id,t()[id]])]){
   const amount=id==='all'?rows.length:id==='favorites'?rows.filter(row=>favorites.includes(row.id)).length:rows.filter(row=>row.category===id).length;
-  const control=button('',()=>{resourceFilter=id;resourcePurpose='all';Q('resource-collection').value='all';renderResources();},'resource-desk-nav-item');control.append(E('span','',title),E('small','',String(amount)));control.setAttribute('aria-pressed',String(resourceFilter===id));nav.append(control);
+  const control=button('',()=>{resourceFilter=id;resourcePurpose='all';Q('resource-collection').value='all';renderResources();root.querySelector('.resource-desk-nav-item[aria-pressed=true]')?.focus({preventScroll:true});},'resource-desk-nav-item');control.append(E('span','',title),E('small','',String(amount)));control.setAttribute('aria-pressed',String(resourceFilter===id));nav.append(control);
  }
  nav.append(button(uk?'З чого почати? ↗':'Where to start? ↗',openResourceStart,'resource-desk-start'));
  const main=E('section','resource-desk-main'),header=E('div','resource-desk-header'),heading=E('h2','',resourceFilter==='all'?(uk?'Каталог ресурсів':'Resource catalog'):resourceFilter==='favorites'?(uk?'Збережені матеріали':'Saved resources'):t()[resourceFilter]),count=E('p','resource-desk-count');count.setAttribute('role','status');header.append(heading,count);
@@ -141,9 +141,15 @@ function renderResourceDesk(){
  main.append(header,list,more);root.classList.add('resource-desk');root.replaceChildren(nav,main);apply();
  const panel=Q('resource-query').closest('.dashboard-panel');panel.classList.add('resource-desk-search');
  const field=Q('resource-collection').closest('.form-field');if(field.parentElement!==panel)panel.append(field);field.classList.add('resource-desk-topic');
+ if(resourcePendingFocus){const request=resourcePendingFocus;resourcePendingFocus=null;requestAnimationFrame(()=>requestAnimationFrame(()=>{
+  const visible=[...root.querySelectorAll('.resource-card')].filter(card=>!card.hidden),active=document.activeElement,emptySearchFocus=!visible.length&&active===Q('resource-query');
+  if(document.body.dataset.focusRoute!=='resources'||document.querySelector('dialog[open]')||!emptySearchFocus&&![document.body,request.origin].includes(active))return;
+  const card=visible.find(card=>card.dataset.resourceId===request.id)||visible[Math.min(request.index,visible.length-1)],control=card?.querySelector('.resource-save-button')||root.querySelector('.resource-desk-nav-item[aria-pressed=true]');control?.focus({preventScroll:true});
+ }));}
 }
 simplifyResources();
 if(learningScreen==='lesson')simplifyLesson(academy.course==='HTML'?Q('html-lesson'):academyPanel.querySelector('.course-layout>section'));
+Q('resource-list').addEventListener('click',event=>{const control=event.target.closest('.resource-save-button');if(!control)return;const card=control.closest('.resource-card'),visible=[...Q('resource-list').querySelectorAll('.resource-card')].filter(card=>!card.hidden);resourcePendingFocus={id:card.dataset.resourceId,index:visible.indexOf(card),origin:control};},true);
 
 function organizePractice(panel){
  const uk=document.documentElement.lang==='uk',mode=focusedRoute().params.get('mode')==='exercises'?'exercises':'projects';
@@ -158,3 +164,30 @@ function organizePractice(panel){
  if(entry&&entry.parentElement!==main)main.append(entry);if(exercises&&exercises.parentElement!==main)main.append(exercises);
  if(entry)entry.hidden=mode!=='projects';if(exercises)exercises.hidden=mode!=='exercises';
 }
+
+function arrangeDesktopStudy(body){
+ if(!body)return;
+ const toolbar=Q('learning-course-toolbar');
+ if(toolbar&&!toolbar.querySelector('.desktop-outline-open')){const control=button(studioText('Зміст курсу','Course outline'),()=>{const module=learningModules().find(item=>item.id===academy.course);if(module)openLearningMap(module);},'secondary-button desktop-outline-open');toolbar.append(control);}
+ const outline=toolbar?.querySelector('.desktop-outline-open');if(outline)outline.hidden=learningStep!=='practice';
+ const bench=body.querySelector('.study-workbench');if(!bench)return;
+ const editor=bench.querySelector('.study-editor'),result=bench.querySelector('.study-result'),actions=bench.querySelector(':scope>.study-actionbar,.study-editor>.editor-actions');
+ if(actions){actions.classList.add('study-actionbar');if(bench.firstElementChild!==actions)bench.prepend(actions);const summary=actions.querySelector('.study-practice-more>summary');if(summary)summary.textContent=studioText('Підказки й дії','Hints & actions');}
+ for(const label of editor.querySelectorAll('.exercise-editors label')){const input=Q(label.htmlFor);if(input){input.setAttribute('aria-label',label.textContent);label.hidden=true;}}
+ const width=[...body.querySelectorAll(':scope>.form-field')].find(field=>field.querySelector('select')&&field.querySelector('label')?.textContent===t().previewWidth);
+ if(width){width.classList.add('study-preview-width');width.hidden=false;result.querySelector(':scope>h3')?.after(width);}
+ let notes=body.querySelector('.study-execution-notes');if(!notes){notes=E('details','study-execution-notes');notes.append(E('summary','',studioText('Про виконання та збереження','Execution and saving')));bench.after(notes);}
+ for(const note of body.querySelectorAll(':scope>p.panel-note'))if(note.textContent===t().lessonDraft||note.textContent===t().practiceSafe){note.hidden=false;notes.append(note);}
+ notes.hidden=learningStep!=='practice';
+}
+
+function arrangeDesktopTool(){
+ if(toolCatalogOpen)return;
+ const body=toolsView.querySelector('.tool-body'),guide=body?.querySelector('.tool-learning-guide'),presets=body?.querySelector('.tool-preset-actions');
+ if(!body||!guide&&!presets)return;
+ let toolbar=body.querySelector('.desktop-tool-toolbar');if(!toolbar){toolbar=E('div','desktop-tool-toolbar');body.prepend(toolbar);}
+ for(const node of [guide,presets])if(node&&node.parentElement!==toolbar)toolbar.append(node);
+}
+
+if(learningScreen==='lesson')arrangeDesktopStudy(academy.course==='HTML'?Q('html-lesson'):academyPanel.querySelector('.course-layout>section'));
+if(!toolCatalogOpen)arrangeDesktopTool();

@@ -87,3 +87,53 @@ body[data-focus-route=dashboard] .home-explore{background:linear-gradient(135deg
 @media(prefers-reduced-motion:reduce){body[data-focus-route=dashboard] .focus-hero{animation:none}.kachan-redesign *{scroll-behavior:auto!important}}
 
 @media(max-width:700px){body[data-focus-route=dashboard] .focus-portal{grid-template-columns:minmax(0,1fr) 32px;min-height:0;gap:14px;padding:22px!important;align-content:start}body[data-focus-route=dashboard] .focus-portal-icon{display:none!important}body[data-focus-route=dashboard] .focus-portal h2{grid-column:1;grid-row:1;padding:0!important;margin:0!important;overflow-wrap:normal;word-break:normal}body[data-focus-route=dashboard] .focus-portal-arrow{grid-column:2;grid-row:1;justify-self:end;align-self:center;margin:0;padding:0;border:0;background:none}body[data-focus-route=dashboard] .focus-portal p{grid-column:1/-1;grid-row:2;max-width:none;margin:0}}
+
+/* Desktop workspaces keep controls above the work, rather than below long editors. */
+.desktop-tool-toolbar{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px 20px;margin:0 0 22px;padding:12px 16px;background:var(--panel);border:1px solid var(--border);border-radius:12px}
+.desktop-tool-toolbar>.tool-learning-guide{flex:1 1 190px;margin:0!important;padding:0!important;background:none;border:0}
+.desktop-tool-toolbar>.tool-learning-guide>summary{padding:10px 0!important;font-size:14px}
+.desktop-tool-toolbar>.tool-preset-actions{margin:0;gap:8px;flex:0 1 auto}
+.desktop-tool-toolbar>.tool-learning-guide[open]{flex-basis:100%}
+.study-execution-notes{margin:16px 0;font-size:13px;color:var(--muted)}
+.study-execution-notes>summary{cursor:pointer;padding:10px 0}
+.study-execution-notes p{font-size:13px;line-height:1.8;margin:10px 0}
+.study-preview-width{margin:0 0 14px!important;display:flex;align-items:center;gap:12px}
+.study-preview-width label{font-size:12px;color:var(--muted);margin:0;flex:1}
+.study-preview-width select{width:130px;min-height:40px;flex-shrink:0}
+.study-actionbar{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:10px}
+.study-actionbar .study-practice-more{flex-basis:auto;margin-left:auto}
+.study-actionbar .study-practice-more[open]{flex-basis:100%;margin-left:0}
+.study-actionbar .redesign-reading-toggle{margin:0}
+.study-editor .exercise-editors .form-field{margin-top:0}
+.kachan-redesign #learning-view .course-example>summary{color:var(--muted)}
+@media(min-width:1100px){
+ .kachan-redesign #learning-view[data-lesson-step=practice] .course-layout{grid-template-columns:minmax(0,1fr);max-width:none;gap:0}
+ .kachan-redesign #learning-view[data-lesson-step=practice] .learning-syllabus{display:none}
+ .kachan-redesign #learning-view[data-lesson-step=practice] .learning-focus-toggle{display:none}
+ .kachan-redesign #learning-view[data-lesson-step=practice] .learning-reader{width:100%;max-width:none;padding:22px!important;background:var(--panel)!important;border:1px solid var(--border)!important;border-radius:14px!important}
+ .kachan-redesign #learning-view[data-lesson-step=practice] .study-workbench{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin:18px 0;align-items:start}
+ .kachan-redesign #learning-view[data-lesson-step=practice] .study-workbench.practice-with-reading{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .kachan-redesign #learning-view[data-lesson-step=practice] .lesson-reading-aside{grid-column:1/-1;position:static;max-width:none}
+ .study-editor>.editor-actions{margin:0 0 14px;align-items:center}
+ .study-editor .study-practice-more{flex-basis:auto;margin-left:auto}
+ .study-editor .study-practice-more>summary{padding:10px 0}
+ .study-editor .study-practice-more[open]{flex-basis:100%;margin:0}
+ .study-editor .course-code{height:330px!important;min-height:250px!important}
+ .study-editor .editor-expanded .course-code{height:min(65svh,700px)!important}
+ .study-result :is(#course-preview,.academy-preview){height:350px;min-height:330px}
+ .study-result .course-results:empty{min-height:70px;border:0;background:var(--bg)}
+ .study-result .course-results:empty::before{padding:16px}
+ .kachan-redesign #learning-view[data-lesson-step=practice] .practice-task{max-width:none;margin-bottom:18px}
+ .kachan-redesign #learning-view[data-lesson-step=practice] .learning-step-footer{margin-top:20px}
+ .desktop-outline-open{margin-left:auto}
+ .desktop-tool-toolbar .tool-preset-actions select{max-width:220px}
+ #tools-view .developer-layout{grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:start}
+ #tools-view .developer-layout>section{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px}
+ #tools-view .developer-layout>section:last-child{position:sticky;top:24px}
+ #tools-view .developer-layout .tool-stage-title{font-size:18px;margin:0 0 22px}
+ #tools-view .developer-layout .form-field{margin-bottom:18px}
+ #tools-view .developer-layout .responsive-tool-controls{margin-bottom:14px;gap:6px}
+ #tools-view .developer-layout .responsive-tool-controls button{font-size:12px;min-height:38px}
+}
+
+@media(max-width:1099px){.desktop-outline-open{display:none}}

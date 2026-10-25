@@ -47,7 +47,7 @@ function studioLearningLaunch() { if (!learningLibrary)
 const studioLibraryBefore = renderLearningLibrary;
 renderLearningLibrary = function () { const result = studioLibraryBefore(); studioLearningLaunch();if(typeof renderLearningProjectEntry==='function')renderLearningProjectEntry(); return result; };
 const studioToolsBefore = renderTools;
-renderTools = function () { const result = studioToolsBefore(); const body = toolsView.querySelector('.tool-body');if(typeof renderUnifiedCatalog==='function'){if(toolCatalogOpen)renderUnifiedCatalog();else body?.querySelector('.studio-tools-entry')?.remove();return result;} if (body && !body.querySelector('.studio-tools-entry')) {
+renderTools = function () { const result = studioToolsBefore(); const body = toolsView.querySelector('.tool-body');if(typeof renderUnifiedCatalog==='function'){if(toolCatalogOpen)renderUnifiedCatalog();else body?.querySelector('.studio-tools-entry')?.remove();if(typeof arrangeDesktopTool==='function')arrangeDesktopTool();return result;} if (body && !body.querySelector('.studio-tools-entry')) {
     const entry = E('div', 'studio-tools-entry');
     entry.append(E('span', '', studioText('Більше можливостей', 'More to explore')));
     for (const [id, uk, en] of [['', 'Студія', 'Studio'], ['palette', 'Палітри', 'Palettes'], ['type', 'Типографіка', 'Typography'], ['motion', 'Анімації', 'Animations'], ['builder', 'Полотно', 'Canvas']])
