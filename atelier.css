@@ -407,3 +407,45 @@ body[data-focus-route=dashboard] .home-explore{background:linear-gradient(135deg
  .resource-desk-topic>label{display:none}
  .resource-desk-search>[data-simple-clear]{right:4px;top:4px;bottom:auto}
 }
+/* Mobile controls use touch-sized targets without desktop spacing. */
+@media(max-width:600px){
+ .kachan-redesign .sidebar{padding:10px 16px;gap:0 12px;align-items:center}
+ .kachan-redesign .sidebar>.brand{margin:0;padding:0;min-height:48px;font-size:23px}
+ .kachan-redesign #menu-toggle{min-height:44px;padding:9px 14px;font-size:13px}
+ .kachan-redesign #main-content>.topbar{padding:8px 16px 12px;min-height:64px;gap:0}
+ .kachan-redesign .topbar-actions{gap:8px;flex-wrap:nowrap;align-items:center}
+ .kachan-redesign .topbar-actions>:is(button,.language-switch){margin:0;min-height:44px}
+ .kachan-redesign .topbar-actions>#global-create{font-size:13px;padding:10px 14px}
+ .kachan-redesign .topbar-actions>#global-search-open{min-width:44px;width:44px;padding:8px}
+ .kachan-redesign .topbar-actions .language-switch button{min-width:36px;min-height:42px;padding:8px;font-size:12px}
+ .kachan-redesign #main-content>.content{padding-top:20px}
+ .kachan-redesign .content .page-heading.section-heading-surface{padding:0 0 12px!important;min-height:0!important;margin-bottom:18px!important;gap:12px}
+ .kachan-redesign .section-heading-surface h1{font-size:28px!important;line-height:1.25}
+ .kachan-redesign .sidebar.menu-open #workspace-navigation{margin-top:12px;gap:6px}
+ .kachan-redesign .sidebar.menu-open .nav-item{padding:12px;min-height:46px;font-size:14px}
+ .kachan-redesign .sidebar.menu-open .nav-section-label{font-size:11px;margin-block:10px 4px}
+ .kachan-redesign .content :is(input:not([type=checkbox],[type=radio],[type=range],[type=color]),textarea,select),.kachan-redesign dialog :is(input:not([type=checkbox],[type=radio],[type=range],[type=color]),textarea,select){font-size:16px!important}
+ .kachan-redesign #learning-focus-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+ .kachan-redesign #learning-focus-tabs button{min-height:42px;padding:9px 12px;font-size:13px;flex:1 1 auto}
+ .kachan-redesign .organization-course-actions{gap:6px;margin-bottom:16px}
+ .kachan-redesign .organization-course-actions button{min-height:42px;padding:8px 12px;font-size:13px}
+ .kachan-redesign .organization-tool-categories{margin-top:16px}
+ .kachan-redesign .organization-tool-categories .organization-grid{gap:10px;margin-bottom:16px}
+ .kachan-redesign .organization-tool-categories .organization-card{padding:16px;min-height:84px;gap:6px 12px}
+ .kachan-redesign .organization-tool-categories .organization-heading{font-size:18px!important;margin-bottom:12px!important}
+ .kachan-redesign .unified-intro{margin-bottom:12px}
+ .kachan-redesign .unified-intro>p:not(.eyebrow){font-size:14px;line-height:1.7;margin-bottom:14px}
+ .kachan-redesign #learning-view .learning-course-toolbar{gap:8px;margin:0 0 14px}
+ .kachan-redesign #learning-view .learning-course-toolbar button{min-height:42px;padding:9px 12px;font-size:13px}
+ .kachan-redesign #learning-view .learning-syllabus{padding:4px;margin-bottom:14px}
+ .kachan-redesign #learning-view .learning-syllabus>summary{min-height:44px;padding:10px 12px;font-size:14px}
+ .kachan-redesign #learning-view .learning-reader>.lesson-step-tabs{display:flex;flex-wrap:nowrap;gap:4px;padding:4px;top:6px;align-items:stretch;margin-block:16px}
+ .kachan-redesign #learning-view .lesson-step-tabs button{flex:1 1 0;min-width:0;min-height:64px;flex-direction:column;justify-content:center;gap:4px;padding:8px 4px;font-size:12px;line-height:1.5;white-space:normal;text-align:center}
+ .kachan-redesign #learning-view .learning-step-dot{flex-shrink:0;width:20px;height:20px;font-size:11px}
+ .kachan-redesign #tools-view .responsive-tool-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px}
+ .kachan-redesign #tools-view .responsive-tool-controls>button{min-width:0;min-height:44px;padding:8px 10px;font-size:12px;line-height:1.5}
+ .kachan-redesign #tools-view .responsive-tool-controls>button:first-child{grid-column:1/-1}
+ .kachan-redesign #tools-view .desktop-tool-toolbar{gap:6px;margin-bottom:16px;padding:10px 14px}
+ .kachan-redesign #tools-view .desktop-tool-toolbar>details{flex-basis:100%}
+ .kachan-redesign #tools-view .desktop-tool-toolbar>details>summary{min-height:42px;padding:10px 0!important;font-size:13px}
+}

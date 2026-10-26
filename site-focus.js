@@ -72,3 +72,9 @@ window.addEventListener('hashchange',()=>{showView();if(focusedRoute().route==='
 window.addEventListener('languagechange',()=>{renderHome();renderTools();showView();});
 focusedNav.addEventListener('click',event=>{if(event.target.closest('a')){document.querySelector('.sidebar').classList.remove('menu-open');Q('menu-toggle').setAttribute('aria-expanded','false');}});
 renderMenuPreferences();renderHome();renderTools();showView();
+
+// The mobile navigation is a disclosure, not a modal: outside taps dismiss it without stealing focus.
+Q('menu-toggle').setAttribute('aria-controls','workspace-navigation');
+function closeMobileNavigation(restoreFocus=false){const sidebar=document.querySelector('.sidebar');if(!sidebar.classList.contains('menu-open'))return;sidebar.classList.remove('menu-open');Q('menu-toggle').setAttribute('aria-expanded','false');if(restoreFocus)Q('menu-toggle').focus({preventScroll:true});}
+document.addEventListener('pointerdown',event=>{if(!event.target.closest('.sidebar'))closeMobileNavigation();});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!document.querySelector('dialog[open]')&&document.querySelector('.sidebar.menu-open')){event.preventDefault();closeMobileNavigation(true);}});
