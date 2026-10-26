@@ -110,7 +110,10 @@ function openResourceDetails(card){
  resourceDetailsRestore();const marker=document.createComment('resource-details');more.before(marker);resourceDetailsRestore=()=>{if(marker.parentNode)marker.replaceWith(more);resourceDetailsRestore=()=>{};};
  const {body}=resourceDetailsWindow;body.replaceChildren(E('h2','',card.querySelector('.resource-card-title')?.textContent||''));
  const description=card.querySelector(':scope>.panel-note');if(description)body.append(E('p','resource-detail-description',description.textContent));
- const link=card.querySelector('a.text-link');if(link){const actions=E('div','resource-detail-actions');const open=link.cloneNode(true);open.className='primary-button';actions.append(open);body.append(actions);}body.append(more);resourceDetailsWindow.open();
+ const link=card.querySelector('a.text-link');if(link){const actions=E('div','resource-detail-actions');const open=link.cloneNode(true);open.className='primary-button';actions.append(open);body.append(actions);}body.append(more);
+ const siblings=[...Q('resource-list').querySelectorAll('.resource-card')].filter(row=>!row.hidden),index=siblings.indexOf(card);
+ if(index>=0&&siblings.length>1){const navigation=E('nav','resource-details-navigation');navigation.setAttribute('aria-label',studioText('Перегляд ресурсів','Browse resources'));const previous=button(studioText('← Попередній','← Previous'),()=>{openResourceDetails(siblings[index-1]);body.querySelector('.resource-details-navigation>button:not(:disabled)')?.focus({preventScroll:true});},'secondary-button'),next=button(studioText('Наступний →','Next →'),()=>{openResourceDetails(siblings[index+1]);(body.querySelector('.resource-details-navigation>button:last-child:not(:disabled)')||body.querySelector('.resource-details-navigation>button:not(:disabled)'))?.focus({preventScroll:true});},'secondary-button');previous.disabled=index===0;next.disabled=index===siblings.length-1;const count=E('span','',String(index+1)+' / '+siblings.length);count.setAttribute('role','status');navigation.append(previous,count,next);body.append(navigation);}
+ resourceDetailsWindow.open();
 }
 function simplifyResources(){
  if(resourceDetailsWindow?.dialog.open)resourceDetailsWindow.shut();
