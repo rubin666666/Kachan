@@ -188,6 +188,33 @@ function arrangeDesktopTool(){
  if(!body||!guide&&!presets)return;
  let toolbar=body.querySelector('.desktop-tool-toolbar');if(!toolbar){toolbar=E('div','desktop-tool-toolbar');body.prepend(toolbar);}
  for(const node of [guide,presets])if(node&&node.parentElement!==toolbar)toolbar.append(node);
+ const heading=toolsView.querySelector('.page-heading'),back=toolsView.querySelector('.tool-catalog-back');
+ if(heading&&back){heading.classList.add('tool-workspace-heading');heading.append(back);}
+ arrangeCodeToolWorkspace(body);
+}
+
+// Move live controls, rather than cloning them, to keep drafts and execution handlers intact.
+function arrangeCodeToolWorkspace(body){
+ if(!['markup','js-practice'].includes(selectedTool)||body.querySelector('.desktop-code-workspace'))return;
+ const js=selectedTool==='js-practice',input=Q(js?'developer-js':'markup-code'),output=Q(js?'developer-results':'markup-results');
+ if(!input||!output)return;
+ const editorNode=input.closest('.code-editor-shell')||input;
+ const actions=js?body.querySelector(':scope>.editor-actions'):E('div','editor-actions');
+ if(!actions)return;
+ const resultHeading=output.previousElementSibling?.matches('h2')?output.previousElementSibling:null;
+ const frame=js?null:body.querySelector(':scope>iframe.tool-preview');
+ const extra=[...body.querySelectorAll(':scope>.cheat-entry,:scope>.tool-runtime-note')];
+ if(!js)for(const control of [...body.querySelectorAll(':scope>button')])actions.append(control);
+ const task=body.querySelector(':scope>.practice-task'),exercise=Q('developer-exercise')?.closest('label');
+ for(const heading of body.querySelectorAll(':scope>.tool-stage-title'))heading.remove();
+ if(exercise&&task){const context=E('section','desktop-code-context');exercise.classList.add('practice-exercise-field');context.append(exercise,task);body.append(context);}
+ const bench=E('div','desktop-code-workspace'),editor=E('section','desktop-code-editor'),result=E('section','desktop-code-result');
+ actions.classList.add('desktop-code-actions');bench.append(actions,editor,result);
+ editor.append(E('h2','tool-stage-title',studioText('Код','Code')),editorNode);
+ if(js){const saved=[...body.querySelectorAll(':scope>p.panel-note')].find(note=>note.textContent===dc().saved);if(saved)editor.append(saved);}
+ result.append(resultHeading||E('h2','tool-stage-title',studioText('Результат','Result')),output);
+ if(frame)result.append(frame);
+ result.append(...extra);body.append(bench);
 }
 
 if(learningScreen==='lesson')arrangeDesktopStudy(academy.course==='HTML'?Q('html-lesson'):academyPanel.querySelector('.course-layout>section'));

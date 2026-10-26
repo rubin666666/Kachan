@@ -138,7 +138,7 @@
   for(const input of document.querySelectorAll('.content input[type=range],dialog input[type=range]'))updateRange(input);
   for(const input of document.querySelectorAll('#tools-view .tool-body textarea.tool-code-editor:not([readonly]),#learning-view textarea.course-code'))enhanceToolEditor(input);
   const exercise=Q('developer-exercise');if(exercise){const label=exercise.closest('label');if(label?.firstChild?.nodeType===3)label.firstChild.textContent=uk?'Вправа':'Exercise';label?.classList.add('practice-exercise-field');
-   const body=exercise.closest('.tool-body'),note=[...body.querySelectorAll(':scope>p.panel-note')].find(p=>p.textContent===dc().sandbox);if(note){const fold=E('details','tool-runtime-note');fold.append(E('summary','',uk?'Про середовище запуску':'About the runtime'));note.before(fold);fold.append(note);}
+   const body=exercise.closest('.tool-body'),note=[...body.querySelectorAll(':scope>p.panel-note')].find(p=>p.textContent===dc().sandbox);if(note){const fold=E('details','tool-runtime-note');fold.append(E('summary','',uk?'Про середовище запуску':'About the runtime'));note.before(fold);fold.append(note);body.querySelector('.desktop-code-result')?.append(fold);}
   }
  }
  let surfaceFrame=0;

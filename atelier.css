@@ -220,3 +220,30 @@ body[data-focus-route=dashboard] .home-explore{background:linear-gradient(135deg
  .reference-detail{padding:28px}
  .reference-detail>p{max-width:72ch}
 }
+
+.desktop-code-context{display:flex;align-items:center;flex-wrap:wrap;gap:18px 28px;margin:0 0 20px;padding:20px 24px;background:var(--panel);border:1px solid var(--border);border-radius:14px}
+.desktop-code-context>.practice-exercise-field{flex:0 1 320px;min-width:0;margin:0}
+.desktop-code-context>.practice-task{flex:1 1 320px;min-width:0;margin:0;padding:0;border:0;background:none;font-size:15px;line-height:1.8}
+.desktop-code-workspace{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start;margin-top:20px}
+.desktop-code-actions{grid-column:1/-1;margin:0!important;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:10px;display:flex;flex-wrap:wrap;gap:8px}
+.desktop-code-editor,.desktop-code-result{min-width:0;padding:22px;background:var(--panel);border:1px solid var(--border);border-radius:14px}
+.desktop-code-workspace .tool-stage-title,.desktop-code-result>h2{font-size:18px;margin:0 0 20px}
+.desktop-code-result>#developer-results{margin:0;min-height:180px;max-height:540px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.8}
+.desktop-code-result>.tool-preview{width:100%;margin:18px 0 0}
+.desktop-code-result>.developer-checks{margin:0;padding-left:22px;font-size:14px;line-height:1.8}
+.desktop-code-result>.cheat-entry{margin:16px 0 0}
+@media(min-width:1200px){
+ .kachan-redesign #tools-view>.page-heading.tool-workspace-heading{min-height:64px!important;padding:0 0 12px!important;margin-bottom:18px!important;display:flex;flex-wrap:wrap;gap:16px}
+ .tool-workspace-heading .tool-catalog-back{margin:0!important;flex:0 0 auto}
+ .desktop-code-workspace{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+ .desktop-code-editor .tool-code-editor{height:clamp(360px,44svh,580px)!important;min-height:300px!important}
+ .desktop-code-editor .editor-expanded .tool-code-editor{height:min(70svh,800px)!important}
+ .desktop-code-result>.tool-preview{height:clamp(360px,44svh,580px);min-height:300px}
+}
+@media(min-width:1600px){
+ .desktop-code-actions{position:sticky;top:12px;z-index:5;box-shadow:0 8px 24px #03060c20}
+ .desktop-code-result{position:sticky;top:100px;max-height:calc(100svh - 120px);overflow:auto;scrollbar-gutter:stable;overscroll-behavior:contain}
+ .playground-layout .tool-code-editor{height:clamp(400px,46svh,640px)!important}
+ .playground-layout .editor-expanded .tool-code-editor{height:min(70svh,800px)!important}
+ .playground-layout #tool-preview{height:clamp(400px,46svh,640px)}
+}
