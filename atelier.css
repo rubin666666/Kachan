@@ -1,15 +1,16 @@
-/* Atelier composition with neutral graphite surfaces and a blue orbital accent. */
+/* Atelier composition with neutral graphite surfaces and a user-selected orbital accent. */
 :root.kachan-redesign:not([data-theme=light]):not([data-studio-theme=terminal]){
  --bg:#101216;--panel:#191d24;--surface-raised:#232a34;--border:#303a48;
  --text:#edf1f7;--muted:#acb6c5;--atelier-paper:#151d29;--atelier-ink:#eef4ff;
- --atelier-warm:#7c9dbd;--atelier-shadow:0 12px 36px #03060c1c;--ui-radius:12px;
+ --atelier-warm:var(--accent);--atelier-shadow:0 12px 36px #03060c1c;--ui-radius:12px;
 }
 :root.kachan-redesign[data-theme=light]{
  --bg:#e9edf3;--panel:#f7f9fc;--surface-raised:#e0e6ef;--border:#ccd5e2;
  --text:#172536;--muted:#566780;--atelier-paper:#151d29;--atelier-ink:#eef4ff;
- --atelier-warm:#50719b;--atelier-shadow:0 10px 28px #1725360b;--ui-radius:12px;
+ --atelier-warm:var(--accent);--atelier-shadow:0 10px 28px #1725360b;--ui-radius:12px;
 }
-:root.kachan-redesign[data-studio-theme=terminal]{--atelier-paper:#151d29;--atelier-ink:#eef4ff;--atelier-warm:#7c9dbd}
+:root.kachan-redesign[data-studio-theme=terminal]{--atelier-paper:#151d29;--atelier-ink:#eef4ff;--atelier-warm:var(--accent)}
+:root.kachan-redesign{--studio-mineral:var(--accent)}
 .kachan-redesign body{background:var(--bg)}
 .kachan-redesign:not([data-studio-theme=terminal]) body{font-family:"Segoe UI",Arial,sans-serif}
 .kachan-redesign .sidebar{background:color-mix(in srgb,var(--bg) 92%,#03060c);border-right:1px solid color-mix(in srgb,var(--border) 60%,transparent);padding-top:28px}
@@ -47,27 +48,27 @@
 
 body[data-focus-route=dashboard] .content{background:radial-gradient(ellipse at 90% 0%,color-mix(in srgb,var(--accent) 6%,transparent),transparent 55%),var(--bg);padding-top:20px}
 body[data-focus-route=dashboard] .focus-hero{
- --accent:#91bfff;--accent-soft:#91bfff12;--accent-border:#91bfff40;
+ --hero-accent:color-mix(in srgb,var(--accent) 70%,white);
  display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.9fr);gap:30px;align-items:center;
  background:var(--atelier-paper);color:var(--atelier-ink);border-radius:22px;
  padding:38px 42px;min-height:350px;margin:6px 0 22px;position:relative;overflow:hidden;
  animation:atelier-enter 450ms ease-out both;
 }
-body[data-focus-route=dashboard] .home-hero-text>.eyebrow{display:block;color:#a9caff!important;font:11px/1.6 ui-monospace,Consolas,monospace;letter-spacing:.12em;margin:0 0 20px}
+body[data-focus-route=dashboard] .home-hero-text>.eyebrow{display:block;color:var(--hero-accent)!important;font:11px/1.6 ui-monospace,Consolas,monospace;letter-spacing:.12em;margin:0 0 20px}
 body[data-focus-route=dashboard] .focus-hero h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;white-space:pre-line;font-size:clamp(42px,4.8vw,76px);line-height:1.03;letter-spacing:-.055em;margin:0 0 20px;max-width:none}
-body[data-focus-route=dashboard] .home-title-accent{background:none;color:#91bfff;-webkit-text-fill-color:currentColor}
+body[data-focus-route=dashboard] .home-title-accent{background:none;color:var(--hero-accent);-webkit-text-fill-color:currentColor}
 body[data-focus-route=dashboard] .home-hero-description{font-size:15px;line-height:1.8;color:#b7c4d6;max-width:45ch}
 body[data-focus-route=dashboard] .home-primary-action{background:none;border:0;padding:0;margin-top:26px;gap:20px;justify-content:flex-start;max-width:none;flex-wrap:wrap}
 body[data-focus-route=dashboard] .home-next-label{color:#b7c4d6;font-size:13px!important;max-width:240px}
-body[data-focus-route=dashboard] .home-primary-action .primary-button{background:#91bfff;color:#101824;padding:13px 20px;border:0;border-radius:9px!important;order:-1}
-body[data-focus-route=dashboard] .home-blueprint.home-orbit{display:block;max-width:400px;min-width:0;color:#80b9ff;--panel:#151d29;--accent:#80b9ff;background:none;opacity:1}
-body[data-focus-route=dashboard] .home-blueprint .orbit-label{background:#1d2939;color:#c1dbff;border-color:#80b9ff40;box-shadow:0 8px 20px #03060c30;border-radius:20px;font-size:11px}
+body[data-focus-route=dashboard] .home-primary-action .primary-button{background:var(--hero-accent);color:#101824;padding:13px 20px;border:0;border-radius:9px!important;order:-1}
+body[data-focus-route=dashboard] .home-blueprint.home-orbit{display:block;max-width:400px;min-width:0;color:var(--hero-accent);--panel:var(--atelier-paper);background:none;opacity:1}
+body[data-focus-route=dashboard] .home-blueprint .orbit-label{background:color-mix(in srgb,var(--accent) 12%,var(--atelier-paper));color:var(--hero-accent);border-color:var(--accent-border);box-shadow:0 8px 20px #03060c30;border-radius:20px;font-size:11px}
 body[data-focus-route=dashboard] .focus-portals{gap:16px;margin-bottom:18px}
 body[data-focus-route=dashboard] .focus-portal{border-radius:16px!important;min-height:158px;padding:24px!important;border:1px solid var(--border)!important;box-shadow:none;grid-template-columns:34px minmax(0,1fr) auto;gap:12px 16px}
-body[data-focus-route=dashboard] .focus-portal[href="#learning"]{background:#1c2d42!important;color:#e7f1ff;border-color:#47678f!important}
-body[data-focus-route=dashboard] .focus-portal[href="#learning"] :is(p,.focus-portal-icon svg,.focus-portal-arrow){color:#bdd9ff!important}
+body[data-focus-route=dashboard] .focus-portal[href="#learning"]{background:color-mix(in srgb,var(--accent) 12%,var(--atelier-paper))!important;color:var(--atelier-ink);border-color:var(--accent-border)!important}
+body[data-focus-route=dashboard] .focus-portal[href="#learning"] :is(p,.focus-portal-icon svg,.focus-portal-arrow){color:color-mix(in srgb,var(--accent) 25%,white)!important}
 body[data-focus-route=dashboard] .focus-portal[href="#resources"]{background:color-mix(in srgb,var(--panel) 90%,var(--atelier-warm))!important}
-body[data-focus-route=dashboard] .focus-portal[href="#tools"]{background:color-mix(in srgb,var(--panel) 93%,#7299ca)!important}
+body[data-focus-route=dashboard] .focus-portal[href="#tools"]{background:color-mix(in srgb,var(--panel) 93%,var(--accent))!important}
 body[data-focus-route=dashboard] .focus-portal h2{grid-column:2;grid-row:1;min-width:0;overflow-wrap:normal;word-break:normal;font-size:22px;font-weight:600;letter-spacing:-.03em}
 body[data-focus-route=dashboard] .focus-portal p{display:block!important;grid-column:1/-1;grid-row:2;font-size:14px;line-height:1.75;overflow-wrap:anywhere}
 body[data-focus-route=dashboard] .focus-portal-icon{grid-column:1;grid-row:1;display:flex;width:34px;height:34px;align-items:center;justify-content:center}
