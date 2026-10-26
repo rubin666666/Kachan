@@ -3,9 +3,9 @@ function compilePractice(code,typed=false,dom=false){return new Promise(resolve=
 const previousPracticeRunner=runAcademyPractice;
 let domPreviewDocument='',domPreviewFiles='';
 function domDocument(files,code,nonce,check){
- const tests=check?`const initial=document.querySelector('#count')?.textContent;const button=document.querySelector('#increment');button?.click();button?.click();results.push({label:'Counter: 0 → 2 after two clicks',passed:initial==='0'&&document.querySelector('#count')?.textContent==='2'});`:'';
- const script=`(()=>{let steps=0;const __kachanTick=()=>{if(++steps>10000)throw Error('Execution limit exceeded');};const output=[];const console={log:(...args)=>{if(output.length<100)output.push(args.map(String).join(' ').slice(0,2000));}};try{const results=[];${code}\n${tests}\nparent.postMessage({nonce:${JSON.stringify(nonce)},result:{output,results}},'*');}catch(e){parent.postMessage({nonce:${JSON.stringify(nonce)},result:{error:String(e.message),output,results:[]}},'*');}})();`;
- return safePracticeDocument(files,script).replace("'unsafe-eval' blob:","'none'");
+ const tests=check?`(()=>{const initial=document.querySelector('#count')?.textContent;const button=document.querySelector('#increment');button?.click();button?.click();__kachanResults.push({label:'Counter: 0 → 2 after two clicks',passed:initial==='0'&&document.querySelector('#count')?.textContent==='2'});})();`:'';
+ const script=`(()=>{let steps=0;const __kachanTick=()=>{if(++steps>10000)throw Error('Execution limit exceeded');};const __kachanOutput=[],__kachanResults=[];const console={log:(...args)=>{if(__kachanOutput.length<100)__kachanOutput.push(args.map(String).join(' ').slice(0,2000));}};try{${code}\n${tests}\nparent.postMessage({nonce:${JSON.stringify(nonce)},result:{output:__kachanOutput,results:__kachanResults}},'*');}catch(e){parent.postMessage({nonce:${JSON.stringify(nonce)},result:{error:String(e.message),output:__kachanOutput,results:[]}},'*');}})();`;
+ return safePracticeDocument(files,script).replace("script-src 'unsafe-inline' 'unsafe-eval' blob:","script-src 'unsafe-inline'");
 }
 runAcademyPractice=async function(l,files,check=true){
  if(l.kind==='typescript'){

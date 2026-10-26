@@ -22,6 +22,7 @@ function openLearningDirectory(kind){
  if(!organizationWindow){const body=E('div','organization-directory');organizationWindow={body,...utilityWindow('learning-directory-window','learning',body)};}
  const {body}=organizationWindow,c=organizedCopy(),lang=document.documentElement.lang;body.replaceChildren();
  body.append(E('h2','',kind==='route'?c.route:c.chapters));
+ if(kind==='route'&&typeof renderStudyRoute==='function'){renderStudyRoute(body);organizationWindow.open();return;}
  if(kind==='route'){
   body.append(E('p','panel-note',lang==='uk'?'Починай із HTML і рухайся послідовно. TypeScript — після JavaScript; Figma можна вивчати окремо.':'Start with HTML and follow the sequence. Learn TypeScript after JavaScript; Figma is an independent track.'));
   const list=E('ol','organization-route');

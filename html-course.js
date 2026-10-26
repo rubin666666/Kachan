@@ -122,7 +122,7 @@ function renderHtmlCourse(){
  const example=projectElement('details','course-example');example.append(projectElement('summary','',t().courseExample));const pre=projectElement('pre','snippet-code');pre.append(projectElement('code','',lesson.id==='images'?lesson.solution:htmlSyntaxExamples[lesson.id]));example.append(pre);container.append(example);
  container.append(projectElement('h3','',t().courseTask),projectElement('p','lesson-theory',lesson.task[language]));
  const label=projectElement('label','course-code-label',t().courseCode);label.htmlFor='course-code';const textarea=projectElement('textarea','course-code',state.code);textarea.id='course-code';textarea.maxLength=20000;textarea.spellcheck=false;textarea.rows=14;
- textarea.addEventListener('input',()=>{state.code=textarea.value;courseResults=null;drawCourseResults();clearTimeout(courseSaveTimer);saveHtmlCourse();});
+ textarea.addEventListener('input',()=>{const completed=state.completed;state.code=textarea.value;state.completed=false;courseResults=null;drawCourseResults();clearTimeout(courseSaveTimer);saveHtmlCourse();if(completed)syncHtmlProgress();});
  container.append(label,textarea,projectElement('p','panel-note',t().courseLimit),projectElement('p','panel-note',t()[courseStorageOk?'courseSaved':'courseUnsaved']));container.lastChild.id='course-save';container.lastChild.setAttribute('role','status');
  const actions=projectElement('div','editor-actions');
  function button(key,handler,primary=false){const b=projectElement('button',primary?'primary-button':'secondary-button',t()[key]);b.type='button';b.addEventListener('click',handler);actions.append(b);return b;}
