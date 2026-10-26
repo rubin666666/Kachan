@@ -46,7 +46,7 @@ function renderStudyOverview(body,entry){
  let overview=body.querySelector(':scope>.study-overview');if(!overview){overview=E('section','study-overview');body.querySelector('h2')?.after(overview);}
  overview.hidden=false;overview.replaceChildren(E('p','study-location',entry.course+' · '+(index+1)+' / '+module.lessons.length+' · '+c.phases[learningStep]));
  overview.dataset.lesson=entry.id;overview.dataset.step=learningStep;overview.dataset.lang=lang;
- if(learningStep==='theory'){const goal=E('details','study-goal');goal.append(E('summary','',c.goal),E('p','',source.task[lang]));overview.append(goal);}
+ if(learningStep==='theory'){const goal=E('section','study-goal study-main-goal');goal.append(E('h3','',c.goal),E('p','',source.task[lang]));overview.append(goal);}
  const tabs=body.querySelector('.lesson-step-tabs');
  if(tabs){overview.after(tabs);for(const control of tabs.querySelectorAll('[data-tab]')){const phase=control.dataset.tab;control.setAttribute('aria-label',c.phases[phase]);control.setAttribute('aria-current',phase===learningStep?'step':'false');let label=control.querySelector('.study-phase-label');if(!label){for(const node of [...control.childNodes])if(node.nodeType===3)node.remove();label=E('span','study-phase-label');control.append(label);}label.textContent=c.phases[phase];}}
  // The overview replaces a generic instruction; topic-specific teaching stays intact.
@@ -191,7 +191,9 @@ function simplifyStudySupport(body,entry){
  const compass=support.querySelector('.lesson-compass');if(compass){compass.open=true;compass.querySelector(':scope>summary').hidden=true;}
  const read=[...body.querySelectorAll('.form-field')].find(field=>field.querySelector(':scope>input[type=checkbox]')&&field.querySelector('label')?.textContent===t().theoryRead);
  if(read){let progress=support.querySelector('.study-support-progress');if(!progress){progress=E('section','study-support-progress');progress.append(E('h3','study-support-heading',studioText('Позначка прочитання','Reading status')));support.append(progress);}progress.hidden=!theory;read.hidden=false;if(read.parentElement!==progress)progress.append(read);}
- const previous=footer.querySelector('.learning-previous');if(previous&&theory){let navigation=support.querySelector('.study-support-navigation');if(!navigation){navigation=E('div','study-support-navigation');support.append(navigation);}navigation.replaceChildren(previous);}
+ const execution=body.querySelector('.study-execution-notes');if(execution){execution.classList.add('study-support-section');execution.open=true;const title=execution.querySelector(':scope>summary');if(title)title.hidden=true;let heading=execution.querySelector(':scope>.study-support-heading');if(!heading){heading=E('h3','study-support-heading');execution.prepend(heading);}heading.textContent=studioText('Виконання й збереження','Execution and saving');execution.hidden=learningStep!=='practice';if(execution.parentElement!==support)support.append(execution);}
+ const navigation=support.querySelector('.study-support-navigation');if(navigation)navigation.hidden=!theory;
+ const previous=footer.querySelector('.learning-previous');if(previous&&theory){let navigation=support.querySelector('.study-support-navigation');if(!navigation){navigation=E('div','study-support-navigation');support.append(navigation);}navigation.hidden=false;navigation.replaceChildren(previous);}
  support.hidden=learningStep==='test'||![...support.children].some(node=>node.tagName!=='SUMMARY'&&!node.hidden);
  if(theory){const next=footer.querySelector('.learning-footer-actions>.primary-button');if(next){const readAlready=entry.course!=='HTML'&&academy.states[entry.id]?.theoryRead;next.textContent=readAlready?studioText('До практики →','Go to practice →'):studioText('Прочитав — до практики →','Read — go to practice →');}}
 }

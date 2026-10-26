@@ -88,10 +88,17 @@ if(toolCatalogOpen)renderUnifiedCatalog();
 function organizeProjectControls(){
  const root=Q('projects-view');let toolbar=Q('project-collection-toolbar');
  if(!toolbar){toolbar=E('div','organization-collection-toolbar');toolbar.id='project-collection-toolbar';const search=root.querySelector(':scope>.search-box');if(search)search.before(toolbar);else Q('all-projects').before(toolbar);}
- for(const control of [root.querySelector(':scope>.search-box'),Q('project-archive-toggle'),Q('projects-display-mode')])if(control&&control.parentElement!==toolbar)toolbar.append(control);
+ const search=root.querySelector(':scope>.search-box');if(search)toolbar.append(search);
+ let more=toolbar.querySelector('.project-collection-more');if(!more){more=E('details','project-collection-more quiet-options');more.append(E('summary'));toolbar.append(more);more.addEventListener('click',()=>requestAnimationFrame(updateLabel));}
+ const updateLabel=()=>{more.querySelector(':scope>summary').textContent=studioText('Додатково','More options')+(Q('project-archive-toggle').classList.contains('active')?studioText(' · архів',' · archive'):'');};
+ let options=more.querySelector('.project-options-body');if(!options){options=E('div','project-options-body');more.append(options);}
+ for(const node of [Q('project-archive-toggle'),Q('projects-display-mode')])if(node&&node.parentElement!==options)options.append(node);
+ const github=Q('github-form')?.closest('details');if(github){github.hidden=false;if(!more.contains(github))more.append(github);}
+ updateLabel();
  toolbar.hidden=(focusedRoute().params.get('tab')||'overview')!=='overview';
 }
 organizeProjectControls();
+const projectsBeforeOrganization=renderProjects;renderProjects=function(){const result=projectsBeforeOrganization();organizeProjectControls();return result;};
 
 function simplifyLesson(body){
  if(!body)return;
@@ -152,7 +159,9 @@ function renderResourceDesk(){
  const columns=E('div','resource-column-head');columns.setAttribute('aria-hidden','true');for(const title of (uk?['Матеріал','Для чого','Дії','']:['Resource','Purpose','Actions','']))columns.append(E('span','',title));
  main.append(header,columns,list,more);root.classList.add('resource-desk');root.replaceChildren(nav,main);apply();
  const panel=Q('resource-query').closest('.dashboard-panel');panel.classList.add('resource-desk-search');
- const field=Q('resource-collection').closest('.form-field');if(field.parentElement!==panel)panel.append(field);field.classList.add('resource-desk-topic');
+ const field=Q('resource-collection').closest('.form-field');field.classList.add('resource-desk-topic');
+ let refinement=panel.querySelector('.resource-refinement');if(!refinement){refinement=E('details','resource-refinement quiet-options');refinement.append(E('summary'));panel.append(refinement);}if(field.parentElement!==refinement)refinement.append(field);
+ const select=Q('resource-collection'),chosen=select.value!=='all';refinement.classList.toggle('has-selection',chosen);refinement.querySelector(':scope>summary').textContent=chosen?studioText('Тема: ','Topic: ')+select.selectedOptions[0].textContent:studioText('Уточнити пошук','Refine search');
  if(resourcePendingFocus){const request=resourcePendingFocus;resourcePendingFocus=null;requestAnimationFrame(()=>requestAnimationFrame(()=>{
   const visible=[...root.querySelectorAll('.resource-card')].filter(card=>!card.hidden),active=document.activeElement,emptySearchFocus=!visible.length&&active===Q('resource-query');
   if(document.body.dataset.focusRoute!=='resources'||document.querySelector('dialog[open]')||!emptySearchFocus&&![document.body,request.origin].includes(active))return;
@@ -185,9 +194,10 @@ function arrangeDesktopStudy(body){
  const bench=body.querySelector('.study-workbench');if(!bench)return;
  const editor=bench.querySelector('.study-editor'),result=bench.querySelector('.study-result'),actions=bench.querySelector(':scope>.study-actionbar,.study-editor>.editor-actions');
  if(actions){actions.classList.add('study-actionbar');if(bench.firstElementChild!==actions)bench.prepend(actions);const summary=actions.querySelector('.study-practice-more>summary');if(summary)summary.textContent=studioText('Підказки й дії','Hints & actions');}
+ const reading=bench.querySelector('.redesign-reading-toggle'),more=actions?.querySelector('.study-practice-more');if(reading&&more){const content=more.querySelector(':scope>div');if(content&&reading.parentElement!==content)content.append(reading);}
  for(const label of editor.querySelectorAll('.exercise-editors label')){const input=Q(label.htmlFor);if(input){input.setAttribute('aria-label',label.textContent);label.hidden=true;}}
  const width=[...body.querySelectorAll(':scope>.form-field')].find(field=>field.querySelector('select')&&field.querySelector('label')?.textContent===t().previewWidth);
- if(width){width.classList.add('study-preview-width');width.hidden=false;result.querySelector(':scope>h3')?.after(width);}
+ if(width){width.classList.add('study-preview-width');width.hidden=false;let options=result.querySelector('.study-result-options');if(!options){options=E('details','study-result-options quiet-options');options.append(E('summary','',studioText('Параметри прев’ю','Preview options')));result.querySelector(':scope>h3')?.after(options);}options.append(width);}
  let notes=body.querySelector('.study-execution-notes');if(!notes){notes=E('details','study-execution-notes');notes.append(E('summary','',studioText('Про виконання та збереження','Execution and saving')));bench.after(notes);}
  for(const note of body.querySelectorAll(':scope>p.panel-note'))if(note.textContent===t().lessonDraft||note.textContent===t().practiceSafe){note.hidden=false;notes.append(note);}
  notes.hidden=learningStep!=='practice';

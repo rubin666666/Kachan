@@ -5,6 +5,9 @@
 .study-goal{border:0;background:var(--accent-soft);border-radius:10px;padding:12px 16px}
 .study-goal>summary{font-size:14px;font-weight:600;cursor:pointer}
 .study-goal>p{font-size:15px;line-height:1.8;margin:14px 0 0}
+.study-main-goal{border-inline-start:3px solid var(--accent);border-radius:4px;padding:16px 18px}
+.study-main-goal>h3{font-size:13px!important;font-weight:600;color:var(--accent);margin:0!important;line-height:1.6}
+.study-main-goal>p{color:var(--text);margin:7px 0 0;font-size:15px}
 .study-example{margin:24px 0 30px;padding:20px;background:var(--panel);border:1px solid var(--border);border-radius:14px;min-width:0}
 .study-example-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start}
 .study-example-code,.study-example-result{min-width:0}
@@ -91,3 +94,28 @@
 #learning-view[data-lesson-step=theory] .learning-footer-actions{order:0;justify-content:flex-start}
 #learning-view[data-lesson-step=theory] .learning-step-caption{order:1}
 @media(max-width:600px){.study-support>summary{padding:12px 14px}.kachan-redesign #learning-view .study-support .study-support-section,.study-support-progress{padding:14px}.kachan-redesign #learning-view[data-lesson-step=theory] .learning-step-footer{gap:8px}.study-support .study-support-section button{min-height:44px}}
+
+/* Secondary controls stay available without competing with the working content. */
+.quiet-options{min-width:0;border:1px solid var(--border);border-radius:6px;background:transparent}
+.quiet-options>summary{cursor:pointer;padding:11px 14px;min-height:44px;color:var(--muted);font-size:13px;font-weight:500;line-height:1.6}
+.quiet-options[open]>summary,.quiet-options.has-selection>summary{color:var(--accent);background:var(--accent-soft)}
+.quiet-options>summary:hover{color:var(--text)}
+.quiet-options>summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.kachan-redesign .resource-desk-search>.resource-refinement{grid-column:2;grid-row:1;align-self:start}
+.resource-refinement>.resource-desk-topic{padding:14px;margin:0!important}
+.resource-refinement select{max-width:100%}
+.kachan-redesign #project-collection-toolbar{align-items:flex-start;position:relative}
+.kachan-redesign #project-collection-toolbar>.project-collection-more{flex:0 0 240px;max-width:100%;margin:0}
+.kachan-redesign #project-collection-toolbar>.project-collection-more[open]{flex-basis:100%}
+.project-collection-more #github-form{max-width:680px}
+.project-options-body{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px}
+.project-options-body>.display-mode{margin:0!important}
+.kachan-redesign .project-collection-more>details{margin:0!important;padding:0 14px 14px!important;background:none;border:0;border-radius:0}
+.project-collection-more #github-form{margin-top:14px}
+.study-result>.study-result-options{margin:0 0 14px}
+.study-result-options>.study-preview-width{padding:14px;margin:0!important}
+.tool-preview-options{margin:0 0 16px}
+.tool-preview-options>.responsive-tool-controls{padding:12px 14px;margin:0!important}
+.tool-preview-options>.responsive-tool-note{padding:0 14px 14px;margin:0;font-size:13px}
+.study-support .study-execution-notes>h3{color:var(--text)}
+@media(max-width:600px){.kachan-redesign .resource-desk-search>.resource-refinement{grid-column:1;grid-row:2}.kachan-redesign #project-collection-toolbar>.project-collection-more{flex-basis:100%}.quiet-options>summary{min-height:44px}}
