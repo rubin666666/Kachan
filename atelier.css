@@ -385,3 +385,25 @@ body[data-focus-route=dashboard] .home-explore{background:linear-gradient(135deg
  .project-details-window #project-detail{padding-top:4px}
  .project-details-window #project-detail>h2{font-size:26px;line-height:1.35;margin:8px 0 12px;letter-spacing:-.025em}
 }
+/* Mobile resources are cards, not compressed desktop table rows. */
+@media(max-width:750px){
+ #resource-list.resource-desk{grid-template-columns:minmax(0,1fr);gap:16px!important}
+ .resource-desk-nav{position:static;display:flex;flex-wrap:wrap;gap:6px}
+ .resource-desk-nav-item{width:auto;gap:8px;min-height:42px;padding:9px 12px;font-size:13px;background:var(--panel)}
+ .resource-desk-start{width:100%;margin:0;padding:8px 0}
+ .resource-column-head{display:none}
+ .resource-desk-header{align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+ .resource-desk-header h2{font-size:18px}
+ .kachan-redesign #resources-view .resource-desk-list>.resource-card{grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:minmax(44px,auto) auto auto auto;align-items:start;gap:8px 6px;padding:16px!important;min-height:0}
+ .resource-desk-list .resource-card>.title-with-help{grid-column:1/6;grid-row:1;align-self:center;min-width:0;width:100%;margin:0;padding:0}
+ .kachan-redesign #resources-view .resource-desk-list .resource-card-title{font-size:18px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;max-width:100%}
+ .kachan-redesign #resources-view .resource-desk-list .resource-save-button{position:static;inset:auto;grid-column:6;grid-row:1;width:44px;min-width:44px;height:44px;justify-self:end;align-self:start;margin:0;padding:10px}
+ .resource-desk-list .resource-card>.resource-domain{grid-column:1/-1;grid-row:2;white-space:normal;overflow-wrap:anywhere;margin:0!important;font-size:12px!important;line-height:1.6}
+ .kachan-redesign #resources-view .resource-desk-list .resource-card>.panel-note:first-of-type{grid-column:1/-1;grid-row:3;font-size:14px!important;line-height:1.75!important;white-space:normal;overflow-wrap:anywhere;margin:4px 0 8px;max-width:none}
+ .kachan-redesign #resources-view .resource-desk-list .resource-card>.text-link{grid-column:1/4;grid-row:4;display:flex;align-items:center;align-self:stretch;min-height:44px;min-width:0;padding:8px 0;white-space:normal;overflow-wrap:anywhere;font-size:13px!important;line-height:1.6}
+ .kachan-redesign #resources-view .resource-desk-list .resource-card>.resource-details-open{grid-column:4/-1;grid-row:4;min-width:0;min-height:44px;margin:0;padding:8px 12px;white-space:normal;font-size:13px;line-height:1.6;background:var(--surface-raised);border:1px solid var(--border)}
+ .kachan-redesign .resource-desk-search{grid-template-columns:minmax(0,1fr);gap:10px}
+ .resource-desk-search>.resource-desk-topic{grid-column:1;grid-row:2}
+ .resource-desk-topic>label{display:none}
+ .resource-desk-search>[data-simple-clear]{right:4px;top:4px;bottom:auto}
+}
