@@ -355,3 +355,33 @@ body[data-focus-route=dashboard] .home-explore{background:linear-gradient(135deg
 
 .content p.empty-state{padding:24px;font-size:14px;line-height:1.8;color:var(--muted);background:var(--panel);border:1px dashed var(--border);border-radius:12px}
 .studio-empty.catalog-empty{text-align:left;align-items:flex-start;margin:12px 0;box-shadow:none}
+
+/* Form windows keep navigation fixed while only the form itself scrolls. */
+.kachan-redesign dialog.form-window[open]{display:flex;flex-direction:column;overflow:hidden}
+.kachan-redesign dialog.form-window>.editor-window-header{position:relative;flex:0 0 auto;box-shadow:none}
+.kachan-redesign dialog.form-window>form{flex:0 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;scroll-padding-block:16px 86px}
+.kachan-redesign dialog.form-window>form>.dialog-form-actions{grid-column:1/-1;position:sticky;bottom:0;z-index:4;display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:14px 0 4px;background:var(--panel);box-shadow:0 -12px 20px var(--panel);border-radius:0}
+.kachan-redesign dialog.form-window .dialog-form-actions>:is(button,input[type=submit]){min-height:42px;padding:10px 16px;margin:0;flex:0 0 auto}
+.kachan-redesign dialog.form-window .dialog-form-actions>:not(.primary-button){background:transparent;color:var(--muted)}
+.kachan-redesign dialog.form-window .dialog-form-actions>:not(.primary-button):hover{color:var(--text);background:var(--surface-raised)}
+.kachan-redesign dialog.form-window form textarea{resize:vertical;max-height:420px;line-height:1.7}
+.kachan-redesign :is(.resource-detail-content,.project-details-window) :is(.resource-comment,.resource-use,.project-section){border:1px solid var(--border);border-radius:10px;background:var(--panel);padding:0 16px;margin:10px 0;min-width:0}
+.kachan-redesign :is(.resource-detail-content,.project-details-window) :is(.resource-comment,.resource-use,.project-section)>summary{padding:14px 0;cursor:pointer;font-size:14px;font-weight:600;line-height:1.6;color:var(--muted)}
+.kachan-redesign :is(.resource-detail-content,.project-details-window) :is(.resource-comment,.resource-use,.project-section)[open]{background:var(--surface-raised)}
+.kachan-redesign :is(.resource-detail-content,.project-details-window) :is(.resource-comment,.resource-use,.project-section)[open]>summary{color:var(--text);margin-bottom:4px}
+.kachan-redesign :is(.resource-detail-content,.project-details-window) :is(.resource-comment,.resource-use,.project-section)[open]>:last-child{margin-bottom:16px}
+.project-details-window .project-hub-actions{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 20px}
+.project-details-window .project-hub-actions button{min-height:40px;padding:9px 14px;font-size:13px;background:var(--surface-raised)}
+.project-details-window :is(p,a,.badge){overflow-wrap:anywhere;max-width:100%}
+@media(min-width:1200px){
+ .kachan-redesign dialog.form-window{width:min(800px,calc(100vw - 64px))!important}
+ .kachan-redesign #profile-editor-window.form-window{width:min(960px,calc(100vw - 64px))!important}
+ .kachan-redesign dialog.form-window>form{padding-inline:24px!important}
+ .kachan-redesign dialog.form-window .profile-form{gap:16px 20px}
+ .kachan-redesign dialog.form-window .profile-form .form-field{margin:0}
+ .kachan-redesign dialog.form-window .project-form-grid{margin-top:10px}
+ .resource-detail-content .card-more-body{gap:6px}
+ .resource-detail-content .resource-guide-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+ .project-details-window #project-detail{padding-top:4px}
+ .project-details-window #project-detail>h2{font-size:26px;line-height:1.35;margin:8px 0 12px;letter-spacing:-.025em}
+}

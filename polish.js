@@ -1,3 +1,13 @@
+// Prepare the same live form on every open; keep its validation and event handlers.
+function prepareFormWindow(dialog,form){
+ if(!form?.matches('form'))return;
+ dialog.classList.add('form-window');
+ let actions=form.querySelector(':scope>.editor-actions,:scope>.profile-form-actions,:scope>.dialog-form-actions');
+ const direct=[...form.children].filter(node=>node.matches('button,input[type=submit]'));
+ if(direct.length){if(!actions){actions=E('div','dialog-form-actions');form.append(actions);}actions.append(...direct);}
+ if(actions)actions.classList.add('dialog-form-actions');
+ form.scrollTop=0;
+}
 // Keep the existing forms and their validation; only change how they are presented.
 const editorWindows=new Map();
 function createEditorWindow(kind,form,field){
@@ -5,11 +15,11 @@ function createEditorWindow(kind,form,field){
  const close=button('close',()=>dialog.close());close.className='window-close';close.textContent='×';
  header.append(heading,close);dialog.append(header,form);dialog.setAttribute('aria-labelledby',heading.id);document.body.append(dialog);
  const state={dialog,heading,field,previous:null};editorWindows.set(kind,state);
- dialog.addEventListener('close',()=>{document.body.classList.toggle('editor-window-open',[...editorWindows.values()].some(s=>s.dialog.open));if(state.previous?.isConnected)state.previous.focus();});
+ dialog.addEventListener('close',()=>{document.body.classList.toggle('editor-window-open',!!document.querySelector('dialog[open]'));if(state.previous?.isConnected)state.previous.focus({preventScroll:true});});
  dialog.addEventListener('click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();});
  return state;
 }
-function openEditorWindow(kind){const state=editorWindows.get(kind);if(!state||state.dialog.open)return;state.previous=document.activeElement;updateWindowLabels();state.dialog.showModal();document.body.classList.add('editor-window-open');Q(state.field).focus();}
+function openEditorWindow(kind){const state=editorWindows.get(kind);if(!state||state.dialog.open)return;state.previous=document.activeElement;updateWindowLabels();prepareFormWindow(state.dialog,state.dialog.querySelector('form'));state.dialog.showModal();document.body.classList.add('editor-window-open');Q(state.field).focus();}
 function updateWindowLabels(){for(const [kind,state] of editorWindows){state.heading.textContent=t()[kind==='task'?(editingTaskId?'editTask':'newTask'):(editingProjectId?'editProject':'newProject')];state.dialog.querySelector('.window-close').setAttribute('aria-label',t().close);}taskCreate.textContent='+ '+t().newTask;projectCreate.textContent='+ '+t().newProject;}
 const taskCreate=button('newTask',()=>{resetTaskForm();openEditorWindow('task');},'primary-button');taskCreate.id='open-task-window';
 const taskToolbar=E('div','view-toolbar');taskToolbar.append(taskCreate);Q('task-form').before(taskToolbar);createEditorWindow('task',Q('task-form'),'task-input');
