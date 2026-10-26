@@ -179,11 +179,28 @@ function renderStudyRoute(body){
  for(const course of order){const module=modules.find(m=>m.id===course),done=module.lessons.filter(learningDone).length,next=module.lessons.find(l=>!learningDone(l))||module.lessons[0],row=E('li');row.dataset.course=course;row.append(E('h3','',course+(course==='TypeScript'||course==='Figma'?' · '+c.optional:'')),E('p','',learningLookCopy[lang][course.toLowerCase()]),E('p','panel-note',c.before+': '+prerequisites[course][lang==='uk'?0:1]),E('span','study-route-progress',done+' / '+module.lessons.length),button(done?c.resume:learningLookCopy[lang].start,()=>{organizationWindow.shut();openLesson(next.id);},'secondary-button'));list.append(row);}body.append(list);
 }
 
+// Keep supporting material in one disclosure while preserving the original live controls.
+function simplifyStudySupport(body,entry){
+ const theory=learningStep==='theory',footer=body.querySelector('.learning-step-footer');if(!footer)return;
+ let support=body.querySelector(':scope>.study-support');if(!support){support=E('details','study-support');support.append(E('summary','',studioText('Матеріали до уроку','Lesson materials')));footer.before(support);}
+ support.querySelector(':scope>summary').textContent=studioText('Матеріали до уроку · додатково','Lesson materials · optional');
+ for(const[selector,uk,en]of [['.beginner-deeper','Додаткове пояснення й практика','Further explanation and practice'],['.lesson-companions','Приклади й нотатки','Examples and notes'],['.lesson-connections','Інструменти й ресурси','Tools and resources']]){
+  const section=body.querySelector(selector);if(!section)continue;section.classList.add('study-support-section');section.open=true;section.querySelector(':scope>summary').hidden=true;
+  let heading=section.querySelector(':scope>.study-support-heading');if(!heading){heading=E('h3','study-support-heading');section.querySelector(':scope>summary').after(heading);}heading.textContent=studioText(uk,en);section.hidden=selector==='.lesson-connections'?learningStep==='test':!theory;if(section.parentElement!==support)support.append(section);
+ }
+ const compass=support.querySelector('.lesson-compass');if(compass){compass.open=true;compass.querySelector(':scope>summary').hidden=true;}
+ const read=[...body.querySelectorAll('.form-field')].find(field=>field.querySelector(':scope>input[type=checkbox]')&&field.querySelector('label')?.textContent===t().theoryRead);
+ if(read){let progress=support.querySelector('.study-support-progress');if(!progress){progress=E('section','study-support-progress');progress.append(E('h3','study-support-heading',studioText('Позначка прочитання','Reading status')));support.append(progress);}progress.hidden=!theory;read.hidden=false;if(read.parentElement!==progress)progress.append(read);}
+ const previous=footer.querySelector('.learning-previous');if(previous&&theory){let navigation=support.querySelector('.study-support-navigation');if(!navigation){navigation=E('div','study-support-navigation');support.append(navigation);}navigation.replaceChildren(previous);}
+ support.hidden=learningStep==='test'||![...support.children].some(node=>node.tagName!=='SUMMARY'&&!node.hidden);
+ if(theory){const next=footer.querySelector('.learning-footer-actions>.primary-button');if(next){const readAlready=entry.course!=='HTML'&&academy.states[entry.id]?.theoryRead;next.textContent=readAlready?studioText('До практики →','Go to practice →'):studioText('Прочитав — до практики →','Read — go to practice →');}}
+}
+
 function refreshStudyExperience(){
  studyFrame=0;updateStudyResume();if(learningScreen!=='lesson')return;
  const body=studyBody(),entry=currentLearningEntry();if(!body||!entry)return;
  body.classList.add('study-guided-reader');body.querySelector('.lesson-live-demo')?.remove();
- configureStudyFiles(body,entry);renderStudyOverview(body,entry);renderStudyExample(body,entry);renderStudyFeedback(body,entry);renderStudyRecap(body,entry);
+ configureStudyFiles(body,entry);renderStudyOverview(body,entry);renderStudyExample(body,entry);renderStudyFeedback(body,entry);renderStudyRecap(body,entry);simplifyStudySupport(body,entry);
  const explanation=body.querySelector('.beginner-lesson');if(explanation)explanation.dataset.studySection='explanation';
  const practice=body.querySelector('.study-workbench');if(practice)practice.dataset.studySection='practice';
  const quiz=body.querySelector('#academy-quiz,.html-test-action');if(quiz)quiz.dataset.studySection='test';

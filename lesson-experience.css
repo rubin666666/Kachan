@@ -70,3 +70,24 @@
  .study-recap{padding:24px}
 }
 @media(max-width:600px){.study-example,.study-recap{padding:18px}.study-route-list>li{padding-left:52px}.study-route-list>li::before{left:16px}.study-route-list h3{font-size:16px}}
+/* One optional support block; the lesson itself ends with a single next action. */
+.study-support{margin:24px 0 16px;padding:0;border:1px solid var(--border);border-radius:10px;background:var(--panel);min-width:0}
+.study-support>summary{padding:14px 18px;font-size:14px;line-height:1.7;color:var(--muted);cursor:pointer;font-weight:500}
+.study-support[open]>summary{color:var(--text)}
+.kachan-redesign #learning-view .study-support .study-support-section{margin:0;padding:18px;border:0;background:transparent;border-radius:0;min-width:0}
+.study-support .study-support-section>summary[hidden],.study-support .lesson-compass>summary[hidden]{display:none!important}
+.study-support-heading{font-size:16px!important;line-height:1.5;margin:0 0 14px!important;font-weight:600}
+.study-support .lesson-compass{padding:0;margin:0;border:0;background:transparent}
+.study-support .study-support-section p{max-width:760px;font-size:14px;line-height:1.8}
+.study-support .study-support-section :is(.editor-actions,.studio-lesson-extras){display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+.study-support .study-support-section :is(.editor-actions,.studio-lesson-extras)>button,.study-support-navigation>button{min-height:38px;padding:8px 10px;font-size:13px;background:transparent;border-color:transparent;color:var(--accent)}
+.study-support :is(.editor-actions,.studio-lesson-extras)>button:hover,.study-support-navigation>button:hover{background:var(--accent-soft);border-color:var(--accent-border)}
+.study-support-progress{padding:18px}
+.kachan-redesign #learning-view .study-support-progress>.form-field{display:flex;flex-direction:row-reverse;align-items:center;justify-content:flex-end;gap:10px;margin:0;padding:0;min-height:36px}
+.study-support-progress>.form-field label{margin:0;font-size:13px}
+.study-support-progress input{width:20px;height:20px;margin:0;accent-color:var(--accent)}
+.study-support-navigation{padding:0 18px 14px}
+.kachan-redesign #learning-view[data-lesson-step=theory] .learning-step-footer{justify-content:flex-start;gap:16px;margin-top:16px;padding:12px 0}
+#learning-view[data-lesson-step=theory] .learning-footer-actions{order:0;justify-content:flex-start}
+#learning-view[data-lesson-step=theory] .learning-step-caption{order:1}
+@media(max-width:600px){.study-support>summary{padding:12px 14px}.kachan-redesign #learning-view .study-support .study-support-section,.study-support-progress{padding:14px}.kachan-redesign #learning-view[data-lesson-step=theory] .learning-step-footer{gap:8px}.study-support .study-support-section button{min-height:44px}}
