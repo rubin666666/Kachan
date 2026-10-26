@@ -109,7 +109,8 @@ function openResourceDetails(card){
  if(!resourceDetailsWindow){const body=E('div','resource-detail-content');resourceDetailsWindow={body,...utilityWindow('resource-details-window','resourceDetails',body)};resourceDetailsWindow.dialog.addEventListener('close',()=>resourceDetailsRestore());resourceDetailsWindow.dialog.addEventListener('click',event=>{if(event.target.closest('.card-more-body button'))resourceDetailsWindow.shut();},true);}
  resourceDetailsRestore();const marker=document.createComment('resource-details');more.before(marker);resourceDetailsRestore=()=>{if(marker.parentNode)marker.replaceWith(more);resourceDetailsRestore=()=>{};};
  const {body}=resourceDetailsWindow;body.replaceChildren(E('h2','',card.querySelector('.resource-card-title')?.textContent||''));
- const link=card.querySelector('a.text-link');if(link)body.append(link.cloneNode(true));body.append(more);resourceDetailsWindow.open();
+ const description=card.querySelector(':scope>.panel-note');if(description)body.append(E('p','resource-detail-description',description.textContent));
+ const link=card.querySelector('a.text-link');if(link){const actions=E('div','resource-detail-actions');const open=link.cloneNode(true);open.className='primary-button';actions.append(open);body.append(actions);}body.append(more);resourceDetailsWindow.open();
 }
 function simplifyResources(){
  if(resourceDetailsWindow?.dialog.open)resourceDetailsWindow.shut();
@@ -126,7 +127,7 @@ function openResourceStart(){
  const links=Q('resource-beginner-start')?.querySelector('.resource-start-links');if(links)body.append(links.cloneNode(true));resourceStartWindow.open();
 }
 function renderResourceDesk(){
- const root=Q('resource-list'),cards=[...root.querySelectorAll('.resource-card')],empty=root.querySelector('.empty-state'),uk=document.documentElement.lang==='uk';
+ const root=Q('resource-list'),cards=[...root.querySelectorAll('.resource-card')],uk=document.documentElement.lang==='uk';
  const signature=[document.documentElement.lang,resourceFilter,Q('resource-query').value,Q('resource-collection').value,resourcePurpose,cards.map(card=>card.dataset.resourceId).join(',')].join('|');
  if(signature!==resourceDeskSignature){resourceDeskLimit=8;resourceDeskSignature=signature;}
  const nav=E('nav','resource-desk-nav');nav.setAttribute('aria-label',uk?'Тип ресурсу':'Resource type');const rows=resourceRows();
@@ -136,7 +137,13 @@ function renderResourceDesk(){
  }
  nav.append(button(uk?'З чого почати? ↗':'Where to start? ↗',openResourceStart,'resource-desk-start'));
  const main=E('section','resource-desk-main'),header=E('div','resource-desk-header'),heading=E('h2','',resourceFilter==='all'?(uk?'Каталог ресурсів':'Resource catalog'):resourceFilter==='favorites'?(uk?'Збережені матеріали':'Saved resources'):t()[resourceFilter]),count=E('p','resource-desk-count');count.setAttribute('role','status');header.append(heading,count);
- const list=E('div','resource-desk-list');list.append(...cards);if(!cards.length&&empty)list.append(empty);
+ const list=E('div','resource-desk-list');list.append(...cards);if(!cards.length){
+  const state=E('section','catalog-empty'),filtered=!!Q('resource-query').value.trim()||Q('resource-collection').value!=='all';state.setAttribute('role','status');
+  state.append(E('strong','',uk?(resourceFilter==='favorites'&&!filtered?'Тут будуть обрані ресурси':'Нічого не знайдено'):(resourceFilter==='favorites'&&!filtered?'Your saved resources will appear here':'Nothing found')),
+   E('p','',uk?(resourceFilter==='favorites'&&!filtered?'Натисни зірочку біля потрібного матеріалу в каталозі.':'Спробуй коротший запит або скинь вибрану тему й категорію.'):(resourceFilter==='favorites'&&!filtered?'Use the star beside a resource to keep it here.':'Try a shorter search or reset the selected topic and category.')),
+   button(uk?'Показати всі ресурси':'Show all resources',()=>{resourceFilter='all';resourcePurpose='all';Q('resource-query').value='';Q('resource-collection').value='all';renderResources();Q('resource-query').focus({preventScroll:true});},'secondary-button'));
+  list.append(state);
+ }
  const more=button(uk?'Показати ще 8':'Show 8 more',()=>{resourceDeskLimit+=8;apply();},'secondary-button resource-desk-more');
  function apply(){cards.forEach((card,index)=>card.hidden=index>=resourceDeskLimit);more.hidden=resourceDeskLimit>=cards.length;count.textContent=(uk?'Показано ':'Showing ')+Math.min(resourceDeskLimit,cards.length)+(uk?' з ':' of ')+cards.length;}
  const columns=E('div','resource-column-head');columns.setAttribute('aria-hidden','true');for(const title of (uk?['Матеріал','Для чого','Дії','']:['Resource','Purpose','Actions','']))columns.append(E('span','',title));
@@ -185,7 +192,7 @@ function arrangeDesktopStudy(body){
 
 function arrangeDesktopTool(){
  if(toolCatalogOpen)return;
- const body=toolsView.querySelector('.tool-body'),guide=body?.querySelector('.tool-learning-guide'),presets=body?.querySelector('.tool-preset-actions');
+ const body=toolsView.querySelector('.tool-body'),guide=body?.querySelector('.tool-learning-guide'),presets=body?.querySelector('.tool-secondary-actions,.tool-preset-actions');
  if(!body||!guide&&!presets)return;
  let toolbar=body.querySelector('.desktop-tool-toolbar');if(!toolbar){toolbar=E('div','desktop-tool-toolbar');body.prepend(toolbar);}
  for(const node of [guide,presets])if(node&&node.parentElement!==toolbar)toolbar.append(node);

@@ -19,7 +19,7 @@ function studioRange(parent, label, min, max, step, value, change) { const input
 function studioCode(parent, value) { const shell = E('div', 'studio-source'), pre = E('pre', 'studio-code', value), copy = button(studioText('Копіювати код', 'Copy code'), () => copyToolText(pre.textContent), 'secondary-button'); shell.append(pre, copy); parent.append(shell); return pre; }
 function studioEditor(parent, label, value, save) { const input = studioField(parent, label, 'textarea', value); input.classList.add('studio-editor'); input.spellcheck = false; input.maxLength = 20000; input.oninput = () => save?.(input.value); return input; }
 function studioStatus(parent) { const status = E('p', 'studio-status'); status.setAttribute('role', 'status'); parent.append(status); return status; }
-function studioEmpty(parent, uk, en, action) { const empty = E('div', 'studio-empty'); empty.append(E('p', '', studioText(uk, en))); if (action)
+function studioEmpty(parent, uk, en, action) { const empty = E('div', 'studio-empty catalog-empty'); empty.setAttribute('role','status'); empty.append(E('p', '', studioText(uk, en))); if (action)
     empty.append(button(action[0], action[1], 'secondary-button')); parent.append(empty); }
 function studioSplit(parent) { const split = E('div', 'studio-split'), left = E('section'), right = E('section'); split.append(left, right); parent.append(split); return [left, right]; }
 function studioFrame(parent, files) { const frame = E('iframe', 'studio-frame'); frame.title = studioText('Результат прикладу', 'Example result'); frame.setAttribute('sandbox', ''); frame.srcdoc = safeToolDocument(files); parent.append(frame); return frame; }

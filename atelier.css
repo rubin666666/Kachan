@@ -248,7 +248,7 @@ body[data-focus-route=dashboard] .home-explore{background:linear-gradient(135deg
 
 /* Stable dialog geometry: changing results or expanding a field cannot recenter the window. */
 @media(min-width:1200px){
- dialog.utility-window[open],#command-dialog[open]{position:fixed;inset-block-start:clamp(24px,6svh,72px);inset-block-end:auto;margin-block:0;max-height:calc(100svh - clamp(48px,12svh,144px))!important}
+ dialog.utility-window[open],dialog.editor-window[open],#command-dialog[open]{position:fixed;inset-block-start:clamp(24px,6svh,72px);inset-block-end:auto;margin-block:0;max-height:calc(100svh - clamp(48px,12svh,144px))!important}
  #command-dialog{width:min(880px,calc(100vw - 64px));height:min(680px,calc(100svh - 144px));padding:26px}
  #command-dialog[open]{display:flex;flex-direction:column;overflow:hidden}
  #command-dialog>h2{font-size:23px;line-height:1.4;margin:0 0 20px;flex-shrink:0}
@@ -263,3 +263,95 @@ body[data-focus-route=dashboard] .home-explore{background:linear-gradient(135deg
  #command-dialog .command-result:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;background:var(--accent-soft)}
  #resource-details-window{width:min(760px,calc(100vw - 64px))!important}
 }
+/* Shared desktop rhythm: stable geometry, quiet secondary actions, readable working space. */
+:root{--desktop-control-height:42px;--desktop-dialog-pad:24px;--desktop-dialog-radius:14px}
+.kachan-redesign :is(dialog.utility-window,dialog.editor-window,dialog.learning-map-dialog){border:1px solid var(--border);border-radius:var(--desktop-dialog-radius)!important;background:var(--panel);color:var(--text)}
+.kachan-redesign :is(dialog.utility-window,dialog.editor-window)>.editor-window-header{padding:18px var(--desktop-dialog-pad);min-height:76px;gap:20px;background:var(--panel);border:0;box-shadow:0 8px 16px color-mix(in srgb,var(--panel) 85%,transparent)}
+.kachan-redesign :is(dialog.utility-window,dialog.editor-window)>.editor-window-header h2{font-size:21px;font-weight:650;line-height:1.4;letter-spacing:-.025em;margin:0}
+.kachan-redesign :is(dialog.utility-window,dialog.editor-window) .window-close{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;padding:0;min-height:40px;border:1px solid var(--border);border-radius:8px!important;background:var(--surface-raised);color:var(--muted);font:24px/1 sans-serif;cursor:pointer}
+.kachan-redesign :is(dialog.utility-window,dialog.editor-window) .window-close:hover{color:var(--text);border-color:var(--accent-border);background:var(--accent-soft)}
+.kachan-redesign dialog.utility-window>.utility-content{padding:6px var(--desktop-dialog-pad) var(--desktop-dialog-pad)}
+.kachan-redesign .editor-window :is(#project-form,.task-form){padding:6px var(--desktop-dialog-pad) var(--desktop-dialog-pad)}
+.kachan-redesign .editor-window form>.editor-actions:last-child{position:sticky;bottom:0;z-index:3;display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0;padding:14px 0 0;background:var(--panel)}
+.kachan-redesign .editor-window :is(input:not([type=checkbox],[type=radio],[type=range],[type=color]),select){min-height:var(--desktop-control-height)}
+.kachan-redesign .editor-window .form-field{margin-block:0 16px}
+.kachan-redesign .editor-window .form-field>label{font-size:13px;line-height:1.5;margin-bottom:7px;color:var(--muted)}
+.kachan-redesign .editor-actions{gap:8px;align-items:center}
+.kachan-redesign :is(.page-heading,.editor-actions,.desktop-code-actions,.study-actionbar)>.primary-button{min-height:42px;padding:10px 18px;font-weight:600}
+.kachan-redesign :is(.editor-actions,.desktop-code-actions,.study-actionbar)>.secondary-button{min-height:40px;padding:9px 14px;font-size:13px;background:transparent}
+.kachan-redesign .editor-actions>.secondary-button:hover{background:var(--surface-raised)}
+.resource-detail-description{font-size:15px;line-height:1.8;color:var(--muted);margin:12px 0 20px;max-width:68ch}
+.resource-detail-actions{display:flex;gap:10px;margin:0 0 22px}
+.resource-detail-actions>.primary-button{display:inline-flex;align-items:center;text-decoration:none;min-height:42px;padding:10px 18px}
+.resource-detail-content>h2{font-size:26px;letter-spacing:-.03em;line-height:1.35;margin:8px 0 0}
+.resource-detail-content .card-more-body{display:grid;gap:12px}
+.resource-detail-content .resource-guide-meta{margin:0 0 8px}
+.catalog-empty{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:12px;min-height:220px;padding:28px;border:1px dashed var(--border);border-radius:12px;background:var(--panel);color:var(--text)}
+.catalog-empty>strong{font-size:19px;line-height:1.4;font-weight:600}
+.catalog-empty>p{font-size:14px;line-height:1.8;max-width:58ch;margin:0;color:var(--muted)}
+.catalog-empty>button{margin-top:4px;min-height:40px}
+#command-dialog .catalog-empty{flex-shrink:0;min-height:240px;width:100%}
+.ui-feedback:not(:empty){display:block;position:relative;padding:14px 18px 14px 40px;border:1px solid var(--accent-border);border-radius:10px;background:var(--accent-soft);color:var(--text);font-size:14px;line-height:1.8;overflow-wrap:anywhere}
+.ui-feedback:not(:empty)::before{content:'i';position:absolute;left:16px;top:14px;font-weight:700;color:var(--accent)}
+.ui-feedback[data-state=success]::before{content:'✓'}
+.ui-feedback[data-state=error]{border-color:color-mix(in srgb,#e95e68 45%,var(--border));background:color-mix(in srgb,#e95e68 8%,var(--panel))}
+.ui-feedback[data-state=error]::before{content:'!';color:var(--text)}
+.ui-feedback[data-state=loading]::before{content:'…'}
+.ui-feedback:empty{display:none}
+#app-notice:not(:empty){border:1px solid var(--accent-border);border-radius:10px!important;background:var(--panel);color:var(--text);font-size:14px;line-height:1.6;padding:14px 20px;max-width:min(540px,calc(100vw - 32px));box-shadow:0 12px 40px #0003}
+#data-status[data-state=failed]>summary,#data-status[data-state=conflict]>summary{font-weight:600;color:var(--text);background:var(--accent-soft);border-radius:6px;padding:6px 10px}
+#tools-view [aria-busy=true]{background:var(--accent-soft);border-color:var(--accent-border);color:var(--text)}
+.tool-secondary-actions{margin:0 0 18px;padding:0;color:var(--muted)}
+.tool-secondary-actions>summary{display:list-item;cursor:pointer;width:fit-content;padding:8px 0;font-size:13px;line-height:1.5}
+.tool-secondary-actions .tool-preset-actions{margin:6px 0 12px;display:flex;gap:8px;flex-wrap:wrap}
+.tool-secondary-actions .tool-preset-actions button{min-height:38px;font-size:13px;padding:8px 12px;background:transparent}
+@media(min-width:1200px){
+ .kachan-redesign .content .page-heading:not(.tool-workspace-heading){padding-bottom:14px!important;min-height:72px!important;margin-bottom:18px!important;align-items:center}
+ .kachan-redesign .resource-desk-search{grid-template-columns:minmax(0,1fr) 220px;gap:12px;align-items:end;margin-bottom:14px!important}
+ .resource-desk-search>[data-simple-clear]{right:244px}
+ .resource-desk-topic>label{font-size:12px;line-height:1.4;margin-bottom:5px}
+ .resource-desk-topic select{min-height:44px}
+ #resource-list.resource-desk{gap:18px!important}
+ .resource-desk-nav{padding:6px;gap:4px}
+ .resource-desk-nav-item{padding:8px 12px;min-height:40px;font-size:13px}
+ .resource-desk-start{padding:8px 12px;min-height:40px}
+ .resource-desk-header{margin:0 0 12px}
+ .resource-column-head{font-size:12px;color:var(--muted);padding:0 21px 8px;gap:22px}
+ .kachan-redesign #resources-view .resource-desk-list>.resource-card{padding:15px 20px!important;min-height:96px;border:1px solid transparent;gap:4px 22px}
+ .kachan-redesign #resources-view .resource-desk-list>.resource-card:hover{border-color:var(--border);background:var(--surface-raised)}
+ .kachan-redesign #resources-view .resource-desk-list .resource-domain{color:var(--muted);margin:0!important;line-height:1.5}
+ .kachan-redesign #resources-view .resource-desk-list .resource-card-title{font-size:17px;line-height:1.45}
+ .kachan-redesign #resources-view .resource-desk-list .resource-card>.panel-note:first-of-type{line-height:1.7!important;font-size:14px!important;margin:0;color:var(--muted)}
+ .resource-desk-list .resource-card>.text-link{font-weight:600}
+ .resource-desk-list .resource-card>.resource-details-open{padding:4px 0!important;justify-self:start;background:transparent;border:0;color:var(--muted)}
+ .resource-desk-list .resource-card>.resource-details-open:hover{color:var(--accent);background:transparent}
+ .organization-collection-toolbar{gap:8px 12px;margin:12px 0 20px}
+ .organization-collection-toolbar :is(.search-box,.display-mode){margin:0!important}
+ .organization-collection-toolbar .display-mode button{min-height:40px;padding:8px 12px}
+ .tool-results-workspace>.unified-filters{padding:6px;gap:4px}
+ .tool-results-workspace>.unified-filters button{padding:8px 12px!important;min-height:40px;font-size:13px}
+ .unified-search.search-box{margin:0 0 14px!important}
+ .unified-intro>p:not(.eyebrow){font-size:14px;color:var(--muted);margin:0 0 14px}
+ .tool-advanced,.tool-generated-code{padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:transparent;margin-top:14px}
+ .tool-advanced>summary,.tool-generated-code>summary{cursor:pointer;font-size:13px;font-weight:600;line-height:1.6}
+ .tool-advanced[open]>summary,.tool-generated-code[open]>summary{margin-bottom:16px}
+ #tools-view .tool-body .developer-layout{gap:20px}
+ #tools-view .tool-body .developer-layout>.dashboard-panel{padding:20px}
+ #tools-view .tool-body .developer-layout .form-field{margin-block:0 16px}
+ #tools-view .tool-body .developer-layout .tool-stage-title{font-size:18px;margin:0 0 18px}
+ .desktop-code-context{padding:16px 20px;gap:12px 22px;margin-bottom:16px}
+ .desktop-code-editor,.desktop-code-result{padding:20px}
+}
+
+.desktop-tool-toolbar>.tool-secondary-actions{margin:0;flex:0 1 auto}
+.desktop-tool-toolbar>.tool-secondary-actions>summary{min-height:40px;padding:10px 0}
+.desktop-tool-toolbar>.tool-secondary-actions[open]{flex-basis:100%}
+
+@media(min-width:1200px){
+ .editor-window .project-form-grid{gap:16px 20px;margin:14px 0 20px}
+ .kachan-redesign .editor-window .project-form-grid>.form-field{margin:0}
+ .kachan-redesign .editor-window .project-form-grid textarea{min-height:90px}
+}
+
+.content p.empty-state{padding:24px;font-size:14px;line-height:1.8;color:var(--muted);background:var(--panel);border:1px dashed var(--border);border-radius:12px}
+.studio-empty.catalog-empty{text-align:left;align-items:flex-start;margin:12px 0;box-shadow:none}
