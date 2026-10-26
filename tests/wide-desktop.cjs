@@ -28,8 +28,12 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
    const filters=await page.locator('.tool-results-workspace>.unified-filters').boundingBox(),scrolled=await page.evaluate(()=>scrollY);
    assert(Math.abs(filters.y-Math.max(12,initialFilters.y-scrolled))<2,'Tool categories stay accessible without forcing needless page scrolling');
    if(width===2560&&lang==='uk'){await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:'.qa/wide-tools.png',fullPage:true});}
-   await page.evaluate(()=>{location.hash='resources';showView();resourceFilter='all';renderResources();resourceDeskLimit=24;renderResourceDesk()});
-   await page.waitForTimeout(60);await page.evaluate(()=>scrollTo(0,600));
+   await page.locator('.sidebar a[href="#resources"]').click();
+   await page.waitForFunction(()=>convenienceRoute==='#resources');
+   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+   await page.locator('.resource-desk-more').click();await page.locator('.resource-desk-more').click();
+   assert.equal(await page.locator('.resource-card:visible').count(),24);
+   await page.evaluate(()=>scrollTo(0,600));
    await page.waitForTimeout(60);const nav=await page.locator('.resource-desk-nav').boundingBox();assert(nav.y>=10&&nav.y<=14,'Resource categories stay accessible '+JSON.stringify({width,lang,nav,scroll:await page.evaluate(()=>scrollY)}));
    await page.evaluate(()=>{openLesson('css-flex');learningStep='practice';arrangeLesson()});
    const editor=page.locator('#academy-code-css'),preview=page.locator('.study-result .academy-preview');
