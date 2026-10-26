@@ -44,7 +44,7 @@ studioWindow.dialog.addEventListener('close', () => { studioGeneration++; studio
     renderStudioHome(); });
 function openStudio(id = '') { if(!id&&typeof openUnifiedTools==='function'){openUnifiedTools();return;} studioGeneration++; studioActive = studioActivities.some(row => row[0] === id) ? id : ''; if (studioActive)
     studioRecord('activity', studioActive); renderStudio(); studioWindow.open(); studioWindow.dialog.scrollTop = 0; }
-function renderStudio() { studioCleanup(); studioBody.replaceChildren(); const lang = document.documentElement.lang; if (!studioActive) {
+function renderStudio() { studioCleanup(); studioBody.replaceChildren(); const lang = document.documentElement.lang;const activeRow=studioActivities.find(row=>row[0]===studioActive);studioWindow.dialog.querySelector('.editor-window-header h2').textContent=activeRow?studioLabel(activeRow):t().studioTitle; if (!studioActive) {
     const hero = E('header', 'studio-intro');
     hero.append(studioMascot(), E('div'));
     hero.lastChild.append(E('p', 'eyebrow', 'KACHAN / STUDIO'), E('h2', '', studioText('Спробуй. Зрозумій. Збери.', 'Try. Understand. Build.')), E('p', '', studioText('Обери одну дію. Решта інструментів залишиться поруч.', 'Pick one activity. The other tools will stay nearby.')));
