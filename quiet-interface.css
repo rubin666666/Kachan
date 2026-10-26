@@ -1,0 +1,61 @@
+/* One quiet layer for navigation, content surfaces and optional material. */
+:root.quiet-interface:not([data-theme=light]):not([data-studio-theme=terminal]){--muted:#a3aab5}
+:root.quiet-interface[data-theme=light]{--muted:#596271}
+.quiet-interface .page-heading>.eyebrow,.quiet-interface .page-heading>.settings-intro,.quiet-interface .unified-intro,.quiet-interface .focus-hero .eyebrow,.quiet-interface .home-daily .eyebrow{display:none!important}
+.quiet-interface .page-heading>.section-identity>.section-emblem{background:transparent;border:0;width:28px;padding:0}
+.quiet-interface .topbar .secondary-button{background:transparent;border-color:transparent;color:var(--muted)}
+.quiet-interface .topbar .secondary-button:hover{background:var(--panel);color:var(--text)}
+.quiet-interface .composition-tabs{gap:8px;background:transparent!important;padding:0!important}
+.quiet-interface .composition-tabs>button{background:transparent!important;border-color:transparent!important;color:var(--muted);box-shadow:none!important}
+.quiet-interface .composition-tabs>button[aria-pressed=true]{color:var(--text);border-bottom-color:var(--accent)!important;background:var(--accent-soft)!important}
+.quiet-interface .composition-tabs>button:hover{color:var(--text)}
+.quiet-interface .organization-mark,.quiet-interface .organization-tool-categories .organization-description,.quiet-interface .resource-card>.panel-note,.quiet-interface .resource-column-head{color:var(--muted)}
+.quiet-interface .resource-desk-nav{background:transparent!important;border:0!important}
+.quiet-interface .resource-desk-nav-item:not([aria-pressed=true]){background:transparent!important}
+.quiet-interface .resource-desk-nav-item>small{background:transparent;color:var(--muted)}
+.quiet-interface .organization-tool-categories .organization-heading{font-size:15px;color:var(--muted);font-weight:500}
+.quiet-interface .organization-tool-categories .layout-library-entry{padding:16px 18px;min-height:0;background:transparent;box-shadow:none;border-color:var(--border)}
+.quiet-interface .layout-library-entry>strong{font-size:16px}
+.quiet-interface .layout-library-entry>span:not(.library-entry-arrow){color:var(--muted);font-size:13px}
+.quiet-interface .organization-tool-categories .organization-grid .organization-card{padding:20px 22px!important;min-height:88px!important;border:0;box-shadow:none!important}
+:root.quiet-interface .focus-portals .focus-portal{background:var(--panel)!important;border:1px solid var(--border)!important;box-shadow:none!important}
+.quiet-interface .focus-portal p,.quiet-interface .home-next-label{color:var(--muted)!important}
+.quiet-interface .focus-portal:hover{border-color:var(--accent-border)!important}
+.quiet-interface .quiet-disclosure{margin:20px 0 0;min-width:0;border:0;background:transparent}
+.quiet-interface .quiet-disclosure>summary{cursor:pointer;padding:12px 0;min-height:44px;color:var(--muted);font-size:14px;font-weight:500;line-height:1.6}
+.quiet-interface .quiet-disclosure>summary:hover,.quiet-interface .quiet-disclosure[open]>summary{color:var(--text)}
+.quiet-interface .quiet-disclosure>summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.quiet-interface .quiet-disclosure-body{min-width:0;padding:12px 0}
+.quiet-interface .quiet-home-extra .home-daily{margin:0!important}
+.quiet-interface .quiet-home-extra .home-daily>section{background:var(--panel)!important;border-color:var(--border)!important;box-shadow:none!important}
+.quiet-interface .quiet-profile-share{position:relative;margin:0}
+.quiet-interface .quiet-profile-share>summary{padding:10px 14px;border:1px solid var(--border);border-radius:6px}
+.quiet-interface .quiet-profile-share[open]{flex-basis:100%}
+.quiet-interface .quiet-profile-share>.quiet-disclosure-body{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+.quiet-interface .quiet-profile-share .profile-local-note{flex-basis:100%;margin:0;font-size:13px;max-width:680px;text-align:right;color:var(--muted)}
+.quiet-interface #profile-view .profile-hero{min-height:0;padding:24px!important;background:var(--panel)!important}
+.quiet-interface #profile-view .studio-profile-mark{font-size:28px;line-height:1;margin-bottom:12px}
+.quiet-interface #profile-view .profile-skills-empty{border:0!important;background:transparent!important;padding:0!important;min-height:0}
+.quiet-interface #profile-view .profile-skills-empty>.empty-state-emblem{display:none}
+.quiet-interface .quiet-theme-extra{grid-column:1/-1;margin:8px 0 0}
+.quiet-interface .quiet-reference-extra{margin-top:20px}
+.quiet-interface .quiet-reference-extra>.quiet-disclosure-body>.organization-heading[hidden]{display:none!important}
+.quiet-interface .quiet-code-extra{margin:12px 0}
+.quiet-interface .quiet-code-extra .display-mode{justify-content:flex-start;margin:0!important}
+.quiet-interface .quiet-code-extra .snippet-intro-fold{margin:12px 0 0}
+.quiet-interface .quiet-code-extra .snippet-intro-fold>summary[hidden]{display:none!important}
+.quiet-interface #snippets-view>.workspace-controls:empty{display:none}
+.quiet-interface #snippet-filters{align-items:center;margin:12px 0 20px;gap:6px}
+.quiet-interface #snippet-filters>button{background:transparent;border-color:transparent;color:var(--muted)}
+.quiet-interface #snippet-filters>button[aria-pressed=true],.quiet-interface #snippet-filters>button.active{background:var(--accent-soft);color:var(--accent)}
+.quiet-interface #snippet-filters>button:last-child{margin-inline-start:auto;border:1px solid var(--border)}
+.quiet-interface .snippet-language-grid article>.badge{display:none}
+.quiet-interface #snippets-view .search-box{margin:16px 0!important}
+.quiet-interface .editor-window-header{background:var(--panel)!important;box-shadow:none!important}
+.quiet-interface .editor-window-header .window-close{background:transparent}
+@media(hover:hover) and (pointer:fine){
+ .quiet-interface .purpose-button{opacity:0;transition:opacity .12s ease}
+ .quiet-interface :has(>.purpose-button):is(:hover,:focus-within)>.purpose-button,.quiet-interface .purpose-button:focus-visible{opacity:1}
+}
+@media(max-width:700px){.quiet-interface .quiet-profile-share>.quiet-disclosure-body{justify-content:flex-start}.quiet-interface .quiet-profile-share .profile-local-note{text-align:left}.quiet-interface .organization-tool-categories .organization-grid .organization-card{padding:16px!important;min-height:76px!important}}
+@media(prefers-reduced-motion:reduce){.quiet-interface .purpose-button{transition:none}}
