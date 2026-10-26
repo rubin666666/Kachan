@@ -48,7 +48,7 @@
 
 body[data-focus-route=dashboard] .content{background:radial-gradient(ellipse at 90% 0%,color-mix(in srgb,var(--accent) 6%,transparent),transparent 55%),var(--bg);padding-top:20px}
 body[data-focus-route=dashboard] .focus-hero{
- --hero-accent:color-mix(in srgb,var(--accent) 70%,white);
+ --hero-accent:color-mix(in srgb,var(--accent) 60%,white);
  display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.9fr);gap:30px;align-items:center;
  background:var(--atelier-paper);color:var(--atelier-ink);border-radius:22px;
  padding:38px 42px;min-height:350px;margin:6px 0 22px;position:relative;overflow:hidden;

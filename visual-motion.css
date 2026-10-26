@@ -69,7 +69,7 @@ dialog .editor-window-header{background:linear-gradient(110deg,color-mix(in srgb
 .learning-lesson-number{font-variant-numeric:tabular-nums}
 #learning-view .reader-code-block{position:relative;padding:42px 18px 18px!important;border:1px solid var(--border);border-radius:4px;background:var(--bg);font-size:14px;line-height:1.85;tab-size:2;overflow:auto;max-width:100%}
 .reader-code-block::before{content:attr(data-code-language);position:absolute;top:12px;left:18px;color:var(--muted);font:11px/1.5 ui-monospace,Consolas,monospace;letter-spacing:.06em}
-.code-token-keyword{color:var(--accent-ink,var(--accent))}.code-token-string{color:var(--text)}.code-token-comment{color:var(--muted);font-style:italic}.code-token-number{color:var(--accent-ink,var(--accent))}
+.code-token-keyword{color:var(--accent)}.code-token-string{color:var(--text)}.code-token-comment{color:var(--muted);font-style:italic}.code-token-number{color:var(--accent)}
 #learning-view .lesson-reading-block{background:linear-gradient(140deg,color-mix(in srgb,var(--accent) 3%,var(--surface-raised)),var(--surface-raised));border-color:var(--border);border-left:2px solid var(--accent)}
 #learning-view .learning-step-footer{padding:14px 16px;background:linear-gradient(120deg,var(--accent-soft),var(--panel));border-color:var(--accent-border);border-radius:4px;gap:12px}
 #learning-view .learning-step-caption{font-size:13px;color:var(--muted)}
@@ -198,7 +198,7 @@ body[data-focus-route=dashboard] .focus-portal-arrow{top:24px;right:24px;padding
 @media(max-width:600px){#resources-view .simple-resource-toolbar{gap:8px;grid-template-columns:minmax(0,1fr) minmax(88px,auto)}.simple-resource-toolbar .simple-search-filters{min-width:0;max-width:150px}.simple-resource-toolbar .simple-search-filters>summary{padding:10px;font-size:13px;overflow-wrap:anywhere}.simple-resource-toolbar .simple-search-filters[open]{grid-column:1/-1;max-width:none}.simple-resource-toolbar .simple-search-filters>.form-field{padding:10px}}
 
 /* The lesson reader uses the same controls in the page and in chapter windows. */
-.reader-inline-code{padding:2px 5px;border-radius:3px;background:color-mix(in srgb,var(--accent) 7%,var(--surface-raised));color:var(--accent-ink,var(--text));font: .9em/1.6 ui-monospace,Consolas,monospace;overflow-wrap:anywhere}
+.reader-inline-code{padding:2px 5px;border-radius:3px;background:color-mix(in srgb,var(--accent) 7%,var(--surface-raised));color:var(--accent);font: .9em/1.6 ui-monospace,Consolas,monospace;overflow-wrap:anywhere}
 .learning-footer-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px;min-width:0}.learning-footer-actions button{min-height:44px;font-size:14px}.learning-previous{color:var(--muted);background:transparent}
 #chapter-window>.editor-window-header{position:sticky;top:0;z-index:4}
 .chapter-section-nav{position:sticky;top:var(--chapter-header-height,72px);z-index:3;display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:8px;margin:16px 0 24px;background:var(--panel);border:1px solid var(--border);border-radius:4px;box-shadow:0 5px 16px #00000012}

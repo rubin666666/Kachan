@@ -201,7 +201,7 @@ button:disabled { opacity:.5; cursor:default; }
 :root[data-theme="light"] { --track:#e3e3ec; --accent-ink:color-mix(in srgb,var(--accent) 72%,#20202a); }
 progress,progress::-webkit-progress-bar { background:var(--track); }
 progress::-moz-progress-bar { background:var(--accent); }
-.badge,.project-status,.text-link,.danger-button,.eyebrow,.task-filters button[aria-pressed="true"],.nav-item.active,.language-switch button[aria-pressed="true"],.project-editor > summary,.overdue { color:var(--accent-ink); }
+.badge,.project-status,.text-link,.danger-button,.eyebrow,.task-filters button[aria-pressed="true"],.nav-item.active,.language-switch button[aria-pressed="true"],.project-editor > summary,.overdue { color:var(--accent); }
 .project-editor > summary { line-height:1.7; }
 .search-box .panel-note { margin:10px 0 0; }
 .dashboard-panel > h2:first-child,.reset-panel h2,.backup-panel h2 { margin-top:0; }
@@ -247,13 +247,13 @@ progress::-moz-progress-bar { background:var(--accent); }
 .course-layout { display:grid; grid-template-columns:230px minmax(0,1fr); gap:20px; align-items:start; }
 .lesson-navigation { display:grid; gap:6px; padding:12px; border:1px solid var(--border); border-radius:12px; background:var(--panel); }
 .lesson-button { text-align:left; padding:12px; border:0; border-radius:6px; background:transparent; color:var(--muted); cursor:pointer; font:inherit; line-height:1.5; }
-.lesson-button[aria-current] { background:var(--accent-soft); color:var(--accent-ink); }
-.lesson-done,.check-pass { color:var(--accent-ink); }
+.lesson-button[aria-current] { background:var(--accent-soft); color:var(--accent); }
+.lesson-done,.check-pass { color:var(--accent); }
 .lesson-theory { font-size:14px; line-height:1.85; color:var(--text); }
 #html-lesson { min-width:0; }
 #html-lesson h3 { margin:28px 0 12px; font-size:15px; }
 .course-example { margin:20px 0; padding:14px; border:1px solid var(--border); border-radius:8px; }
-.course-example summary { cursor:pointer; color:var(--accent-ink); line-height:1.6; }
+.course-example summary { cursor:pointer; color:var(--accent); line-height:1.6; }
 .course-code-label { display:block; font-size:13px; margin:20px 0 10px; }
 .course-code { width:100%; min-height:290px; resize:vertical; padding:16px; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text); font:13px/1.7 Consolas,monospace; tab-size:2; }
 .course-code:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }

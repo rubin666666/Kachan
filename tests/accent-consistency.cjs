@@ -19,12 +19,13 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
     const style=selector=>getComputedStyle(document.querySelector(selector));
     const hero=style('.focus-hero'),word=style('.home-title-accent'),button=style('.home-primary-action .primary-button'),eyebrow=style('.home-hero-text>.eyebrow'),planet=style('.home-orbit'),label=style('.orbit-label'),learning=style('.focus-portal[href="#learning"]'),description=style('.focus-portal[href="#learning"] p');
     window.accentCanvas??=document.querySelector('.workspace-orbit');
-    return {word:rgb(word.color),button:rgb(button.backgroundColor),eyebrow:rgb(eyebrow.color),planet:rgb(planet.color),label:rgb(label.color),learning:rgb(learning.backgroundColor),mineral:rgb(getComputedStyle(document.documentElement).getPropertyValue('--studio-mineral')),accent:rgb(getComputedStyle(document.documentElement).getPropertyValue('--accent')),canvasPreserved:window.accentCanvas===document.querySelector('.workspace-orbit'),contrasts:[ratio(word.color,hero.backgroundColor),ratio(eyebrow.color,hero.backgroundColor),ratio(button.color,button.backgroundColor),ratio(label.color,label.backgroundColor),ratio(description.color,learning.backgroundColor)]};
+    return {word:rgb(word.color),button:rgb(button.backgroundColor),eyebrow:rgb(eyebrow.color),planet:rgb(planet.color),label:rgb(label.color),learning:rgb(learning.backgroundColor),mineral:rgb(getComputedStyle(document.documentElement).getPropertyValue('--studio-mineral')),accent:rgb(getComputedStyle(document.documentElement).getPropertyValue('--accent')),canvasPreserved:window.accentCanvas===document.querySelector('.workspace-orbit'),contrasts:[ratio(word.color,hero.backgroundColor),ratio(eyebrow.color,hero.backgroundColor),ratio(button.color,button.backgroundColor),ratio(label.color,label.backgroundColor),ratio(description.color,learning.backgroundColor)],navigationContrast:ratio(style('.nav-item.active').color,style('body').backgroundColor)};
    });
    for(const key of ['button','eyebrow','planet','label'])assert.deepEqual(sample[key],sample.word,theme+' '+accent+' '+key);
    assert.deepEqual(sample.mineral,sample.accent,'Graphics follow selected accent');
    assert(sample.canvasPreserved,'Changing accent preserves planet');
    assert(sample.contrasts.every(r=>r>=4.5),theme+' '+accent+' contrast '+sample.contrasts);
+   assert(sample.navigationContrast>=4.5,theme+' '+accent+' navigation contrast '+sample.navigationContrast);
    samples[theme+'-'+accent]=sample;
    if(theme==='dark'&&['red','blue'].includes(accent))await page.screenshot({path:'.qa/accent-'+accent+'.png',fullPage:true});
   }
@@ -34,9 +35,16 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   await page.reload();await page.waitForFunction(()=>window.kachanReady);
   assert.equal(await page.evaluate(()=>settings.accent),'red','Choice survives reload');
   await page.evaluate(()=>{document.documentElement.dataset.studioTheme='terminal';applySettings()});
-  assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()),'#ff3838','Terminal respects selected accent');
+  assert(await page.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()===palette[settings.accent]),'Terminal respects selected accent');
+  await page.evaluate(()=>{document.documentElement.dataset.studioTheme='graphite';extras.preferences.systemTheme=true;applyComfort()});
+  for(const colorScheme of ['light','dark']){
+   await page.emulateMedia({colorScheme});
+   await page.waitForFunction(theme=>document.documentElement.dataset.theme===theme,colorScheme);
+   assert.equal(await page.evaluate(()=>settings.accent),'red','System theme preserves selected hue');
+   assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()),colorScheme==='light'?'#b92332':'#ff5555','System theme chooses readable hue');
+  }
   assert.deepEqual(errors,[]);
-  console.log('PASS four live accents, two themes, hero/button/planet/labels/graphics/card tints, contrast, preserved scene, saved choice');
+  console.log('PASS four live accents, two themes, hero/button/planet/labels/graphics/card tints, contrast, preserved scene, saved choice and system theme');
  }finally{await browser.close()}
 })().catch(error=>{console.error(error);process.exitCode=1});
 
