@@ -82,7 +82,7 @@ function renderStudyExample(body,entry){
  if(expected){for(const node of [...expected.children].filter(n=>n.tagName!=='SUMMARY'))right.append(node);expected.remove();}else right.append(E('p','',data[lang][3]));
  const edit=E('details','study-example-edit'),input=E('textarea','study-example-input');input.value=data.code;input.maxLength=20000;input.spellcheck=false;input.setAttribute('aria-label',c.edit);input.rows=8;
  edit.append(E('summary','',c.edit),input,E('p','panel-note',c.separate));left.append(edit);
- const actions=E('div','study-example-actions'),run=button(c.run,execute,'secondary-button'),reset=button(c.reset,()=>{generation++;run.disabled=false;input.value=data.code;status.textContent=c.predict;view.replaceChildren();},'secondary-button');actions.append(run,reset);left.append(actions);
+ const actions=E('div','study-example-actions'),run=button(c.run,execute,'secondary-button'),reset=button(c.reset,()=>{generation++;run.disabled=false;input.value=data.code;status.textContent=c.predict;view.replaceChildren();delete status.dataset.state;},'secondary-button study-example-reset');actions.append(run);edit.append(reset);left.append(actions);
  let generation=0;
  input.addEventListener('input',()=>{generation++;run.disabled=false;status.textContent=c.predict;view.replaceChildren();});
  async function execute(){

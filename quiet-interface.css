@@ -53,9 +53,25 @@
 .quiet-interface #snippets-view .search-box{margin:16px 0!important}
 .quiet-interface .editor-window-header{background:var(--panel)!important;box-shadow:none!important}
 .quiet-interface .editor-window-header .window-close{background:transparent}
+.quiet-interface .quiet-title-action{display:inline;text-align:start;min-width:0;max-width:100%;min-height:0;padding:0!important;margin:0;background:transparent!important;border:0!important;border-radius:0;box-shadow:none!important;color:var(--text)!important;font:inherit;font-weight:600;line-height:inherit;white-space:normal;overflow-wrap:anywhere;text-decoration:none;cursor:pointer}
+.quiet-interface .quiet-title-action:hover{color:var(--accent)!important;text-decoration:underline;text-underline-offset:4px}
+.quiet-interface .quiet-title-action:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:2px}
+.quiet-interface .resource-card-title:has(.quiet-title-action){margin:0}
+.quiet-interface .study-example-edit>.study-example-reset{margin-top:12px;font-size:13px;min-height:40px}
+.quiet-interface .study-example :is(.study-example-code,.study-example-result)>h4{font-size:13px;color:var(--muted);font-weight:500}
+.quiet-interface .resource-details-navigation>button,.quiet-interface .project-card .card-more>summary{background:transparent;border-color:transparent;color:var(--muted)}
+.quiet-interface .project-card .editor-actions{margin-top:8px}
+.quiet-interface #project-detail{background:transparent!important;border:0!important}
+.quiet-interface #project-detail>details:not(.quiet-project-settings),.quiet-interface #resource-details-window .card-more-body>details{border:0!important;background:transparent!important;padding:0!important;margin:8px 0!important}
+.quiet-interface #project-detail>details>summary,.quiet-interface #resource-details-window .card-more-body>details>summary{padding:12px 0;font-weight:500;color:var(--muted)}
+.quiet-interface #project-detail>details[open]>summary,.quiet-interface #resource-details-window .card-more-body>details[open]>summary{color:var(--text)}
+.quiet-interface .quiet-project-settings>.quiet-disclosure-body{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.quiet-interface .quiet-project-settings .panel-note{flex-basis:100%;margin:0}
+.quiet-interface #resource-details-window .card-more-body .badge{background:transparent;border:0;color:var(--muted);padding:0 12px 0 0}
 @media(hover:hover) and (pointer:fine){
  .quiet-interface .purpose-button{opacity:0;transition:opacity .12s ease}
  .quiet-interface :has(>.purpose-button):is(:hover,:focus-within)>.purpose-button,.quiet-interface .purpose-button:focus-visible{opacity:1}
 }
 @media(max-width:700px){.quiet-interface .quiet-profile-share>.quiet-disclosure-body{justify-content:flex-start}.quiet-interface .quiet-profile-share .profile-local-note{text-align:left}.quiet-interface .organization-tool-categories .organization-grid .organization-card{padding:16px!important;min-height:76px!important}}
+@media(max-width:750px){.quiet-interface .quiet-title-action{display:inline-block;min-height:44px;padding:8px 0!important;box-sizing:border-box}}
 @media(prefers-reduced-motion:reduce){.quiet-interface .purpose-button{transition:none}}

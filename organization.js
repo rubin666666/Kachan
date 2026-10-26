@@ -126,7 +126,10 @@ function simplifyResources(){
  if(resourceDetailsWindow?.dialog.open)resourceDetailsWindow.shut();
  for(const card of Q('resource-list').querySelectorAll('.resource-card')){
   card.querySelector('.card-more')?.setAttribute('hidden','');
-  if(!card.querySelector('.resource-details-open'))card.append(button(studioText('Деталі','Details'),()=>openResourceDetails(card),'resource-details-open secondary-button'));
+  const title=card.querySelector('.resource-card-title');let details=card.querySelector('.resource-details-open');
+  if(!details)details=button('',()=>openResourceDetails(card),'resource-details-open quiet-title-action');
+  if(title&&!title.contains(details)){const name=title.textContent;details.textContent=name;details.setAttribute('aria-label',studioText('Деталі: ','Details: ')+name);title.replaceChildren(details);}
+  if(!details.isConnected){details.textContent=studioText('Деталі','Details');card.append(details);}
  }
  renderResourceDesk();
 }
