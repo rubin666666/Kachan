@@ -141,8 +141,9 @@
    const body=exercise.closest('.tool-body'),note=[...body.querySelectorAll(':scope>p.panel-note')].find(p=>p.textContent===dc().sandbox);if(note){const fold=E('details','tool-runtime-note');fold.append(E('summary','',uk?'Про середовище запуску':'About the runtime'));note.before(fold);fold.append(note);body.querySelector('.desktop-code-result')?.append(fold);}
   }
  }
- let surfaceFrame=0;
- function scheduleSurfaces(){if(surfaceFrame)return;surfaceFrame=requestAnimationFrame(()=>{surfaceFrame=0;refineSurfaces();});}
+ let surfacesQueued=false;
+ // Add editor bars and labels before paint, so scroll anchoring never has to chase them.
+ function scheduleSurfaces(){if(surfacesQueued)return;surfacesQueued=true;queueMicrotask(()=>{surfacesQueued=false;refineSurfaces();});}
  refineSurfaces();window.addEventListener('languagechange',scheduleSurfaces);window.addEventListener('hashchange',scheduleSurfaces);
  document.addEventListener('click',event=>{const control=event.target.closest('.resource-save-button');if(!control)return;const id=control.closest('.resource-card').dataset.resourceId,openGroups=[...Q('resource-list').querySelectorAll('.resource-type-group[open]')].map(group=>group.id);requestAnimationFrame(()=>{for(const id of openGroups){const group=document.getElementById(id);if(group)group.open=true;}refineSurfaces();const replacement=[...Q('resource-list').querySelectorAll('.resource-card')].find(card=>card.dataset.resourceId===id)?.querySelector('.resource-save-button');if(replacement)replacement.focus({preventScroll:true});else Q('resource-query')?.focus({preventScroll:true});});},true);
 
@@ -153,12 +154,10 @@
  Q('main-content').addEventListener('pointermove',event=>{if(!fine.matches||reduce.matches)return;pointerEvent={target:event.target,x:event.clientX,y:event.clientY};if(pointerFrame)return;pointerFrame=requestAnimationFrame(()=>{pointerFrame=0;const card=pointerEvent.target.closest(cards);if(card!==litCard)clearLight();if(!card)return;litCard=card;const r=card.getBoundingClientRect();card.style.setProperty('--pointer-x',pointerEvent.x-r.left+'px');card.style.setProperty('--pointer-y',pointerEvent.y-r.top+'px');card.classList.add('pointer-lit');});},{passive:true});
  Q('main-content').addEventListener('pointerleave',clearLight);window.addEventListener('hashchange',clearLight);reduce.addEventListener('change',clearLight);fine.addEventListener('change',clearLight);
 
- // Transform-only stagger: contents remain readable throughout navigation and scroll.
- const seen=new WeakSet();let routeEpoch=0,lastRoute='',entering=false;
- const observer=new IntersectionObserver(entries=>{for(const entry of entries){const el=entry.target;if(!entry.isIntersecting||el.closest('[hidden]'))continue;observer.unobserve(el);if(seen.has(el))continue;seen.add(el);if(!reduce.matches){const siblings=[...el.parentElement.children].filter(e=>e.matches(cards)),index=siblings.indexOf(el);playMotion(el,[{translate:'0 12px'},{translate:'0 0'}],{duration:420,delay:Math.min(Math.max(index,0)*45,180)});}}},{threshold:.12});
- function register(root){for(const el of root.querySelectorAll(cards))if(!seen.has(el))observer.observe(el);}
- function newRoute(){const route=(location.hash.slice(1)||'dashboard').split('?')[0];if(route===lastRoute)return;lastRoute=route;entering=true;const epoch=++routeEpoch;requestAnimationFrame(()=>{if(epoch===routeEpoch){register(Q('main-content'));entering=false;}});}
- const tree=new MutationObserver(records=>{scheduleSurfaces();for(const record of records){for(const node of record.removedNodes)if(node.nodeType===1){observer.unobserve(node);node.querySelectorAll(cards).forEach(el=>observer.unobserve(el));}for(const node of record.addedNodes)if(node.nodeType===1){const els=[...(node.matches(cards)?[node]:[]),...node.querySelectorAll(cards)];for(const el of els){const rect=el.getBoundingClientRect();if(!entering&&rect.top<innerHeight&&rect.bottom>0){seen.add(el);}else if(!seen.has(el))observer.observe(el);}}}});
- tree.observe(Q('main-content'),{childList:true,subtree:true});window.addEventListener('hashchange',newRoute);window.addEventListener('kachan-ready',newRoute);newRoute();
- tree.observe(chapterBody,{childList:true,subtree:true});tree.observe(foundationBody,{childList:true,subtree:true});
+ // Surface refinements do not reveal, stagger or reposition navigation cards.
+ const tree=new MutationObserver(()=>scheduleSurfaces());
+ tree.observe(Q('main-content'),{childList:true,subtree:true});
+ tree.observe(chapterBody,{childList:true,subtree:true});
+ tree.observe(foundationBody,{childList:true,subtree:true});
+
 })();

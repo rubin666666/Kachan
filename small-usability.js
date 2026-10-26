@@ -11,7 +11,8 @@ function labelSmallControls(){for(const control of document.querySelectorAll('bu
 let smallUiQueued=false;new MutationObserver(()=>{if(smallUiQueued)return;smallUiQueued=true;queueMicrotask(()=>{smallUiQueued=false;labelSmallControls();});}).observe(Q('main-content'),{childList:true,subtree:true});
 window.addEventListener('languagechange',()=>{labelSmallControls();improveToolEmptyState();});improveToolEmptyState();labelSmallControls();
 
-function markFavoriteResources(){for(const card of Q('resource-list').querySelectorAll('.resource-card')){if(!favorites.includes(card.dataset.resourceId)||card.querySelector('.resource-favorite-mark'))continue;const title=card.querySelector('.title-with-help')||card.querySelector('h2,h3,h4');if(title)title.after(E('span','resource-favorite-mark',t().favorites));const control=[...card.querySelectorAll('.card-more button')].find(b=>b.textContent===t().unfavorite);control?.setAttribute('aria-pressed','true');}}
+function markFavoriteResources(){for(const card of Q('resource-list').querySelectorAll('.resource-card')){const saved=favorites.includes(card.dataset.resourceId);card.dataset.favorite=String(saved);const control=card.querySelector('.resource-save-button');if(control)control.setAttribute('aria-pressed',String(saved));}}
+
 const smallResourcesBefore=renderResources;renderResources=function(){smallResourcesBefore();markFavoriteResources();};markFavoriteResources();
 document.addEventListener('click',event=>{const menu=event.target.closest('.card-more,.minimal-actions');if(!menu)for(const open of document.querySelectorAll('.card-more[open],.minimal-actions[open]'))open.open=false;const action=event.target.closest('button,a');if(menu&&action){queueMicrotask(()=>{if(!menu.isConnected)return;menu.open=false;if(action.tagName==='BUTTON'&&!document.querySelector('dialog[open]'))menu.querySelector('summary')?.focus({preventScroll:true});});}},true);
 document.addEventListener('keydown',event=>{if(event.key!=='Escape'||event.target.closest('dialog'))return;const menu=event.target.closest('.card-more[open],.minimal-actions[open]');if(menu){menu.open=false;menu.querySelector('summary')?.focus({preventScroll:true});}});
@@ -19,7 +20,16 @@ document.addEventListener('click',event=>{const card=event.target.closest('.tool
 
 // Reset only when entering another section; filters and detail links keep their position.
 let convenienceRoute=location.hash.split('?')[0]||'#dashboard';
-window.addEventListener('hashchange',()=>{const next=location.hash.split('?')[0]||'#dashboard';if(next===convenienceRoute)return;convenienceRoute=next;requestAnimationFrame(()=>{window.scrollTo({top:0,left:0,behavior:'instant'});updatePageTop();});});
+let routeScrollOwner=null;
+function keepRouteScroll(route){routeScrollOwner=route;}
+window.addEventListener('hashchange',event=>{
+ const next=location.hash.split('?')[0]||'#dashboard';
+ // An older hash event must not scroll a newer screen that is already visible.
+ if(event.newURL&&(new URL(event.newURL).hash.split('?')[0]||'#dashboard')!==next)return;
+ const owned=routeScrollOwner===next;routeScrollOwner=null;
+ if(next===convenienceRoute)return;convenienceRoute=next;
+ if(!owned)window.scrollTo({top:0,left:0,behavior:'instant'});updatePageTop();
+});
 
 // Keep a single action menu open, while allowing its nested disclosures.
 document.addEventListener('click',event=>{const summary=event.target.closest('.card-more>summary,.minimal-actions>summary,.task-action-menu>summary');if(!summary)return;const current=summary.parentElement;for(const menu of document.querySelectorAll('.card-more[open],.minimal-actions[open],.task-action-menu[open]'))if(menu!==current&&!menu.contains(current))menu.open=false;},true);

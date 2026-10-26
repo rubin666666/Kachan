@@ -23,7 +23,7 @@ function polishLessonBody(body,html){
 function applyLearningLook(){
  renderLearningLibrary();const showing=learningScreen==='library';learningLibrary.hidden=!showing;Q('learning-view').classList.toggle('learning-catalog-open',showing);
  academyPanel.hidden=showing;Q('html-course').hidden=showing||academy.course!=='HTML';courseStartButton.hidden=true;
- let toolbar=Q('learning-course-toolbar');if(!toolbar){toolbar=E('div','learning-course-toolbar');toolbar.id='learning-course-toolbar';academyPanel.before(toolbar);}toolbar.hidden=showing;toolbar.replaceChildren();const c=learningLookCopy[document.documentElement.lang];const back=button(c.courses,()=>{learningScreen='library';applyLearningLook();Q('learning-library').scrollIntoView({block:'start',behavior:'smooth'});},'learning-back');back.prepend(E('span','','← '));toolbar.append(back,E('span','learning-current-course',academy.course));
+ let toolbar=Q('learning-course-toolbar');if(!toolbar){toolbar=E('div','learning-course-toolbar');toolbar.id='learning-course-toolbar';academyPanel.before(toolbar);}toolbar.hidden=showing;toolbar.replaceChildren();const c=learningLookCopy[document.documentElement.lang];const back=button(c.courses,()=>{learningScreen='library';applyLearningLook();Q('learning-library').scrollIntoView({block:'start',behavior:'instant'});},'learning-back');back.prepend(E('span','','← '));toolbar.append(back,E('span','learning-current-course',academy.course));
  const body=academy.course==='HTML'?Q('html-lesson'):academyPanel.querySelector('.course-layout>section');polishLessonBody(body,academy.course==='HTML');
 }
 const arrangementBeforeLearningLook=arrangeLesson;arrangeLesson=function(){arrangementBeforeLearningLook();applyLearningLook();};

@@ -97,5 +97,5 @@ body[data-focus-route=dashboard] .focus-portal h2{font-size:28px;font-weight:650
 @media(max-width:700px){body[data-focus-route=dashboard] .focus-hero{padding-block:26px;gap:24px}body[data-focus-route=dashboard] .focus-hero h1{font-size:clamp(39px,10.5vw,52px)}.home-hero-text>p.home-hero-description{font-size:16px}body[data-focus-route=dashboard] .focus-portal{min-height:190px;padding:22px}body[data-focus-route=dashboard] .focus-portal h2{font-size:24px}.content .page-heading.section-heading-surface{margin-bottom:20px!important}}
 /* Working controls stay still; motion is confined to decorative art and feedback. */
 .content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card):hover{transform:none!important}.content :is(.primary-button,.secondary-button):active{transform:none}.lesson-return-strip,.data-status-panel{animation:ui-surface-in var(--ui-duration) var(--ui-ease)}
-@keyframes ui-surface-in{from{transform:translateY(4px)}to{transform:none}}
+@keyframes ui-surface-in{from{opacity:.7}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.lesson-return-strip,.data-status-panel{animation:none!important}:root{--ui-duration:0ms}}

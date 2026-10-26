@@ -1,16 +1,17 @@
 /* Motion never hides page content or changes its layout. */
 :root{--motion-ease:cubic-bezier(.2,.8,.2,1)}
-.primary-button,.secondary-button,.window-close,.tool-catalog-back{transition:transform 160ms var(--motion-ease),background-color 180ms,border-color 180ms,box-shadow 180ms!important}
-.primary-button:active,.secondary-button:active,.window-close:active{transform:scale(.97)}
+/* Working hit areas stay fixed, including inherited hover rules from older layers. */
+.primary-button,.secondary-button,.window-close,.tool-catalog-back,.command-result{transform:none!important;translate:none!important;scale:none!important}
+.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card,.focus-portal,.home-quick-action){transform:none!important;translate:none!important;scale:none!important}
+.primary-button,.secondary-button,.window-close,.tool-catalog-back{transition:background-color 140ms,border-color 140ms,box-shadow 140ms,color 140ms!important}
+.primary-button:active,.secondary-button:active,.window-close:active{filter:brightness(.94)}
 .sidebar .nav-item{transition:background-color 180ms,color 180ms,box-shadow 180ms!important}
-.sidebar .nav-item svg,.home-quick-arrow{transition:transform 220ms var(--motion-ease)}
-.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card,.focus-portal,.home-quick-action){transition:transform 220ms var(--motion-ease),border-color 220ms,box-shadow 220ms!important}
+.content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card,.focus-portal,.home-quick-action){transition:border-color 160ms,box-shadow 160ms,background-color 160ms!important}
 @media(hover:hover) and (pointer:fine){
- .content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card,.focus-portal,.home-quick-action):hover{transform:translateY(-2px)!important;border-color:var(--accent-border);box-shadow:0 8px 24px #00000018!important}
+ .content :is(.resource-card,.project-card,.learning-course-card,.tool-catalog-card,.focus-portal,.home-quick-action):hover{border-color:var(--accent-border);box-shadow:0 8px 24px #00000018!important}
  .primary-button:hover{box-shadow:0 3px 16px color-mix(in srgb,var(--accent) 18%,transparent)}
- .sidebar .nav-item:hover svg,.home-quick-action:hover .home-quick-arrow{transform:translateX(2px)}
 }
-dialog[open]{animation:motion-window 220ms var(--motion-ease)!important}
+dialog[open]{animation:motion-window 120ms ease-out!important}
 dialog::backdrop{animation:motion-backdrop 180ms ease-out}
 .toast{animation:motion-window 220ms var(--motion-ease)}
 .home-blueprint svg{animation:blueprint-drift 8s ease-in-out infinite}
@@ -18,7 +19,7 @@ dialog::backdrop{animation:motion-backdrop 180ms ease-out}
 progress::-webkit-progress-value{transition:width 400ms var(--motion-ease)}
 [aria-busy=true]{cursor:progress}
 [aria-busy=true]{animation:motion-working 1.4s ease-in-out infinite}
-@keyframes motion-window{from{transform:translateY(10px) scale(.995)}to{transform:none}}
+@keyframes motion-window{from{opacity:.65}to{opacity:1}}
 @keyframes motion-backdrop{from{background-color:#00000000}}
 @keyframes blueprint-drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 @keyframes blueprint-flow{to{stroke-dashoffset:-72}}

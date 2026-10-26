@@ -36,18 +36,17 @@ body{background:radial-gradient(ellipse at 90% 0%,var(--accent-soft),transparent
 .editor-window .editor-actions{justify-content:flex-end;padding-top:18px;border-top:0}
 .editor-window-open{overflow:hidden}
 .command-dialog[open]{animation:window-appear .2s ease-out;box-shadow:0 28px 90px #0007}
-.command-result{transition:background .15s,transform .15s}
-.command-result:hover{transform:translateX(3px)}
+.command-result{transition:background-color .14s}
+.command-result:hover{background:var(--accent-soft)}
 .course-example[open],.material-editor[open]{border-color:var(--accent-border)}
 .primary-button,.secondary-button,.nav-item{position:relative;overflow:hidden;isolation:isolate}
-.click-ripple{position:absolute;border-radius:50%;background:currentColor;pointer-events:none;z-index:-1}
 .project-icon,.stat-icon,.brand-icon{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 @media(hover:hover){.project-card:hover .project-icon{transform:rotate(-5deg) scale(1.08)}.stat-card:hover .stat-icon{transform:scale(1.12)}.brand:hover .brand-icon{transform:rotate(-8deg)}}
 details summary::marker{color:var(--accent)}
 .task-row input[type=checkbox]{transition:accent-color .2s,transform .2s}
 progress::-webkit-progress-value{transition:width .35s ease-out}
 .timer-clock{background:linear-gradient(120deg,var(--text),var(--muted));background-clip:text;-webkit-background-clip:text;color:transparent}
-@keyframes window-appear{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes window-appear{from{opacity:.65}to{opacity:1}}
 .section-jump-bar{position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:18px;padding:12px 36px;border-bottom:0;background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(18px);box-shadow:0 8px 22px #0000000b}
 .section-jump-title{font-size:12px;font-weight:600;color:var(--text);flex-shrink:0;padding-right:18px;border-right:1px solid var(--border)}
 .section-jump-links{display:flex;gap:6px;overflow-x:auto;min-width:0;scrollbar-width:thin;align-items:center;flex:1;padding:2px}

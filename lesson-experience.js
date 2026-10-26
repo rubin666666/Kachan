@@ -196,14 +196,16 @@ const experienceLookBefore=applyLearningLook;applyLearningLook=function(){experi
 const studyOpenBefore=openLesson;
 openLesson=function(id){
  const position=studyPosition(),restore=position?.id===id?{...position}:null;
+ const ownsRouteScroll=!!restore&&location.hash.split('?')[0]!=='#learning';
+ if(ownsRouteScroll)keepRouteScroll('#learning');
  studyOpening=true;try{studyOpenBefore(id);}finally{studyOpening=false;}
  if(restore){learningStep=restore.step;arrangeLesson();}else saveStudyPosition();
  scheduleStudyExperience();
- if(restore)requestAnimationFrame(()=>requestAnimationFrame(()=>{
+ if(restore)requestAnimationFrame(()=>{
   const body=studyBody();if(!body||currentLearningEntry().id!==id||document.body.dataset.focusRoute!=='learning')return;
   if(restore.file&&studyAllowedFiles(currentLearningEntry()).includes(restore.file)){body.querySelector('.exercise-editors')?.previousElementSibling?.querySelector('[data-file="'+restore.file+'"]')?.click();}
-  const target=restore.section&&body.querySelector('[data-study-section="'+restore.section+'"]');if(target&&!target.closest('[hidden]'))scrollTo({top:scrollY+target.getBoundingClientRect().top+restore.offset*target.getBoundingClientRect().height-24,behavior:'instant'});
- }));
+  const target=restore.section&&body.querySelector('[data-study-section="'+restore.section+'"]');if(target&&!target.closest('[hidden]'))scrollTo({top:scrollY+target.getBoundingClientRect().top+restore.offset*target.getBoundingClientRect().height-24,behavior:'instant'});else if(ownsRouteScroll)scrollTo({top:0,behavior:'instant'});
+ });
 };
 function rememberStudyScroll(){
  if(learningScreen!=='lesson'||document.body.dataset.focusRoute!=='learning'||document.querySelector('dialog[open]'))return;
