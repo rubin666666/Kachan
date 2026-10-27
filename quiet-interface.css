@@ -19,6 +19,11 @@
 .quiet-interface .layout-library-entry>span:not(.library-entry-arrow){color:var(--muted);font-size:13px}
 .quiet-interface .organization-tool-categories .organization-grid .organization-card{padding:20px 22px!important;min-height:88px!important;border:0;box-shadow:none!important}
 :root.quiet-interface .focus-portals .focus-portal{background:var(--panel)!important;border:1px solid var(--border)!important;box-shadow:none!important}
+.quiet-interface #dashboard-view .focus-portal{color:var(--text)!important}
+.quiet-interface #dashboard-view .focus-portal :is(p,.focus-portal-icon svg){color:var(--muted)!important}
+.quiet-interface #dashboard-view .focus-portal-arrow{color:var(--accent)!important}
+.quiet-interface #dashboard-view .home-next-label{color:color-mix(in srgb,var(--atelier-ink) 75%,transparent)!important}
+.quiet-interface #dashboard-view .home-blueprint .orbit-label{color:var(--hero-accent)!important;border-color:color-mix(in srgb,var(--hero-accent) 30%,transparent);background:color-mix(in srgb,var(--atelier-paper) 90%,var(--hero-accent))}
 .quiet-interface .focus-portal p,.quiet-interface .home-next-label{color:var(--muted)!important}
 .quiet-interface .focus-portal:hover{border-color:var(--accent-border)!important}
 .quiet-interface .quiet-disclosure{margin:20px 0 0;min-width:0;border:0;background:transparent}
@@ -96,14 +101,19 @@
  .quiet-interface .composition-tabs{margin-block:0 18px!important}
  .quiet-interface .quiet-disclosure{margin-top:12px}
  .quiet-interface .quiet-disclosure-body{padding-block:8px}
- .quiet-interface #dashboard-view .focus-hero{min-height:350px;padding:28px 32px;gap:24px;margin:0 0 16px}
- .quiet-interface #dashboard-view .focus-hero h1{font-size:clamp(44px,4vw,64px);margin-bottom:16px}
- .quiet-interface #dashboard-view .home-blueprint.home-orbit{max-width:320px}
- .quiet-interface #dashboard-view .home-primary-action{margin-top:20px;gap:16px}
- .quiet-interface #dashboard-view .focus-portals{gap:12px;margin-bottom:12px}
- .quiet-interface #dashboard-view .focus-portals .focus-portal{min-height:120px;padding:18px 20px!important;gap:8px 12px}
- .quiet-interface #dashboard-view .focus-portal h2{font-size:20px}
+ .quiet-interface body[data-focus-route=dashboard] #dashboard-view #home-surface{display:grid!important;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(min-content,1fr) auto auto;gap:16px;align-content:stretch}
+ .quiet-interface #dashboard-view .focus-hero{min-height:380px;height:100%;padding:clamp(32px,3vw,56px);gap:32px;margin:0;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);background:radial-gradient(ellipse at 78% 48%,color-mix(in srgb,var(--accent) 8%,transparent),transparent 62%),var(--atelier-paper)}
+ .quiet-interface #dashboard-view .focus-hero h1{font-size:clamp(48px,4.4vw,76px);margin-bottom:20px}
+ .quiet-interface #dashboard-view .home-blueprint.home-orbit{max-width:520px;justify-self:center}
+ .quiet-interface #dashboard-view .home-primary-action{margin-top:28px;gap:18px}
+ .quiet-interface #dashboard-view .focus-portals{gap:16px;margin:0}
+ .quiet-interface #dashboard-view .focus-portals .focus-portal{min-height:164px;padding:24px!important;grid-template-columns:42px minmax(0,1fr) auto;gap:12px 16px;align-content:center}
+ .quiet-interface #dashboard-view .focus-portal h2{font-size:22px}
+ .quiet-interface #dashboard-view .focus-portal-icon{width:42px;height:42px;margin:0}
+ .quiet-interface #dashboard-view .focus-portal-icon .portal-diagram{width:42px;height:34px}
  .quiet-interface #dashboard-view .focus-portal p{line-height:1.7;margin:0}
+ .quiet-interface #dashboard-view .quiet-home-extra{margin:0;width:100%;align-self:end;justify-self:stretch}
+ .quiet-interface #dashboard-view .quiet-home-extra>summary{padding-block:10px}
  .quiet-interface #resources-view .resource-desk-list{gap:8px}
  .quiet-interface #resources-view .resource-desk-list>.resource-card{min-height:82px;padding:12px 18px!important}
  .quiet-interface .resource-column-head{padding-inline:19px}
@@ -149,6 +159,12 @@
  .quiet-interface #notes-view .notebook-tools>summary{padding:10px 0;font-size:13px}
  .quiet-interface #notes-view .note-list-item{padding:12px 14px}
  .quiet-interface #note-body{min-height:360px}
+}
+@media(min-width:1200px) and (max-height:850px){
+ .quiet-interface #dashboard-view .focus-hero{min-height:300px;padding:28px 32px}
+ .quiet-interface #dashboard-view .focus-hero h1{font-size:clamp(42px,3.6vw,60px)}
+ .quiet-interface #dashboard-view .home-blueprint.home-orbit{max-width:340px}
+ .quiet-interface #dashboard-view .focus-portals .focus-portal{min-height:140px;padding:20px!important;gap:8px 12px}
 }
 @media(hover:hover) and (pointer:fine){
  .quiet-interface .purpose-button{opacity:0;transition:opacity .12s ease}
