@@ -232,3 +232,9 @@
 .quiet-interface :is(input,select,textarea):focus-visible{border-color:var(--accent)}
 .quiet-interface :is(.learning-course-description,.tool-card-caption){font-size:14px;line-height:1.7;color:var(--muted)}
 .quiet-interface :is(.resource-desk-count,.learning-course-meta,.project-footer,.note-list-item>span){line-height:1.65}
+/* A horizontal flex basis must never become a vertical spacer on phones. */
+@media(max-width:700px){
+ .quiet-interface #dashboard-view .home-primary-action{flex:0 0 auto;gap:12px}
+ .quiet-interface #dashboard-view .home-primary-action>.home-next-label{flex:0 0 auto;width:100%;min-height:0;max-width:none}
+ .quiet-interface #dashboard-view .focus-hero{height:auto;align-content:start;row-gap:20px}
+}
