@@ -111,3 +111,5 @@
 - Run tests/icon-alignment.cjs: sidebar icon geometry and shared title rail across six sections, profile action heights and expanded sharing stability, all six course marks, tool category title/count centers, create-window header/icons; widths 1280/1440/1920/2560, Ukrainian/English and dark/light themes. Also verify desktop-alignment.cjs and form-windows.cjs.
 
 - Run tests/panel-spacing.cjs: no outside hero gradient, long CTA label non-overlap, equal look-settings panels with expanded options, backup title and import guidance placement, button/text gaps, real JSON export and file validation; four desktop sizes in both themes/languages. Run home-balanced-layout.cjs and navigation-stability.cjs for layout regressions.
+
+- Run tests/text-contrast.cjs: visible text over composited app surfaces across eight screens, four accents, both languages and themes. Review screenshots for gradients, preview/code colors and form borders. Run icon-alignment.cjs and navigation-stability.cjs after typography or control-style changes.

@@ -1,6 +1,6 @@
 /* One quiet layer for navigation, content surfaces and optional material. */
-:root.quiet-interface:not([data-theme=light]):not([data-studio-theme=terminal]){--muted:#a3aab5}
-:root.quiet-interface[data-theme=light]{--muted:#596271}
+:root.quiet-interface:not([data-theme=light]):not([data-studio-theme=terminal]){--muted:#b5becc;--control-border:#667488}
+:root.quiet-interface[data-theme=light]{--muted:#455265;--control-border:#7b8797}
 .quiet-interface .page-heading>.eyebrow,.quiet-interface .page-heading>.settings-intro,.quiet-interface .unified-intro,.quiet-interface .focus-hero .eyebrow,.quiet-interface .home-daily .eyebrow{display:none!important}
 .quiet-interface .page-heading>.section-identity>.section-emblem{background:transparent;border:0;width:28px;padding:0}
 .quiet-interface .topbar .secondary-button{background:transparent;border-color:transparent;color:var(--muted)}
@@ -224,3 +224,11 @@
 .quiet-interface #settings-view>:is(.backup-panel,#notification-settings)>:is(p,.title-with-help,details){margin:0}
 .quiet-interface #settings-view>:is(.backup-panel,#notification-settings)>.title-with-help h2{margin:0}
 .quiet-interface #settings-view>:is(.backup-panel,#notification-settings)>button{justify-self:start;max-width:100%;margin:0;white-space:normal}
+/* Secondary copy stays readable without competing with section headings. */
+.quiet-interface .site-footer{opacity:1;color:var(--muted)}
+.quiet-interface .sidebar .nav-item.active .nav-text{color:var(--text);font-weight:600}
+.quiet-interface :is(input,textarea)::placeholder{color:var(--muted);opacity:1}
+.quiet-interface :is(input:not([type=checkbox]):not([type=radio]):not([type=color]):not([type=range]),select,textarea){border-color:var(--control-border,var(--border))}
+.quiet-interface :is(input,select,textarea):focus-visible{border-color:var(--accent)}
+.quiet-interface :is(.learning-course-description,.tool-card-caption){font-size:14px;line-height:1.7;color:var(--muted)}
+.quiet-interface :is(.resource-desk-count,.learning-course-meta,.project-footer,.note-list-item>span){line-height:1.65}
