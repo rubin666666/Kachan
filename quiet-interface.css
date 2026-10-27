@@ -188,3 +188,26 @@
 .quiet-interface .resource-details-navigation>button:last-child{justify-self:end}
 .quiet-interface .resource-details-navigation>span{order:0;width:auto;text-align:center}
 .quiet-interface .resource-details-navigation>button:disabled{opacity:.35;cursor:default}
+/* Shared icon slots and title rails keep navigation and page headings aligned. */
+.quiet-interface .sidebar .nav-item{align-items:center}
+.quiet-interface .sidebar .nav-item>span:first-child{display:grid;place-items:center;flex:0 0 18px;width:18px;height:18px;line-height:1}
+.quiet-interface .sidebar .nav-item>span:first-child>svg{display:block;width:18px;height:18px}
+.quiet-interface .sidebar .nav-text{min-width:0;line-height:1.45}
+.quiet-interface .content .page-heading.section-heading-surface :is(.section-identity,.title-with-help){display:flex;align-items:center;gap:12px;min-width:0}
+.quiet-interface .content .page-heading.section-heading-surface .section-emblem{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;padding:0;border:0;background:transparent}
+.quiet-interface .content .page-heading.section-heading-surface .section-emblem svg{display:block;width:20px;height:20px}
+.quiet-interface .content .page-heading.section-heading-surface h1{margin:0;line-height:1.25}
+.quiet-interface .content .page-heading :is(.editor-actions,.profile-controls,.view-header-actions,.quiet-workspace-actions){align-items:center}
+.quiet-interface .page-heading .profile-controls{align-self:center}
+.quiet-interface .page-heading .profile-controls>.quiet-profile-share{margin:0}
+.quiet-interface #profile-view>.page-heading>.section-identity{align-self:start;min-height:42px}
+.quiet-interface #profile-view>.page-heading>.profile-controls{align-self:start;justify-self:end;min-width:0;width:100%}
+@media(min-width:901px){.quiet-interface #profile-view>.page-heading{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;gap:16px}}
+@media(max-width:900px){.quiet-interface #profile-view>.page-heading>.profile-controls{flex-basis:100%;justify-self:start;justify-content:flex-start}}
+.quiet-interface .page-heading .profile-controls>.primary-button,.quiet-interface .page-heading .quiet-profile-share>summary{box-sizing:border-box;min-height:42px;padding:10px 14px;font-size:14px;line-height:20px}
+.quiet-interface .organization-tool-categories .organization-grid .organization-card{grid-template-columns:28px minmax(0,1fr) auto;align-items:center;column-gap:16px}
+.quiet-interface .organization-tool-categories .organization-mark{display:grid;place-items:center;width:28px;height:28px;line-height:1}
+.quiet-interface .organization-tool-categories .organization-card>.organization-description{grid-column:3;grid-row:1;justify-self:end;align-self:center}
+.quiet-interface .organization-tool-categories .organization-card>strong{grid-column:2;grid-row:1;min-width:0;line-height:1.4}
+.quiet-interface .create-option>svg{display:block;flex:0 0 22px;width:22px;height:22px}
+.quiet-interface #learning-library[data-organized] .course-desk .learning-card-top{grid-row:1;align-self:center}

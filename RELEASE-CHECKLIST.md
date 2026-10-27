@@ -107,3 +107,5 @@
 - tests/filter-recovery.cjs: дві мови, скидання ресурсів/нотаток/задач, постійна геометрія рядка стану, точна остання неповна порція, клавіатурний фокус на першому новому матеріалі та збереження фокуса після миші, live-лічильник, одна дія порожнього стану, сортування й пошук нотаток без зміни вмісту, вихід зі scope проєкту. general-workspace, navigation-stability, desktop-alignment і mobile-resource-layout перевіряють сумісність із рештою інтерфейсу.
 
 - Run tests/menu-navigation.cjs: both languages; exclusive project menus; outside click and Escape return; task edit return; nested-menu-before-modal Escape; resource previous/next, disabled boundaries, focus and top navigation. Also run form-windows.cjs, quiet-card-actions.cjs and navigation-stability.cjs.
+
+- Run tests/icon-alignment.cjs: sidebar icon geometry and shared title rail across six sections, profile action heights and expanded sharing stability, all six course marks, tool category title/count centers, create-window header/icons; widths 1280/1440/1920/2560, Ukrainian/English and dark/light themes. Also verify desktop-alignment.cjs and form-windows.cjs.
