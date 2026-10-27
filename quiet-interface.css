@@ -68,6 +68,25 @@
 .quiet-interface .quiet-project-settings>.quiet-disclosure-body{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
 .quiet-interface .quiet-project-settings .panel-note{flex-basis:100%;margin:0}
 .quiet-interface #resource-details-window .card-more-body .badge{background:transparent;border:0;color:var(--muted);padding:0 12px 0 0}
+.quiet-interface .quiet-workspace-actions{display:flex;align-items:center;gap:8px;grid-column:2;grid-row:1;justify-self:end}
+.quiet-interface .quiet-workspace-actions>.primary-button{margin:0;min-height:42px}
+.quiet-interface #all-tasks>li>.task-selection{display:none}
+.quiet-interface .tasks-page-panel[data-multi-select=true] #all-tasks>li>.task-selection{display:block;width:20px;height:20px;flex:0 0 20px;margin:0}
+.quiet-interface .quiet-task-options>.quiet-disclosure-body>.task-view-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.quiet-interface .quiet-note-tools .template-tools{margin:12px 0 0}
+.quiet-interface .quiet-note-tools .template-tools>summary[hidden]{display:none!important}
+.quiet-interface #notes-view .notes-toolbar:has(>.quiet-note-tools){display:block;margin:0 0 12px}
+.quiet-interface #notes-view .notes-toolbar>.quiet-note-tools{margin:0}
+.quiet-interface #folder-bar{margin:12px 0 0;gap:8px}
+.quiet-interface #note-empty{background:transparent!important;border:0!important;min-height:160px;padding:20px!important}
+.quiet-interface #note-empty>.empty-state-emblem,.quiet-interface #note-empty>button{display:none}
+.quiet-interface #notes-view .notes-browser,.quiet-interface #notes-view .note-editor{background:transparent!important;border:0!important;padding:0!important}
+.quiet-interface #task-form>.task-options:empty{display:none}
+.quiet-interface #task-form>.quiet-task-fields{margin:0}
+.quiet-interface .quiet-task-fields>.quiet-disclosure-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.quiet-interface .quiet-task-fields .form-field{margin:0!important;min-width:0}
+.quiet-interface .quiet-task-fields .form-field:has(#task-repeat){grid-column:1/-1}
+.quiet-interface #task-form>.form-field{margin:0}
 /* Desktop density: shorten the surrounding layout, keep reading and editing space. */
 @media(min-width:1200px){
  .quiet-interface #main-content>.topbar{min-height:68px;padding-block:12px}
@@ -116,6 +135,20 @@
  .quiet-interface #learning-view .study-overview{margin-block:10px 16px}
  .quiet-interface #learning-view .study-guided-reader .beginner-lesson>p{margin-block:12px 18px}
  .quiet-interface #learning-view .study-example{padding:20px;margin-block:18px 24px}
+ .quiet-interface #tasks-view .tasks-page-panel{padding:0!important;background:transparent!important;border:0!important}
+ .quiet-interface #all-tasks>li{padding:10px 0;min-height:56px;align-items:center;gap:12px}
+ .quiet-interface #all-tasks .task-content{display:flex;align-items:center;gap:12px;min-width:0}
+ .quiet-interface #all-tasks .task-content>.task-row{flex:1;min-width:0}
+ .quiet-interface #all-tasks .task-metadata{margin:0;max-width:40%;flex:0 1 auto;justify-content:flex-end}
+ .quiet-interface #all-tasks .priority-tag{background:transparent;border:0;padding:0}
+ .quiet-interface #tasks-view .task-filters{gap:6px;margin-block:12px}
+ .quiet-interface #tasks-view .task-filters>button{background:transparent;border-color:transparent}
+ .quiet-interface #tasks-view .task-filters>button.active{background:var(--accent-soft);color:var(--accent)}
+ .quiet-interface #tasks-view .quiet-task-options{margin:0 0 12px}
+ .quiet-interface #notes-view .notes-layout{grid-template-columns:260px minmax(0,1fr);gap:24px;margin-top:8px}
+ .quiet-interface #notes-view .notebook-tools>summary{padding:10px 0;font-size:13px}
+ .quiet-interface #notes-view .note-list-item{padding:12px 14px}
+ .quiet-interface #note-body{min-height:360px}
 }
 @media(hover:hover) and (pointer:fine){
  .quiet-interface .purpose-button{opacity:0;transition:opacity .12s ease}
@@ -123,4 +156,5 @@
 }
 @media(max-width:700px){.quiet-interface .quiet-profile-share>.quiet-disclosure-body{justify-content:flex-start}.quiet-interface .quiet-profile-share .profile-local-note{text-align:left}.quiet-interface .organization-tool-categories .organization-grid .organization-card{padding:16px!important;min-height:76px!important}}
 @media(max-width:750px){.quiet-interface .quiet-title-action{display:inline-block;min-height:44px;padding:8px 0!important;box-sizing:border-box}}
+@media(max-width:700px){.quiet-interface .quiet-workspace-actions{grid-column:1/-1;grid-row:2;justify-self:start}.quiet-interface .quiet-task-fields>.quiet-disclosure-body{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){.quiet-interface .purpose-button{transition:none}}
