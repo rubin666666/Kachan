@@ -57,15 +57,21 @@ function quietProjectWorkspaces(){
 
  const panel=Q('tasks-view').querySelector('.tasks-page-panel'),tools=panel.querySelector('.task-view-tools');
  if(tools){const fold=quietFold(panel,'quiet-task-options',text('Вигляд і керування','View and manage'),[tools]);
-  const marked=trashMode?text(' · корзина',' · trash'):kanbanMode?' · Kanban':Q('filter-project').value!=='all'||Q('filter-priority').value!=='all'?text(' · фільтр',' · filtered'):'';
+  const marked=trashMode?text(' · корзина',' · trash'):kanbanMode?' · Kanban':Q('filter-project').value!=='all'||Q('filter-priority').value!=='all'?text(' · фільтр',' · filtered'):Q('task-sort').value!=='created'?' · '+Q('task-sort').selectedOptions[0].textContent:'';
   fold.querySelector(':scope>summary').textContent=text('Вигляд і керування','View and manage')+marked;
   let selection=tools.querySelector('#quiet-task-selection');if(!selection){selection=button('',()=>{quietTaskSelection=!quietTaskSelection;if(!quietTaskSelection)taskSelection.clear();renderTasks();},'secondary-button');selection.id='quiet-task-selection';selection.setAttribute('aria-controls','all-tasks');tools.append(selection);}
   selection.textContent=quietTaskSelection?text('Завершити вибір','Finish selecting'):text('Обрати кілька','Select several');selection.setAttribute('aria-pressed',String(quietTaskSelection));
  }
  panel.dataset.multiSelect=String(quietTaskSelection||taskSelection.size>0);
  Q('bulk-count').setAttribute('role','status');
+ const filterContent=Q('task-sort').closest('.utility-content');let taskReset=filterContent.querySelector('.quiet-task-reset');
+ if(!taskReset){taskReset=button('',()=>{projectScope='all';taskFilter='all';trashMode=false;kanbanMode=false;Q('tasks-search').value='';Q('filter-project').value='all';Q('filter-priority').value='all';Q('task-sort').value='created';location.hash='projects?tab=tasks';showView();renderTasks();taskReset.closest('dialog')?.close();},'secondary-button quiet-task-reset');filterContent.append(taskReset);}
+ taskReset.textContent=text('Показати всі задачі','Show all tasks');taskReset.hidden=!(trashMode||kanbanMode||taskFilter!=='all'||Q('tasks-search').value||Q('filter-project').value!=='all'||Q('filter-priority').value!=='all'||Q('task-sort').value!=='created');
 
- const noteTools=Q('notes-view').querySelector('.notebook-tools');if(noteTools){if(folderBar.parentElement!==noteTools)noteTools.append(folderBar);const filtered=chosenFolder!=='all'||pinnedNotesOnly||showTrash||Q('notes-folder').value!=='all';noteTools.querySelector(':scope>summary').textContent=t().noteTools+(filtered?text(' · фільтр',' · filtered'):'');}
+ const noteTools=Q('notes-view').querySelector('.notebook-tools');if(noteTools){if(folderBar.parentElement!==noteTools)noteTools.append(folderBar);const filtered=chosenFolder!=='all'||pinnedNotesOnly||showTrash||Q('notes-folder').value!=='all',sorted=Q('notes-sort').value!=='updated';noteTools.querySelector(':scope>summary').textContent=t().noteTools+(filtered?text(' · фільтр',' · filtered'):sorted?' · '+Q('notes-sort').selectedOptions[0].textContent:'');}
+ const count=Q('notes-count'),browser=Q('notes-view').querySelector('.notes-browser');let status=browser.querySelector(':scope>.quiet-note-status');
+ if(!status){status=E('div','quiet-note-status');const reset=button('',()=>{chosenFolder='all';pinnedNotesOnly=false;showTrash=false;Q('notes-folder').value='all';Q('notes-sort').value='updated';Q('notes-search').value='';if(notes.find(n=>n.id===selectedNote)?.deleted)selectedNote=null;renderNotes();Q('notes-search').focus({preventScroll:true});},'secondary-button quiet-note-reset');count.before(status);status.append(count,reset);}
+ const noteReset=status.querySelector('button'),noteFiltered=chosenFolder!=='all'||pinnedNotesOnly||showTrash||Q('notes-folder').value!=='all'||Q('notes-sort').value!=='updated'||Q('notes-search').value.trim();noteReset.textContent=text('Скинути','Reset');noteReset.setAttribute('aria-label',text('Скинути пошук і фільтри нотаток','Reset note search and filters'));noteReset.disabled=!noteFiltered;noteReset.classList.toggle('is-unavailable',!noteFiltered);
  const toolbar=Q('notes-view').querySelector('.notes-toolbar'),template=Q('notes-view').querySelector('.template-tools');
  if(template){template.open=true;template.querySelector(':scope>summary').hidden=true;quietFold(toolbar,'quiet-note-tools',text('Додатково','More options'),[Q('quick-thought'),template]);}
 
@@ -92,5 +98,8 @@ document.documentElement.classList.add('quiet-interface');
 window.addEventListener('languagechange',quietWorkspace);
 window.addEventListener('kachan-ready',quietWorkspace);
 Q('task-form').addEventListener('change',quietWorkspace);
+const quietFilterFields=new Set(['notes-sort','notes-folder','custom-folder-filter','task-sort','filter-project','filter-priority']);
+document.addEventListener('change',event=>{if(quietFilterFields.has(event.target.id))queueMicrotask(quietWorkspace);});
+document.addEventListener('input',event=>{if(['notes-search','tasks-search'].includes(event.target.id))queueMicrotask(quietWorkspace);});
 document.addEventListener('click',event=>{if(event.target.closest('.task-edit'))queueMicrotask(quietWorkspace);});
 quietWorkspace();
