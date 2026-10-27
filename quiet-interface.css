@@ -211,3 +211,16 @@
 .quiet-interface .organization-tool-categories .organization-card>strong{grid-column:2;grid-row:1;min-width:0;line-height:1.4}
 .quiet-interface .create-option>svg{display:block;flex:0 0 22px;width:22px;height:22px}
 .quiet-interface #learning-library[data-organized] .course-desk .learning-card-top{grid-row:1;align-self:center}
+/* Keep page backgrounds outside cards and give action/help pairs real space. */
+.quiet-interface body[data-focus-route=dashboard] #main-content>.content{background:transparent}
+.quiet-interface #dashboard-view .home-primary-action>.primary-button{flex:0 0 auto;max-width:100%;white-space:normal}
+.quiet-interface #dashboard-view .home-primary-action>.home-next-label{flex:1 1 220px;min-width:0;overflow-wrap:anywhere}
+.quiet-interface #dashboard-view .home-daily{align-items:stretch}
+.quiet-interface #settings-view[data-settings-tab=look]{align-items:stretch!important}
+.quiet-interface #settings-view[data-settings-tab=look]>:is(#settings-form,.settings-preferences-panel){align-self:stretch;height:auto}
+.quiet-interface #settings-view #settings-form{align-content:start}
+.quiet-interface .dashboard-panel>:is(button,.editor-actions)+.panel-note{margin-top:12px}
+.quiet-interface #settings-view>:is(.backup-panel,#notification-settings):not([hidden]){display:grid;align-content:start;gap:16px}
+.quiet-interface #settings-view>:is(.backup-panel,#notification-settings)>:is(p,.title-with-help,details){margin:0}
+.quiet-interface #settings-view>:is(.backup-panel,#notification-settings)>.title-with-help h2{margin:0}
+.quiet-interface #settings-view>:is(.backup-panel,#notification-settings)>button{justify-self:start;max-width:100%;margin:0;white-space:normal}

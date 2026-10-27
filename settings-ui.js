@@ -8,7 +8,9 @@ function settingsDisclosure(id,panel,key){const details=E('details','settings-di
 const backupPanel=settingsRoot.querySelector('.backup-panel');
 const restoreBox=E('details','settings-disclosure settings-import');restoreBox.id='settings-import';
 restoreBox.append(E('summary','',t().settingsImport));
-for(const child of [...backupPanel.children])if(!child.matches('h2,.panel-note,#export-data'))restoreBox.append(child);
+for(const child of [...backupPanel.children])if(!child.matches('h2,.title-with-help,.panel-note,#export-data'))restoreBox.append(child);
+// Import rules belong with the file picker, not under the export button.
+for(const note of backupPanel.querySelectorAll(':scope>.panel-note:not([data-i18n="backupInfo"])'))restoreBox.querySelector('.form-field')?.before(note);
 backupPanel.append(restoreBox);
 const storageDisclosure=settingsDisclosure('settings-storage',storagePanel,'settingsStorage');settingsRoot.append(storageDisclosure);
 const resetDisclosure=settingsDisclosure('settings-reset',settingsRoot.querySelector('.reset-panel'),'settingsDanger');settingsRoot.append(resetDisclosure);

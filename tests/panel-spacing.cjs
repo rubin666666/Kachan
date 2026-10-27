@@ -1,0 +1,20 @@
+const{chromium}=require('playwright'),assert=require('node:assert/strict');
+(async()=>{const b=await chromium.launch({channel:'msedge',headless:true});try{const p=await b.newPage({reducedMotion:'reduce'}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto(process.env.KACHAN_TEST_URL||'http://127.0.0.1:5175');await p.waitForFunction(()=>window.kachanReady);
+for(const size of [{width:1280,height:800},{width:1440,height:680},{width:1920,height:1080},{width:2560,height:1440}])for(const lang of ['uk','en'])for(const theme of ['dark','light']){
+ await p.setViewportSize(size);await p.evaluate(({lang,theme})=>{setLanguage(lang);settings.theme=theme;applySettings();location.hash='dashboard';showView();},{lang,theme});
+ assert.equal(await p.locator('#main-content>.content').evaluate(e=>getComputedStyle(e).backgroundImage),'none','No rectangular gradient outside the rounded hero');
+ const action=p.locator('.home-primary-action');await action.locator('.home-next-label').evaluate(e=>e.textContent='HTML · Структура документа та створення своєї першої доступної сторінки з посиланнями і формами');
+ const parts=await action.evaluate(e=>[...e.children].map(x=>x.getBoundingClientRect().toJSON()));assert(parts.length===2);const[a,c]=parts;assert(a.right<=c.x-8||c.right<=a.x-8||a.bottom<=c.y-8||c.bottom<=a.y-8,'Home button and long lesson title never overlap');
+ await p.evaluate(()=>{location.hash='settings';settingsTab='look';showView();arrangeSettings()});
+ const panels=await p.locator('#settings-form,.settings-preferences-panel').evaluateAll(items=>items.map(e=>e.getBoundingClientRect().toJSON()));assert(Math.abs(panels[0].y-panels[1].y)<1&&Math.abs(panels[0].height-panels[1].height)<1,JSON.stringify({size,lang,theme,panels}));
+ await p.locator('#settings-more-preferences>summary').click();const expanded=await p.locator('#settings-form,.settings-preferences-panel').evaluateAll(items=>items.map(e=>e.getBoundingClientRect().height));assert(Math.abs(expanded[0]-expanded[1])<1,'Expanded preferences keep matching panel edges');await p.locator('#settings-more-preferences>summary').click();
+ for(const tab of ['data','alerts']){
+  await p.evaluate(tab=>{settingsTab=tab;arrangeSettings()},tab);
+  const selector=tab==='data'?'.backup-panel':'#notification-settings',panel=p.locator(selector);assert(await panel.locator(':scope>.title-with-help h2').isVisible());
+  const flow=await panel.evaluate(e=>[...e.children].filter(x=>x.checkVisibility()).map(x=>({tag:x.tagName,rect:x.getBoundingClientRect().toJSON()})));for(let i=1;i<flow.length;i++)assert(flow[i].rect.y-flow[i-1].rect.bottom>=12,JSON.stringify({tab,size,lang,flow}));
+  if(tab==='data'){assert.equal(await panel.locator(':scope>p').count(),1);await p.locator('#settings-import>summary').click();assert(await p.locator('#import-file').isVisible());assert(await p.locator('#settings-import>.panel-note').isVisible());await p.locator('#settings-import>summary').click();}
+ }
+}
+await p.evaluate(()=>{settingsTab='data';arrangeSettings()});const downloaded=p.waitForEvent('download');await p.locator('#export-data').click();const download=await downloaded,stream=await download.createReadStream(),chunks=[];for await(const chunk of stream)chunks.push(chunk);const buffer=Buffer.concat(chunks);assert(Object.keys(JSON.parse(buffer.toString('utf8'))).length>=3,'Export produces a real backup');await p.locator('#settings-import>summary').click();await p.locator('#import-file').setInputFiles({name:'layout-check.json',mimeType:'application/json',buffer});await p.locator('#confirm-import').waitFor({state:'visible'});assert((await p.locator('#import-preview').innerText()).trim().length>0,'Moved import controls still validate the backup');
+assert.deepEqual(errors,[]);console.log('PASS clean home background, non-overlapping CTA and long label, equal settings panels when collapsed/expanded, titled backup card, import-only guidance, spaced export/notification actions and real backup download/import validation in both languages/themes at four desktop sizes');
+}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});
