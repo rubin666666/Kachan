@@ -183,3 +183,8 @@
 @media(max-width:700px){.quiet-interface .quiet-workspace-actions{grid-column:1/-1;grid-row:2;justify-self:start}.quiet-interface .quiet-task-fields>.quiet-disclosure-body{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){.quiet-interface .resource-desk-header{flex-wrap:wrap;gap:6px}.quiet-interface .resource-desk-status{width:100%;justify-content:space-between}.quiet-interface :is(.resource-reset-filters,.quiet-note-reset){min-height:40px}}
 @media(prefers-reduced-motion:reduce){.quiet-interface .purpose-button{transition:none}}
+.quiet-interface .resource-detail-content>.resource-details-navigation{margin:0 0 20px;padding:0;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px}
+.quiet-interface .resource-details-navigation>button:first-child{justify-self:start}
+.quiet-interface .resource-details-navigation>button:last-child{justify-self:end}
+.quiet-interface .resource-details-navigation>span{order:0;width:auto;text-align:center}
+.quiet-interface .resource-details-navigation>button:disabled{opacity:.35;cursor:default}

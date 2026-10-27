@@ -14,8 +14,24 @@ window.addEventListener('languagechange',()=>{labelSmallControls();improveToolEm
 function markFavoriteResources(){for(const card of Q('resource-list').querySelectorAll('.resource-card')){const saved=favorites.includes(card.dataset.resourceId);card.dataset.favorite=String(saved);const control=card.querySelector('.resource-save-button');if(control)control.setAttribute('aria-pressed',String(saved));}}
 
 const smallResourcesBefore=renderResources;renderResources=function(){smallResourcesBefore();markFavoriteResources();};markFavoriteResources();
-document.addEventListener('click',event=>{const menu=event.target.closest('.card-more,.minimal-actions');if(!menu)for(const open of document.querySelectorAll('.card-more[open],.minimal-actions[open]'))open.open=false;const action=event.target.closest('button,a');if(menu&&action){queueMicrotask(()=>{if(!menu.isConnected)return;menu.open=false;if(action.tagName==='BUTTON'&&!document.querySelector('dialog[open]'))menu.querySelector('summary')?.focus({preventScroll:true});});}},true);
-document.addEventListener('keydown',event=>{if(event.key!=='Escape'||event.target.closest('dialog'))return;const menu=event.target.closest('.card-more[open],.minimal-actions[open]');if(menu){menu.open=false;menu.querySelector('summary')?.focus({preventScroll:true});}});
+// Action menus share dismissal rules; ordinary content disclosures stay independent.
+const actionMenuSelector='.card-more,.minimal-actions,.task-action-menu,.project-row-more';
+function openActionMenus(){return [...document.querySelectorAll(actionMenuSelector)].filter(menu=>menu.open);}
+document.addEventListener('click',event=>{
+ const current=event.target.closest(actionMenuSelector);
+ for(const menu of openActionMenus())if(!menu.contains(event.target)&&!current?.contains(menu))menu.open=false;
+ // Task menus also contain editable fields. Keep those available until dismissed.
+ const menu=event.target.closest('.card-more,.minimal-actions'),action=event.target.closest('button,a');
+ if(menu&&action)queueMicrotask(()=>{if(!menu.isConnected)return;menu.open=false;if(action.tagName==='BUTTON'&&!document.querySelector('dialog[open]'))menu.querySelector(':scope>summary')?.focus({preventScroll:true});});
+},true);
+document.addEventListener('keydown',event=>{
+ if(event.key!=='Escape'||event.isComposing)return;
+ const dialog=event.target.closest('dialog[open]');
+ const menu=event.target.closest(actionMenuSelector)||openActionMenus().find(item=>item.checkVisibility()&&(!dialog||dialog.contains(item)));
+ if(!menu?.open)return;
+ event.preventDefault();event.stopImmediatePropagation();menu.open=false;menu.querySelector(':scope>summary')?.focus({preventScroll:true});
+},true);
+window.addEventListener('hashchange',()=>{for(const menu of openActionMenus())menu.open=false;});
 document.addEventListener('click',event=>{if(!event.target.closest('.tool-catalog-card'))return;queueMicrotask(()=>{if(toolCatalogOpen||document.body.dataset.focusRoute!=='tools')return;const heading=toolsView.querySelector('.page-heading h1');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}window.scrollTo({top:0,behavior:'instant'});});},true);
 
 // Reset only when entering another section; filters and detail links keep their position.
@@ -31,8 +47,6 @@ window.addEventListener('hashchange',event=>{
  if(!owned)window.scrollTo({top:0,left:0,behavior:'instant'});updatePageTop();
 });
 
-// Keep a single action menu open, while allowing its nested disclosures.
-document.addEventListener('click',event=>{const summary=event.target.closest('.card-more>summary,.minimal-actions>summary,.task-action-menu>summary');if(!summary)return;const current=summary.parentElement;for(const menu of document.querySelectorAll('.card-more[open],.minimal-actions[open],.task-action-menu[open]'))if(menu!==current&&!menu.contains(current))menu.open=false;},true);
 
 function updatePageTitle(){const route=(location.hash.split('?')[0]||'#dashboard').slice(1);const label=route==='dashboard'?t().homeTab:route==='tools'&&!toolCatalogOpen?(t()[toolTabs.find(([id])=>id===selectedTool)?.[1]]||t().tools):t()[route];document.title=(label||'Kachan')+(label?' · Kachan':'');}
 window.addEventListener('hashchange',updatePageTitle);window.addEventListener('languagechange',updatePageTitle);updatePageTitle();
