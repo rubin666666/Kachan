@@ -309,3 +309,24 @@
 .quiet-interface .utility-actions{gap:8px;margin-top:14px}
 .quiet-interface .utility-shortcut{margin-top:12px;line-height:1.7}
 @media(max-width:700px){.quiet-interface .utility-editor,.quiet-interface .utility-result{padding:16px}.quiet-interface .utility-result-heading>.utility-field-title{flex-basis:100%}.quiet-interface .utility-result-heading>button{margin-left:auto}.quiet-interface #tools-view .utility-workspace textarea{min-height:240px;height:260px}}
+/* Secondary learning surfaces follow the same catalog grid and rhythm. */
+.quiet-interface #learning-library[data-organized] :is(#learning-panel-practice,#learning-panel-reference) .organization-card,.quiet-interface #snippet-list article{box-sizing:border-box;border:1px solid var(--border);border-radius:var(--catalog-radius)!important;padding:18px!important;box-shadow:none}
+.quiet-interface #learning-library[data-organized] .practice-main .organization-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:stretch}
+.quiet-interface #learning-library[data-organized] :is(#learning-panel-practice,#learning-panel-reference) .organization-card{display:grid;grid-template-columns:36px minmax(0,1fr);gap:8px 16px;text-align:left;align-content:start}
+.quiet-interface #learning-library[data-organized] :is(#learning-panel-practice,#learning-panel-reference) .organization-card>.organization-mark{grid-column:1;grid-row:1;display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--border);border-radius:6px;font:500 14px/1 ui-monospace,Consolas,monospace}
+.quiet-interface #learning-library[data-organized] :is(#learning-panel-practice,#learning-panel-reference) .organization-card>strong{grid-column:2;grid-row:1;align-self:center;font-size:18px;line-height:1.4;min-width:0}
+.quiet-interface #learning-library[data-organized] :is(#learning-panel-practice,#learning-panel-reference) .organization-card>.organization-description{grid-column:2;grid-row:2;margin:0;font-size:14px;line-height:1.7;color:var(--muted)}
+.quiet-interface #learning-library[data-organized] .organization-card>.practice-status{grid-column:2;grid-row:3;justify-self:start;position:static;margin:8px 0 0;font-size:13px;color:var(--catalog-tone)}
+.quiet-interface #learning-library[data-organized] .practice-portfolio-card{width:100%;max-width:none;min-width:0}
+.quiet-interface #learning-library[data-organized] .practice-aside>.practice-portfolio-card{display:grid!important}
+.quiet-interface #learning-library[data-organized] .practice-aside>.practice-portfolio-card>.organization-description{grid-column:2!important;grid-row:2;justify-self:start;text-align:left}
+.quiet-interface #snippet-list article{display:flex;flex-direction:column;gap:14px;min-width:0}
+.quiet-interface #snippet-list article>.title-with-help :is(h2,h3){font-size:18px;line-height:1.4;margin:0}
+.quiet-interface #snippet-list article>:is(.title-with-help,p,details,.editor-actions){margin:0}
+.quiet-interface #snippet-list article>.panel-note:empty{display:none}
+.quiet-interface #snippet-list article>.panel-note{font-size:14px;line-height:1.7}
+.quiet-interface #snippet-list article>.editor-actions{margin-top:auto;padding-top:2px;align-items:center;justify-content:space-between}
+.quiet-interface .snippet-copy-control{width:168px;min-width:0;max-width:100%;flex:0 1 168px;min-height:42px}
+.quiet-interface .snippet-copy-control[data-copied=true]{background:var(--accent-soft);color:var(--text);border-color:var(--accent-border)}
+@media(max-width:900px){.quiet-interface #learning-library[data-organized] .practice-main .organization-grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:700px){.quiet-interface #learning-library[data-organized] :is(#learning-panel-practice,#learning-panel-reference) .organization-card,.quiet-interface #snippet-list article{padding:16px!important}}
