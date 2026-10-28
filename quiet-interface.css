@@ -297,3 +297,15 @@
 }
 @keyframes catalog-sheen{from{background-position:140% 0}to{background-position:0 0}}
 @media(prefers-reduced-motion:reduce){:root.quiet-interface #main-content .content [data-catalog-tone],:root.quiet-interface #main-content .content [data-catalog-tone]::before,:root.quiet-interface #main-content .content [data-catalog-tone]::after,:root.quiet-interface #main-content .content [data-catalog-tone] *{animation:none!important;transition:none!important}}
+/* Working tools use the same surfaces as their catalog, with quieter metadata. */
+.quiet-interface .utility-workspace{align-items:stretch;gap:16px}
+.quiet-interface .utility-editor,.quiet-interface .utility-result{border-radius:var(--catalog-radius);padding:18px;border-color:var(--border);background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--accent) 7%,transparent),transparent 70%),var(--panel)}
+.quiet-interface .utility-field-title{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;min-width:0;flex:1;font-size:15px;font-weight:600;line-height:1.5;color:var(--text)}
+.quiet-interface .utility-metrics{font-size:12px;font-weight:400;line-height:1.6;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.quiet-interface .utility-result-heading{align-items:center;flex-wrap:wrap}
+.quiet-interface .utility-result-heading>button{flex-shrink:0;min-height:42px}
+.quiet-interface .utility-workspace textarea{border-radius:8px;line-height:1.7}
+.quiet-interface #tools-view .utility-workspace textarea{min-height:260px;height:clamp(280px,36svh,440px)}
+.quiet-interface .utility-actions{gap:8px;margin-top:14px}
+.quiet-interface .utility-shortcut{margin-top:12px;line-height:1.7}
+@media(max-width:700px){.quiet-interface .utility-editor,.quiet-interface .utility-result{padding:16px}.quiet-interface .utility-result-heading>.utility-field-title{flex-basis:100%}.quiet-interface .utility-result-heading>button{margin-left:auto}.quiet-interface #tools-view .utility-workspace textarea{min-height:240px;height:260px}}

@@ -121,3 +121,5 @@
 - Run tests/catalog-style.cjs for computed style parity across resources/courses/tool categories, bilingual descriptions, two desktop columns and actual category/back actions at 1280/1440/1920/2560 in dark/light. Also run icon-alignment.cjs, desktop-alignment.cjs and mobile-resource-layout.cjs.
 
 - Run tests/catalog-color-motion.cjs: distinct course hues, real gradient styles, tool-category pointer light/sheens, unchanged card/title geometry, reduced-motion suppression, tone preservation after resource search/reset and one retained orbit in dark/light. catalog-style.cjs compares shared geometry/background base while allowing category border hues. Check navigation-stability.cjs and text-contrast.cjs.
+
+- Run tests/utility-readability.cjs: JSON/text operations and keyboard shortcut, Unicode character and line counts, invalid/stale output, copy disabled states, paired panel heights and contained controls at 320/390/768 in both themes/languages. Run general-workspace.cjs and text-contrast.cjs, which now includes JSON/text workspaces among ten screens.
