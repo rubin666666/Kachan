@@ -45,7 +45,22 @@ function quietWorkspace(){
   const description=card.querySelector('.organization-description');if(!description)continue;
   const count=description.textContent.match(/\d+$/)?.[0];if(count){description.title=text('Інструментів: ','Tools: ')+count;description.setAttribute('aria-label',description.title);description.textContent=count;}
  }
- quietProjectWorkspaces();
+ quietProjectWorkspaces();quietCollectionRecovery();
+}
+function quietCollectionRecovery(){
+ const uk=document.documentElement.lang==='uk';
+ function recovery(state,key,title,help,label,action){
+  if(!state)return;const signature=document.documentElement.lang+'|'+key;
+  if(state.dataset.recoveryKey===signature&&state.querySelector('.quiet-empty-action'))return;
+  state.dataset.recoveryKey=signature;state.classList.add('quiet-recovery-state');state.setAttribute('role','status');
+  state.replaceChildren(E('strong','',title),E('span','quiet-empty-description',help),button(label,action,'secondary-button quiet-empty-action'));
+  if(state.closest('#all-projects'))Q('projects-reset-filters')?.remove();if(state.id==='task-empty')Q('tasks-reset-filters')?.remove();
+ }
+ const projectEmpty=Q('all-projects').querySelector('.empty-state'),archived=Q('project-archive-toggle').classList.contains('active'),query=Q('projects-search').value.trim();
+ if(projectEmpty&&(archived||query))recovery(projectEmpty,query?'search':'archive',query?t().noResults:(uk?'Архів порожній':'The archive is empty'),uk?(query?'Скинь пошук і фільтри, щоб повернутися до всіх проєктів.':'Тут з’являться проєкти, які ти перенесеш в архів.'):(query?'Reset search and filters to return to all projects.':'Projects you archive will appear here.'),uk?'Показати проєкти':'Show projects',()=>{Q('projects-search').value='';Q('project-archive-toggle').classList.remove('active');renderProjects();Q('projects-search').focus({preventScroll:true});});
+ const taskEmpty=trashMode?Q('task-trash-list').querySelector('.empty-state'):Q('task-empty'),filtered=trashMode||taskFilter!=='all'||projectScope!=='all'||Q('tasks-search').value.trim()||Q('filter-project').value!=='all'||Q('filter-priority').value!=='all';
+ if(taskEmpty&&!taskEmpty.hidden&&filtered)recovery(taskEmpty,trashMode?'trash':'filter',trashMode?(uk?'Корзина порожня':'The trash is empty'):t().noResults,uk?(trashMode?'Тут з’являться видалені задачі.':'Скинь пошук і фільтри, щоб побачити всі задачі.'):(trashMode?'Deleted tasks will appear here.':'Reset search and filters to see all tasks.'),uk?'Показати всі задачі':'Show all tasks',()=>{Q('task-sort').closest('.utility-content').querySelector('.quiet-task-reset').click();Q('tasks-search').focus({preventScroll:true});});
+ else if(taskEmpty&&!filtered){taskEmpty.classList.remove('quiet-recovery-state');delete taskEmpty.dataset.recoveryKey;}
 }
 function quietProjectWorkspaces(){
  const text=(uk,en)=>document.documentElement.lang==='uk'?uk:en,route=focusedRoute(),tab=route.params.get('tab')||'overview',active=route.route==='projects';
@@ -100,6 +115,7 @@ window.addEventListener('kachan-ready',quietWorkspace);
 Q('task-form').addEventListener('change',quietWorkspace);
 const quietFilterFields=new Set(['notes-sort','notes-folder','custom-folder-filter','task-sort','filter-project','filter-priority']);
 document.addEventListener('change',event=>{if(quietFilterFields.has(event.target.id))queueMicrotask(quietWorkspace);});
-document.addEventListener('input',event=>{if(['notes-search','tasks-search'].includes(event.target.id))queueMicrotask(quietWorkspace);});
+document.addEventListener('input',event=>{if(['notes-search','tasks-search','projects-search'].includes(event.target.id))queueMicrotask(quietWorkspace);});
+Q('project-archive-toggle').addEventListener('click',()=>queueMicrotask(quietWorkspace));
 document.addEventListener('click',event=>{if(event.target.closest('.task-edit'))queueMicrotask(quietWorkspace);});
 quietWorkspace();

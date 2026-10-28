@@ -115,3 +115,5 @@
 - Run tests/text-contrast.cjs: visible text over composited app surfaces across eight screens, four accents, both languages and themes. Review screenshots for gradients, preview/code colors and form borders. Run icon-alignment.cjs and navigation-stability.cjs after typography or control-style changes.
 
 - Run tests/mobile-home-flow.cjs in Edge and WebKit: widths 320/360/375/390/414/430/600/700, both languages and normal/larger text; label natural height, button-to-label gap, no blank action track, orbit directly below text, no horizontal overflow, real lesson/resource navigation. Run home-balanced-layout.cjs to guard the desktop composition.
+
+- Run tests/empty-recovery.cjs: Ukrainian/English real project search/archive controls and task search/trash controls, one recovery action, reset/focus, tool empty search/reset/live count and exact project/task record preservation. Run filter-recovery.cjs and quiet-project-workspaces.cjs for related regressions.
