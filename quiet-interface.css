@@ -268,3 +268,32 @@
 .quiet-interface #learning-library[data-organized] .course-desk .learning-course-start span{font-size:16px;line-height:20px;color:var(--muted)}
 @media(min-width:1051px){.quiet-interface .organization-tool-categories .organization-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){:root.quiet-interface{--catalog-pad:16px}.quiet-interface .organization-tool-categories .organization-grid .organization-card{min-height:96px!important}}
+/* Category color adds depth while all catalogs retain the same geometry. */
+.quiet-interface [data-catalog-tone=sky]{--catalog-tone:#83b6ff}
+.quiet-interface [data-catalog-tone=amber]{--catalog-tone:#edbd76}
+.quiet-interface [data-catalog-tone=teal]{--catalog-tone:#74cfc2}
+.quiet-interface [data-catalog-tone=violet]{--catalog-tone:#b6a0ed}
+.quiet-interface [data-catalog-tone=rose]{--catalog-tone:#e7a2c0}
+.quiet-interface[data-theme=light] [data-catalog-tone=sky]{--catalog-tone:#245fa9}
+.quiet-interface[data-theme=light] [data-catalog-tone=amber]{--catalog-tone:#845419}
+.quiet-interface[data-theme=light] [data-catalog-tone=teal]{--catalog-tone:#176b61}
+.quiet-interface[data-theme=light] [data-catalog-tone=violet]{--catalog-tone:#7043a5}
+.quiet-interface[data-theme=light] [data-catalog-tone=rose]{--catalog-tone:#983e65}
+:root.quiet-interface #main-content .content [data-catalog-tone]{position:relative;isolation:isolate;background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--catalog-tone) 12%,transparent),transparent 76%),var(--panel)!important;border-color:color-mix(in srgb,var(--catalog-tone) 25%,var(--border))!important}
+:root.quiet-interface #main-content .content [data-catalog-tone]::before{content:'';position:absolute;inset:1px;z-index:-1;border-radius:inherit;pointer-events:none;background:radial-gradient(240px circle at var(--pointer-x,50%) var(--pointer-y,50%),color-mix(in srgb,var(--catalog-tone) 22%,transparent),transparent 80%);opacity:0;transition:opacity 240ms ease}
+:root.quiet-interface #main-content .content [data-catalog-tone]::after{content:'';position:absolute;left:18px;right:18px;top:0;height:2px;border-radius:2px;pointer-events:none;background:linear-gradient(100deg,transparent 15%,var(--catalog-tone) 50%,transparent 85%);background-size:200% 100%;opacity:.35;transition:opacity 240ms ease}
+:root.quiet-interface #main-content .content [data-catalog-tone] :is(.organization-mark,.learning-course-mark,.tool-card-mark){color:var(--catalog-tone)!important;background:color-mix(in srgb,var(--catalog-tone) 13%,var(--panel))!important;border-color:color-mix(in srgb,var(--catalog-tone) 35%,var(--border))!important;transition:background-color 240ms,color 240ms,box-shadow 240ms}
+.quiet-interface .organization-tool-categories [data-catalog-tone]>.organization-description{color:var(--catalog-tone);background:color-mix(in srgb,var(--catalog-tone) 8%,var(--panel));border-color:color-mix(in srgb,var(--catalog-tone) 30%,var(--border))}
+:root.quiet-interface #main-content .content [data-catalog-tone]:focus-within{border-color:var(--catalog-tone)!important}
+:root.quiet-interface #main-content .content [data-catalog-tone]:focus-within::before{opacity:.65}
+:root.quiet-interface #main-content .content [data-catalog-tone]:focus-within::after{opacity:1}
+@media(hover:hover) and (pointer:fine){
+ :root.quiet-interface #main-content .content [data-catalog-tone]{transition:border-color 240ms,box-shadow 240ms,background-color 240ms!important}
+ :root.quiet-interface #main-content .content [data-catalog-tone]:hover{background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--catalog-tone) 16%,transparent),transparent 76%),var(--panel)!important;border-color:color-mix(in srgb,var(--catalog-tone) 60%,var(--border))!important;box-shadow:0 8px 28px color-mix(in srgb,var(--catalog-tone) 10%,transparent)!important}
+ :root.quiet-interface #main-content .content [data-catalog-tone].pointer-lit::before{opacity:1}
+ :root.quiet-interface #main-content .content [data-catalog-tone]:hover::after{opacity:1;animation:catalog-sheen 1.6s ease-out}
+ :root.quiet-interface #main-content .content [data-catalog-tone]:hover :is(.organization-mark,.learning-course-mark,.tool-card-mark){box-shadow:0 0 18px color-mix(in srgb,var(--catalog-tone) 22%,transparent)}
+ .quiet-interface .primary-button:hover{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 9%,transparent),0 6px 24px color-mix(in srgb,var(--accent) 22%,transparent)}
+}
+@keyframes catalog-sheen{from{background-position:140% 0}to{background-position:0 0}}
+@media(prefers-reduced-motion:reduce){:root.quiet-interface #main-content .content [data-catalog-tone],:root.quiet-interface #main-content .content [data-catalog-tone]::before,:root.quiet-interface #main-content .content [data-catalog-tone]::after,:root.quiet-interface #main-content .content [data-catalog-tone] *{animation:none!important;transition:none!important}}

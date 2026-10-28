@@ -47,7 +47,15 @@ function quietWorkspace(){
   const copy={HTML:['Розмітка, форми та перевірка сторінки.','Markup, forms and page checks.'],CSS:['Сітки, кольори й оформлення інтерфейсу.','Layouts, colors and interface styling.'],JavaScript:['Практика коду та робота з даними.','Code practice and working with data.'],design:['Типографіка, палітри й доступність.','Typography, palettes and accessibility.'],learning:['Короткі вправи й довідкові матеріали.','Short exercises and reference materials.'],inspiration:['Приклади та ідеї для власних проєктів.','Examples and ideas for your projects.'],utilities:['Перетворення тексту й щоденні дрібні задачі.','Text conversion and everyday utilities.']}[card.dataset.categoryGroup];
   if(copy){let hint=card.querySelector('.catalog-category-hint');if(!hint){hint=E('span','catalog-category-hint');card.append(hint);}hint.textContent=text(...copy);}
  }
- quietProjectWorkspaces();quietCollectionRecovery();
+ quietCatalogColor();quietProjectWorkspaces();quietCollectionRecovery();
+}
+function quietCatalogColor(){
+ const tones={HTML:'amber',CSS:'sky',JavaScript:'amber',TypeScript:'sky',Git:'teal',Figma:'violet',design:'violet',learning:'teal',inspiration:'rose',utilities:'teal',Docs:'sky',Tools:'teal',Design:'violet',Practice:'amber'};
+ for(const card of Q('learning-library').querySelectorAll('.learning-course-card'))card.dataset.catalogTone=tones[card.querySelector('h3')?.textContent]||'sky';
+ for(const card of toolsView.querySelectorAll('.organization-card[data-category-group],.unified-tool-card[data-unified-group]'))card.dataset.catalogTone=tones[card.dataset.categoryGroup||card.dataset.unifiedGroup]||'sky';
+ const rows=new Map(resourceRows().map(row=>[row.id,row.category]));
+ for(const card of Q('resource-list').querySelectorAll('.resource-card'))card.dataset.catalogTone=tones[rows.get(card.dataset.resourceId)]||'sky';
+ for(const card of homeSurface.querySelectorAll('.focus-portal'))card.dataset.catalogTone=({resources:'sky',learning:'violet',tools:'teal'})[card.hash?.slice(1)]||'sky';
 }
 function quietCollectionRecovery(){
  const uk=document.documentElement.lang==='uk';
@@ -99,7 +107,7 @@ function quietProjectWorkspaces(){
  if(editingTaskId&&custom)extra.open=true;
 }
 // Run after existing renderers, preserving their original nodes and event handlers.
-for(const name of ['renderHome','renderProfile','renderProjects','renderProjectDetail','renderTasks','renderNotes','renderNotesList','renderFolders','renderSnippets','renderComfort','arrangeSettings','organizeLearning','renderUnifiedCatalog','setupCollectionViews','showView','openEditorWindow']){
+for(const name of ['renderHome','renderProfile','renderResources','renderProjects','renderProjectDetail','renderTasks','renderNotes','renderNotesList','renderFolders','renderSnippets','renderComfort','arrangeSettings','organizeLearning','renderUnifiedCatalog','setupCollectionViews','showView','openEditorWindow']){
  const previous=window[name];if(typeof previous!=='function')continue;
  window[name]=function(...args){
   const detail=name==='renderProjectDetail'?Q('project-detail'):null,old=detail?.querySelector('.quiet-project-settings'),identity=detail?.dataset.quietProject;

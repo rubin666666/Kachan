@@ -119,3 +119,5 @@
 - Run tests/empty-recovery.cjs: Ukrainian/English real project search/archive controls and task search/trash controls, one recovery action, reset/focus, tool empty search/reset/live count and exact project/task record preservation. Run filter-recovery.cjs and quiet-project-workspaces.cjs for related regressions.
 
 - Run tests/catalog-style.cjs for computed style parity across resources/courses/tool categories, bilingual descriptions, two desktop columns and actual category/back actions at 1280/1440/1920/2560 in dark/light. Also run icon-alignment.cjs, desktop-alignment.cjs and mobile-resource-layout.cjs.
+
+- Run tests/catalog-color-motion.cjs: distinct course hues, real gradient styles, tool-category pointer light/sheens, unchanged card/title geometry, reduced-motion suppression, tone preservation after resource search/reset and one retained orbit in dark/light. catalog-style.cjs compares shared geometry/background base while allowing category border hues. Check navigation-stability.cjs and text-contrast.cjs.
