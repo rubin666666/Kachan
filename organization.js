@@ -75,7 +75,7 @@ function organizeToolCatalog(body,input,filters,count,grid,cards){
   categories=E('section','organization-tool-categories');categories.append(E('h2','organization-heading',c.choose));
   const list=E('div','organization-grid');
   for(const control of filters.children){const id=control.dataset.group;if(id==='all')continue;const amount=cards.filter(card=>card.dataset.unifiedGroup===id).length;if(!amount)continue;
-   list.append(organizationCard(control.textContent,(document.documentElement.lang==='uk'?'Інструментів: ':'Tools: ')+amount,()=>{control.click();body.querySelector('.unified-filters [aria-pressed=true]')?.focus({preventScroll:true});},({HTML:'</>',CSS:'{ }',JavaScript:'JS',design:'▦',learning:'≡',inspiration:'↗',utilities:'⌘'})[id]||'↗'));
+   const card=organizationCard(control.textContent,(document.documentElement.lang==='uk'?'Інструментів: ':'Tools: ')+amount,()=>{control.click();body.querySelector('.unified-filters [aria-pressed=true]')?.focus({preventScroll:true});},({HTML:'</>',CSS:'{ }',JavaScript:'JS',design:'▦',learning:'≡',inspiration:'↗',utilities:'⌘'})[id]||'↗');card.dataset.categoryGroup=id;list.append(card);
   }categories.append(list);grid.before(categories);
   const back=button(c.all,()=>{input.value='';filters.querySelector('[data-group=all]').click();input.focus({preventScroll:true});},'secondary-button organization-tool-back');filters.before(back);
   body.querySelector('.unified-intro p:last-child').textContent=c.toolsIntro;

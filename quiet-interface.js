@@ -44,6 +44,8 @@ function quietWorkspace(){
  for(const card of toolsView.querySelectorAll('.organization-tool-categories .organization-grid .organization-card')){
   const description=card.querySelector('.organization-description');if(!description)continue;
   const count=description.textContent.match(/\d+$/)?.[0];if(count){description.title=text('Інструментів: ','Tools: ')+count;description.setAttribute('aria-label',description.title);description.textContent=count;}
+  const copy={HTML:['Розмітка, форми та перевірка сторінки.','Markup, forms and page checks.'],CSS:['Сітки, кольори й оформлення інтерфейсу.','Layouts, colors and interface styling.'],JavaScript:['Практика коду та робота з даними.','Code practice and working with data.'],design:['Типографіка, палітри й доступність.','Typography, palettes and accessibility.'],learning:['Короткі вправи й довідкові матеріали.','Short exercises and reference materials.'],inspiration:['Приклади та ідеї для власних проєктів.','Examples and ideas for your projects.'],utilities:['Перетворення тексту й щоденні дрібні задачі.','Text conversion and everyday utilities.']}[card.dataset.categoryGroup];
+  if(copy){let hint=card.querySelector('.catalog-category-hint');if(!hint){hint=E('span','catalog-category-hint');card.append(hint);}hint.textContent=text(...copy);}
  }
  quietProjectWorkspaces();quietCollectionRecovery();
 }

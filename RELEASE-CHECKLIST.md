@@ -117,3 +117,5 @@
 - Run tests/mobile-home-flow.cjs in Edge and WebKit: widths 320/360/375/390/414/430/600/700, both languages and normal/larger text; label natural height, button-to-label gap, no blank action track, orbit directly below text, no horizontal overflow, real lesson/resource navigation. Run home-balanced-layout.cjs to guard the desktop composition.
 
 - Run tests/empty-recovery.cjs: Ukrainian/English real project search/archive controls and task search/trash controls, one recovery action, reset/focus, tool empty search/reset/live count and exact project/task record preservation. Run filter-recovery.cjs and quiet-project-workspaces.cjs for related regressions.
+
+- Run tests/catalog-style.cjs for computed style parity across resources/courses/tool categories, bilingual descriptions, two desktop columns and actual category/back actions at 1280/1440/1920/2560 in dark/light. Also run icon-alignment.cjs, desktop-alignment.cjs and mobile-resource-layout.cjs.

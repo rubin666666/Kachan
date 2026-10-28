@@ -242,3 +242,29 @@
 .quiet-interface .quiet-recovery-state>strong{color:var(--text);font-size:16px;line-height:1.5}
 .quiet-interface .quiet-empty-description{display:block;color:var(--muted);font-size:14px;line-height:1.7;max-width:60ch}
 .quiet-interface .quiet-empty-action{margin:0;min-height:42px}
+/* One catalog family: consistent surfaces, spacing, type and icon slots. */
+:root.quiet-interface{--catalog-radius:10px;--catalog-pad:18px;--catalog-gap:12px}
+.quiet-interface #resources-view .resource-desk-list>.resource-card,
+.quiet-interface #learning-library[data-organized] .course-desk .learning-course-card,
+.quiet-interface .organization-tool-categories .organization-grid .organization-card,
+.quiet-interface #tools-view .tool-results-main .unified-tool-card{
+ background:var(--panel)!important;border:1px solid var(--border)!important;border-radius:var(--catalog-radius)!important;box-shadow:none!important;padding:var(--catalog-pad)!important;
+}
+.quiet-interface #resources-view .resource-desk-list,.quiet-interface #learning-library[data-organized] .course-desk .learning-course-grid,.quiet-interface .organization-tool-categories .organization-grid{gap:var(--catalog-gap)}
+.quiet-interface #resources-view .resource-card .resource-card-title,
+.quiet-interface #learning-library[data-organized] .learning-course-card h3,
+.quiet-interface .organization-tool-categories .organization-card>strong{font-size:18px!important;line-height:1.4;font-weight:600;letter-spacing:-.015em}
+.quiet-interface #resources-view .resource-desk-list>.resource-card:hover,
+.quiet-interface #learning-library[data-organized] .learning-course-card:hover,
+.quiet-interface .organization-tool-categories .organization-card:hover{background:var(--surface-raised)!important;border-color:var(--accent-border)!important}
+.quiet-interface .organization-tool-categories .organization-grid .organization-card{grid-template-columns:36px minmax(0,1fr) auto;gap:4px 16px;min-height:104px!important;text-align:left}
+.quiet-interface .organization-tool-categories .organization-mark,.quiet-interface #learning-library .learning-course-mark{box-sizing:border-box;display:grid;place-items:center;width:36px;height:36px;min-width:36px;border:1px solid var(--border);border-radius:6px!important;background:var(--surface-raised)!important;color:var(--muted)!important;font:500 15px/1 ui-monospace,Consolas,monospace}
+.quiet-interface .organization-tool-categories .organization-mark{grid-column:1;grid-row:1;align-self:center}
+.quiet-interface .organization-tool-categories .catalog-category-hint{grid-column:2;grid-row:2;display:block;color:var(--muted);font-size:14px;line-height:1.65;font-weight:400;min-width:0}
+.quiet-interface .organization-tool-categories .organization-card>.organization-description{grid-row:1;min-width:28px;padding:4px 7px;border:1px solid var(--border);border-radius:6px;font-size:12px;line-height:1.5;text-align:center}
+.quiet-interface .organization-tool-categories .layout-library-entry,.quiet-interface #learning-library[data-organized] .course-desk .learning-resume-banner{background:var(--surface-raised)!important;border:1px solid var(--border);border-radius:var(--catalog-radius)!important;box-shadow:none!important;padding:16px 18px}
+.quiet-interface #learning-library[data-organized] .course-desk .learning-course-grid,.quiet-interface .organization-tool-categories .organization-grid{align-items:stretch}
+.quiet-interface #learning-library[data-organized] .course-desk .learning-course-start{min-height:42px;padding:8px 12px;border:1px solid var(--border);background:var(--surface-raised);color:var(--text);border-radius:8px!important;line-height:20px}
+.quiet-interface #learning-library[data-organized] .course-desk .learning-course-start span{font-size:16px;line-height:20px;color:var(--muted)}
+@media(min-width:1051px){.quiet-interface .organization-tool-categories .organization-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){:root.quiet-interface{--catalog-pad:16px}.quiet-interface .organization-tool-categories .organization-grid .organization-card{min-height:96px!important}}
